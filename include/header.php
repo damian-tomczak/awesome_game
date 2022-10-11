@@ -11,7 +11,7 @@
     <script src="js/scripts.js"></script>
 </head>
 <body>
-    <div class="bg">
+    <div class="container">
         <nav class="topnav">
             <a href="login.php" class="<?php isEnable($menu, MENU::LOGIN)?> text">Login</a>
             <a href="news.php" class="<?php isEnable($menu, MENU::NEWS)?> text">Newsletter</a>

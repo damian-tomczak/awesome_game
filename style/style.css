@@ -2,19 +2,23 @@
     font-family: 'Titillium Web'
 }
 
+a:hover, a:visited, a:link, a:active {
+    color: #da2900;
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding:0;
-    overflow: hidden;
-}
-
-.bg {
     background-image: url("../images/bg-b.jpeg");
-    height: 100%;
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+    height: 100%;
 }
 
 .topnav {
@@ -27,7 +31,7 @@ html, body {
 
 .topnav .text {
     text-decoration: none;
-    color: #FFFFFF;
+    color: white;
     margin: 0 40px;
     text-transform: uppercase;
     font-size: 16px;
@@ -53,11 +57,25 @@ html, body {
     background: rgba(0,0,0,0.3);
 }
 
-#login a:hover, a:visited, a:link, a:active {
-    color: #da2900;
+#content {
+    width: 50%;
+    color: #ffb400;
+    padding: 20px 50px 20px 20px;
+    text-transform: uppercase;
+    margin: auto;
+    background: rgba(0,0,0,0.3);
 }
 
-input[type=text], input[type=password] {
+#description {
+    width: 75%;
+    color: #ffb400;
+    padding: 20px 50px 20px 20px;
+    text-transform: uppercase;
+    margin: auto;
+    background: rgba(0,0,0,0.3);
+}
+
+input[type=text], input[type=password], select, textarea {
     width: 100%;
     display: inline-block;
     border: none;
@@ -78,6 +96,44 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #ffb400;
-    color: #FFFFFF;
+    color: white;
     text-transform: uppercase;
+}
+
+.image {
+    float: left;
+}
+
+.nonemail {
+    text-transform: none;
+    color: white
+}
+
+#description h1 {
+    text-transform: none;
+    color: white;
+}
+
+#description .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#description .gallery figure {
+    flex: 25%;
+    margin: 30px;
+}
+
+#description .gallery img {
+    margin: auto;
+}
+
+.maincap {
+    font-weight: 600;
+}
+
+.minorcap {
+    color: white;
+    text-transform: none;
 }

@@ -1,7 +1,12 @@
+* {
+    font-family: 'Titillium Web'
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding:0;
+    overflow: hidden;
 }
 
 .bg {
@@ -20,24 +25,59 @@ html, body {
     justify-content: center;
 }
 
-.topnav a {
+.topnav .text {
     text-decoration: none;
     color: #FFFFFF;
     margin: 0 40px;
     text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 600;
 }
 
-.topnav a.active {
-    background-color: #04AA6D;
-    color: white;
+.topnav a.active, .topnav a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
 }
 
 #logo {
-    width: 10%;
     height: 100%;
 }
 
 #login {
-    position: absolute;
-    right: 0;
+    width: 30%;
+    color: #ffb400;
+    padding: 20px 50px 20px 20px;
+    text-transform: uppercase;
+    margin-left: auto;
+    margin-right: 0;
+    background: rgba(0,0,0,0.3);
+}
+
+#login a:hover, a:visited, a:link, a:active {
+    color: #da2900;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+}
+
+input[type=submit] {
+    background-color: rgba(10, 10, 10, 0.6);
+    color: #ffb400;
+    padding: 5px 40px;
+    border: 1px solid #ffb400;
+    text-transform: uppercase;
+}
+
+input[type=submit]:hover {
+    background-color: #ffb400;
+    color: #FFFFFF;
+    text-transform: uppercase;
 }

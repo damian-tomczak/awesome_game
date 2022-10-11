@@ -1,6 +1,6 @@
 <?php
     include 'preconfig.php';
-    $menu = MENU::LOGO;
+    $menu = MENU::INFO;
     include 'include/header.php';
-    include 'include/footer.php';
 ?>
+<?php include 'include/footer.php'?>

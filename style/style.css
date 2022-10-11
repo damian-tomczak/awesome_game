@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding:0;
+}
+
+.bg {
+    background-image: url("../images/bg-b.jpeg");
+    height: 100%;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.topnav {
+    display: flex;
+    width: 100%;
+    height: 20%;
+    align-items: center;
+    justify-content: center;
+}
+
+.topnav a {
+    text-decoration: none;
+    color: #FFFFFF;
+    margin: 0 40px;
+    text-transform: uppercase;
+}
+
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+
+#logo {
+    width: 10%;
+    height: 100%;
+}
+
+#login {
+    position: absolute;
+    right: 0;
+}

@@ -1,0 +1,68 @@
+* {
+  font: 13px/1.4 verdana, sans-serif;
+}
+.container div {
+  display: inline-block;
+  display: block;
+  width: 50%;
+  margin: auto;
+}
+#header {
+}
+#logo {
+  float: left;
+  text-align: left;
+}
+#information {
+  float: left;
+  text-align: right;
+}
+#change-background {
+  float: left;
+  text-align: center;
+}
+#change-background button {
+  height: 40px;
+  width: 40px;
+  border: 1px outset #000000;
+}
+#change-background button:hover {
+  filter: brightness(85%)
+}
+.light {
+  background-color: #ffffff;
+}
+.dark {
+  background-color: #464646;
+}
+.contrast {
+  background-color: #ffe600;
+}
+#header div {
+  display: inline-block;
+}
+#header #logo {
+  vertical-align: left;
+}
+#header #settings {
+  vertical-align: right;
+}
+#watchword {
+  background-color: #2060c8;
+  color: #ffffff;
+  margin-top: 5px;
+  padding: 5px;
+}
+#main {
+  background-color: #f4f8ff;
+  margin-top: 5px;
+  padding: 5px;
+}
+#footer hr {
+  border: 0;
+  height: 1px;
+  background: #8080804d;
+}
+#shop {
+  background-color: #ffd700;
+}

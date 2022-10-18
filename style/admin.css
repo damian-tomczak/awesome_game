@@ -1,0 +1,33 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding:0;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+}
+
+#header {
+
+}
+
+#logo {
+    background-color: red;
+}
+
+#menu {
+    width: 25%;
+    text-align: left;
+    background-color: pink;
+}
+
+#main {
+    background-color: green;
+}
+
+#footer {
+    background-color: blue;
+}

@@ -25,26 +25,6 @@ html, body {
 #settings {
   float: right;
 }
-#change-background {
-  text-align: center;
-}
-#change-background button {
-  height: 40px;
-  width: 40px;
-  border: 1px outset #000000;
-}
-#change-background button:hover {
-  filter: brightness(85%)
-}
-#change-background .light {
-  background-color: #ffffff;
-}
-#change-background .dark {
-  background-color: #464646;
-}
-#change-background .contrast {
-  background-color: #ffe600;
-}
 #header div {
   display: inline-block;
 }

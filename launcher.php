@@ -9,29 +9,29 @@
         <div class="container">
             <div id="header">
                 <div id="logo">
-                    <a href="#"><img src="./images/kurnik4.png" alt="Kurnik" width="232" height="29"/></a>
+                    <a href="#"><img src="./images/logo.png" alt="Logo" width="120" height="120"/></a>
                 </div>
                 <div id="settings">
                     <div id="change-background">
-                        <button class="light"></button>
-                        <button class="dark"></button>
-                        <button class="contrast"></button>
+                        <label class="switch">
+                            <input id="theme-switch" type="checkbox">
+                            <span class="slider"></span>
+                        </label>
                     </div>
                     <div id="information">
-                        LocalTime:
-                        <div id="clock">12:00</div>
-                        <div id="date">28-10-2000</div>
+                        <span id="clock">12:00</span><br>
+                        <span id="date">28-10-2000</span>
                     </div>
                 </div>
             </div>
-            <div id="watchword">
+            <div class="separator watchword">
                 Chess Online - Play Now!
             </div>
-            <div id="main">
+            <div class="content">
                 <div id="play">
                     <div id="start">
                         <p>
-                            Open game? <input type="checkbox"></input>
+                            Public game? <input type="checkbox"></input>
                             <button>Start new</button>
                         </p>
                         <p>
@@ -48,10 +48,13 @@
                         </ul>
                     </div>
                 </div>
-                <div id="shop">
-                    <p>Select items:</p>
-                    <p>dummy items</p>
-                </div>
+            </div>
+            <div class="separator shop">
+                Customize your experience!
+            </div>
+            <div class="content">
+                <p>Your current balance: <span id="amount">666</span></p>
+                <p>TODO: shop with slider</p>
             </div>
             <div id="footer">
                 <hr/>

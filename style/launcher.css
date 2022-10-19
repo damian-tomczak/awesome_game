@@ -1,24 +1,31 @@
 * {
   font: 13px/1.4 verdana, sans-serif;
 }
-.container div {
-  display: inline-block;
-  display: block;
+:root {
+  --bg-color: #fff;
+  --heading-color: #292922;
+}
+
+[data-theme="dark"] {
+  --bg-color: #161625;
+}
+html, body {
+  background-color: var(--bg-color);
+}
+.container{
   width: 50%;
   margin: auto;
 }
-#header {
-}
 #logo {
   float: left;
-  text-align: left;
 }
 #information {
-  float: left;
-  text-align: right;
+  vertical-align: top;
+}
+#settings {
+  float: right;
 }
 #change-background {
-  float: left;
   text-align: center;
 }
 #change-background button {
@@ -29,13 +36,13 @@
 #change-background button:hover {
   filter: brightness(85%)
 }
-.light {
+#change-background .light {
   background-color: #ffffff;
 }
-.dark {
+#change-background .dark {
   background-color: #464646;
 }
-.contrast {
+#change-background .contrast {
   background-color: #ffe600;
 }
 #header div {
@@ -47,22 +54,96 @@
 #header #settings {
   vertical-align: right;
 }
-#watchword {
-  background-color: #2060c8;
+.separator {
   color: #ffffff;
   margin-top: 5px;
   padding: 5px;
+  clear: both;
 }
-#main {
+.separator.watchword {
+  background-color: #2060c8;
+}
+.separator.shop {
+  background-color: #ffd700;
+  color: black;
+}
+.content {
   background-color: #f4f8ff;
   margin-top: 5px;
   padding: 5px;
+}
+#footer {
+  text-align: center;
 }
 #footer hr {
   border: 0;
   height: 1px;
   background: #8080804d;
 }
-#shop {
-  background-color: #ffd700;
+#play {
+  text-align: center;
+}
+#start {
+  display: inline-block;
+  vertical-align:top;
+  width: 40%;
+}
+#start p {
+  text-align: left;
+}
+#games {
+  display: inline-block;
+  vertical-align:top;
+  width: 40%;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
 }

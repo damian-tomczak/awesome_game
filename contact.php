@@ -1,7 +1,7 @@
 <?php
     include 'preconfig.php';
     $menu = MENU::CONTACT;
-    include 'include/header.php';
+    include 'header.php';
 ?>
 <div id="content">
     <form action="send_mail.php">
@@ -23,4 +23,4 @@
         <p class="nonemail">Or send a message with your program: <a href="mailto:contact@damian-tomczak.pl">contact@damian-tomczak.pl</a></p>
     </form>
 </div>
-<?php include 'include/footer.php'?>
+<?php include 'footer.php'?>

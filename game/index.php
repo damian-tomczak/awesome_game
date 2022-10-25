@@ -19,7 +19,7 @@
                         </label>
                     </div>
                     <div id="information">
-                        <span id="clock">12:00</span><br>
+                        <span id="clock">12:00:00</span><br>
                         <span id="date">28-10-2000</span>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         </p>
                     </div>
                     <div id="games">
-                        <p>Open games waiting for second player:</p>
+                        <p>Public games waiting for second player:</p>
                         <ul>
                             <li>invitation_1</li>
                             <li>invitation_2</li>

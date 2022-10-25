@@ -1,7 +1,7 @@
 <?php
     include 'preconfig.php';
     $menu = MENU::NEWS;
-    include 'include/header.php';
+    include 'header.php';
 ?>
 <div id="content">
     <article>
@@ -29,4 +29,4 @@
     </article>
     <hr>
 </div>
-<?php include 'include/footer.php'?>
+<?php include 'footer.php'?>

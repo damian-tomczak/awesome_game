@@ -1,7 +1,7 @@
 <?php
     include 'preconfig.php';
     $menu = MENU::LOGIN;
-    include 'include/header.php';
+    include 'header.php';
 ?>
 <div id="login">
     <form action="register.php">
@@ -28,4 +28,4 @@
         <input type="submit" value="Login">
     </form>
 </div>
-<?php include 'include/footer.php'?>
+<?php include 'footer.php'?>

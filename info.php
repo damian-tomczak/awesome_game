@@ -1,7 +1,7 @@
 <?php
     include 'preconfig.php';
     $menu = MENU::INFO;
-    include 'include/header.php';
+    include 'header.php';
 ?>
 <div id="description">
     <h1>In the 21st century one thing is inevitable. War can break out anytime, anywhere. And if your city gets under siege, be sure you were not prepared for it.</h1>
@@ -29,4 +29,4 @@
         </figure>
     </div>
 </div>
-<?php include 'include/footer.php'?>
+<?php include 'footer.php'?>

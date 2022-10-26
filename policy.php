@@ -1,1 +1,0 @@
-Swiper no swiping!

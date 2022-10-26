@@ -1,15 +1,23 @@
+<?php
+    require_once 'config.php';
+    session_start();
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("location: ../login.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="style/launcher.css">
+        <link rel="stylesheet" href="../style/launcher.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script src="js/launcher.js"></script>
+        <script src="../js/launcher.js"></script>
     </head>
     <body>
         <div class="container">
             <div id="header">
                 <div id="logo">
-                    <a href="#"><img src="./images/logo.png" alt="Logo" width="120" height="120"/></a>
+                    <a href="#"><img src="../images/logo.png" alt="Logo" width="120" height="120"/></a>
                 </div>
                 <div id="settings">
                     <div id="change-background">

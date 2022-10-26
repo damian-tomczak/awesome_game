@@ -86,7 +86,7 @@ input[type=text]:focus, input[type=password]:focus {
     background-color: #ddd;
 }
 
-input[type=submit] {
+input[type=submit], input[type=button] {
     background-color: rgba(10, 10, 10, 0.6);
     color: #ffb400;
     padding: 5px 40px;
@@ -94,10 +94,18 @@ input[type=submit] {
     text-transform: uppercase;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover, input[type=button]:hover {
     background-color: #ffb400;
     color: white;
     text-transform: uppercase;
+}
+
+#playnow {
+    position: fixed;
+    bottom: 40%;
+    left: 50%;
+    font-size: large;
+    transform: translateX(-50%);
 }
 
 .image {

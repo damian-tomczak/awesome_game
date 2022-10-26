@@ -1,9 +1,17 @@
+<?php
+    require_once 'config.php';
+    session_start();
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+        header("location: ../login.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="style/game.css">
+        <link rel="stylesheet" href="../style/game.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script src="js/game.js"></script>
+        <script src="../js/game.js"></script>
     </head>
     <body>
         <div class="container">

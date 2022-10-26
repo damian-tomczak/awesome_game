@@ -1,7 +1,7 @@
 <?php
-    include 'preconfig.php';
-    $menu = MENU::NEWS;
     include 'header.php';
+    $menu = MENU::NEWS;
+    include 'nav.php';
 ?>
 <div id="content">
     <article>

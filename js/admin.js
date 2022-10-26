@@ -3,7 +3,6 @@ $(document).ready(() => {
 });
 
 /* Dummy section */
-
 function dummyFunction() {
     $("#animacjaTestowa1").on("click", function() {
         $(this).animate({

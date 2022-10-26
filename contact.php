@@ -1,7 +1,7 @@
 <?php
-    include 'preconfig.php';
-    $menu = MENU::CONTACT;
     include 'header.php';
+    $menu = MENU::CONTACT;
+    include 'nav.php';
 ?>
 <div id="content">
     <form action="send_mail.php">

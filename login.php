@@ -55,25 +55,25 @@
     }
 ?>
 <div id="login">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="registration">
         <h1>Sing up</h1>
         <hr>
-        <label for="email"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" required>
-        <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw"required>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+        <label for="password"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password"required>
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" name="psw-repeat"required>
         <p>By creating an account you agree to our <a href="policy.php">Terms & Privacy</a>.</p>
         <hr>
         <input type="submit" value="Register">
     </form>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="login">
         <h1>Sing in</h1>
         <hr>
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>
-        <label for="psw"><b>Password</b></label>
+        <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
         <hr>
         <input type="submit" value="Login">

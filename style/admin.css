@@ -1,36 +1,33 @@
+a:hover, a:visited, a:link, a:active {
+    color: black;
+}
 html, body {
-    height: 100%;
     margin: 0;
     padding:0;
 }
-
 table {
     width: 100%;
     text-align: center;
     border-spacing: 0;
 }
-
 #logo {
-    background-color: red;
+    background-color: #ff0000;
     height: 50px;
 }
-
 #menu {
-    width: 25%;
+    width: 10%;
+    vertical-align: top;
     text-align: left;
-    background-color: green;
+    background-color: #477a47;
 }
-
 #main {
-    background-color: pink;
+    background-color: #ffc0cb;
 }
-
 #footer {
-    background-color: blue;
+    background-color: #808080;
 }
 
 /* Dummy section */
-
 .test-block {
     width: 200px;
     border: 2px solid rgba(71, 236, 30, 1);

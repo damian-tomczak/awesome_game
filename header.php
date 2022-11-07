@@ -1,4 +1,18 @@
-<?php require_once 'config.php'; ?>
+<?php require_once 'config.php';
+enum Menu {
+    case LOGIN;
+    case NEWS;
+    case LOGO;
+    case INFO;
+    case CONTACT;
+}
+
+function isEnable(Menu $menu, Menu $expected) {
+    if (isset($menu) && ($menu == $expected)) {
+        echo 'active';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

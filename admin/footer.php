@@ -2,7 +2,7 @@
             <tr id="footer">
                 <td colspan="3">
                     <p>
-                        <?php echo "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " .$_SERVER['HTTP_HOST'] ?>
+                        <?php echo copyright_message() ?>
                     </p>
                     <p>
                         <?php

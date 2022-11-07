@@ -36,6 +36,7 @@
                 Chess Online - Play Now!
             </div>
             <div class="content">
+                <p class="welcome">Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
                 <div id="play">
                     <div id="start">
                         <p>
@@ -66,7 +67,7 @@
             </div>
             <div id="footer">
                 <hr/>
-                <?php echo "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " .$_SERVER['HTTP_HOST'] ?>
+                <?php echo copyright_message() ?>
             </div>
         </div>
     </body>

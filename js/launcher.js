@@ -38,4 +38,8 @@ $(document).ready(() => {
     setInterval(() => {
         updateClock()
     }, 1000);
+    $(document).on('click', '#logout', function () {
+        console.log("123");
+        location.href = "../logout.php";
+    });
 });

@@ -36,7 +36,11 @@
                 Chess Online - Play Now!
             </div>
             <div class="content">
-                <p class="welcome">Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
+                <div class="welcome">
+                    <p class="welcome">Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
+                    <button id="logout">Logout</button>
+                </div>
+                <hr>
                 <div id="play">
                     <div id="start">
                         <p>

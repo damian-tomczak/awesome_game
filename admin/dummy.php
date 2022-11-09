@@ -28,23 +28,32 @@
             }
         ?>
     </div>
-    <h4>Lab5</h4>
+    <h4>Lab4</h4>
     <div>
         <?php
-            $filename = '';
-            switch ($_GET['var']) {
-            case "policy":
-                $filename = '../'.$filename;
+
+            $var = '';
+            if (isset($_GET['var'])) {
+                $var = $_GET['var'];
+            }
+            $filename = "../$var.php";
+            if (file_exists($filename)) {
+                header("location: $filename");
+            }
+
+            switch ($var) {
+            case 1:
+                echo 1;
+                break;
+            case 2:
+                echo 2;
+                break;
+            case 3:
+                echo 3;
                 break;
             default:
-                echo 'unhandled $_GET["var"] content';
+                echo 'unhandled variable content';
                 break;
-            }
-            $filename = $filename.'.php';
-            if (!file_exists($filename) && $filename != '.php') {
-                echo "The file $filename does not exist";
-            } else {
-                include $filename;
             }
             ?>
         <p>My favorities movies:</p>

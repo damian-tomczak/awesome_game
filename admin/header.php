@@ -1,4 +1,10 @@
-<?php require_once '../config.php'; ?>
+<?php
+    require_once '../config.php';
+    session_start();
+    if ($_SESSION['admin'] != true) {
+        exit("Current user doesn't have permissions to see that website!");
+    }
+?>
 <!DOCTYPE html>
 <html>
     <head>

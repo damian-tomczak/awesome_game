@@ -72,37 +72,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif (isset($_POST["login"])) {
         $post_action = "login";
-        if(empty(trim($_POST["username"]))) {
+        if (empty(trim($_POST["username"]))) {
             $username_err = "Please enter username.";
         } else {
             $username = trim($_POST["username"]);
         }
 
-        if(empty(trim($_POST["password"]))) {
+        if (empty(trim($_POST["password"]))) {
             $password_err = "Please enter your password.";
         } else {
             $password = trim($_POST["password"]);
         }
 
-        if(empty($username_err) && empty($password_err)) {
-            $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        if (empty($username_err) && empty($password_err)) {
+            $sql = "SELECT id, username, password, is_admin FROM users WHERE username = ?";
             if($stmt = mysqli_prepare($link, $sql)) {
                 mysqli_stmt_bind_param($stmt, "s", $param_username);
 
                 $param_username = $username;
 
-                if(mysqli_stmt_execute($stmt)) {
+                if (mysqli_stmt_execute($stmt)) {
                     mysqli_stmt_store_result($stmt);
 
-                    if(mysqli_stmt_num_rows($stmt) == 1) {
-                        mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
-                        if(mysqli_stmt_fetch($stmt)) {
-                            if(password_verify($password, $hashed_password)) {
+                    if (mysqli_stmt_num_rows($stmt) == 1) {
+                        mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $is_admin);
+                        if (mysqli_stmt_fetch($stmt)) {
+                            if (password_verify($password, $hashed_password)) {
                                 session_start();
                                 $_SESSION["loggedin"] = true;
                                 $_SESSION["id"] = $id;
                                 $_SESSION["username"] = $username;
-                                header("location: game/index.php");
+                                $_SESSION["admin"] = $is_admin;
+                                if ($_SESSION["admin"]) {
+                                    header("location: admin/index.php");
+                                } else {
+                                    header("location: game/index.php");
+                                }
                             } else {
                                 $login_err = "Invalid username or password.";
                             }

@@ -21,10 +21,7 @@
                 </div>
                 <div id="settings">
                     <div id="change-background">
-                        <label class="switch">
-                            <input id="theme-switch" type="checkbox">
-                            <span class="slider"></span>
-                        </label>
+                        <input id="theme-switch" type="checkbox">
                     </div>
                     <div id="information">
                         <span id="clock">12:00:00</span><br>

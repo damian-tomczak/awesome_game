@@ -7,7 +7,7 @@ $username_err = $password_err = $login_err = $confirm_password_err = "";
 $post_action = $other_err = "";
 
 session_start();
-if ($_SESSION["loggedin"]) {
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
     header("location: game/index.php");
 }
 

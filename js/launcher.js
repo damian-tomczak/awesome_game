@@ -31,6 +31,7 @@ function plusDivs(n) {
 }
 
 function showDivs(n) {
+    console.log(av_colors);
     var i;
     var x = document.getElementsByClassName("slides");
     if (n > x.length) {slideIndex = 1}
@@ -42,15 +43,21 @@ function showDivs(n) {
 }
 
 $(document).ready(() => {
-    const $toggleSwitch =  document.getElementById('theme-switch');
-    const $currentTheme = localStorage.getItem('theme');
-    if ($currentTheme) {
-        document.documentElement.setAttribute('data-theme', $currentTheme);
-        if ($currentTheme === 'dark') {
-            $toggleSwitch.checked = true;
+    if (localStorage.hasOwnProperty('color')) {
+        $("#color").val(localStorage.getItem('color'));
+    }
+    else {
+        $("#color").text("red");
+    }
+    const $toggle_switch =  document.getElementById('theme-switch');
+    const $current_theme = localStorage.getItem('theme');
+    if ($current_theme) {
+        document.documentElement.setAttribute('data-theme', $current_theme);
+        if ($current_theme === 'dark') {
+            $toggle_switch.checked = true;
         }
     }
-    $toggleSwitch.addEventListener('change', switchTheme, false);
+    $toggle_switch.addEventListener('change', switchTheme, false);
     updateClock();
     setInterval(() => {
         updateClock()

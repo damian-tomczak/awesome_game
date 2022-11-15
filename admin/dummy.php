@@ -1,5 +1,3 @@
-<?php include "header.php" ?>
-<?php include "menu.php" ?>
 <td id="main">
     <h3>Dummy page</h3>
     <p>Contains classes-related tasks that were not included in the final project due to the difficulty of matching them to the project topic.</p>
@@ -31,15 +29,7 @@
     <h4>Lab4</h4>
     <div>
         <?php
-
-            $var = '';
-            if (isset($_GET['var'])) {
-                $var = $_GET['var'];
-            }
-            $filename = "../$var.php";
-            if (file_exists($filename)) {
-                header("location: $filename");
-            }
+            $var = 123;
 
             switch ($var) {
             case 1:
@@ -62,4 +52,3 @@
         <iframe width="560" height="315" src="https://www.youtube.com/embed/Sz19TQfSElU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 </td>
-<?php include "footer.php" ?>

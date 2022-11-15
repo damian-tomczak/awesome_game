@@ -4,9 +4,17 @@
     include 'nav.php';
 ?>
 <div id="content">
+<?php
+    session_start();
+    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+?>
     <div>
         <input type="button" id="backplay" value="Back to play">
     </div>
+<?php
+    }
+?>
+
     <div>
         <article>
             <img src="http://placekitten.com/100/100" alt="image corupted" class="image"></image>

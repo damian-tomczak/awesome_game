@@ -8,7 +8,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 function getMoney(): int {
     global $conn;
-    if ($conn != null)
+    if ($conn)
     {
         $sql = "SELECT money FROM users WHERE id = :username";
         $st = $conn->prepare($sql);
@@ -19,7 +19,26 @@ function getMoney(): int {
     }
     die("Oops! Something went wrong. Please try again later.");
 }
+
+$sql = "SELECT colors.name FROM user_colors INNER JOIN colors ON colors.id = user_colors.color_id INNER JOIN users ON users.id = user_colors.user_id WHERE users.id = :id";
+if ($conn) {
+    $st = $conn->prepare($sql);
+    $st->bindValue(":id", $_SESSION["id"], PDO::PARAM_INT);
+    if($st->execute()) {
+        while ($row = $st->fetch()) {
+            $result[] = $row["name"];
+        }
+    } else{
+        die("Oops! Something went wrong. Please try again later.");
+    }
+    echo '<script type=\'text/javascript\'>';
+    $result[] = "red";
+    $js_array = json_encode($result);
+    echo "var av_colors = ". $js_array . ";\n";
+    echo '</script>';
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -93,7 +112,7 @@ function getMoney(): int {
                 </div>
                 <div class="buttons">
                     <button onclick="plusDivs(-1)">&#10094;</button>
-                    <button id="select">Select</button>
+                    <button id="select"></button>
                     <button onclick="plusDivs(1)">&#10095;</button>
                 </div>
             </div>

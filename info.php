@@ -4,7 +4,9 @@
     include 'nav.php';
 ?>
 <div id="description">
-    <h1>In the 21st century one thing is inevitable. War can break out anytime, anywhere. And if your city gets under siege, be sure you were not prepared for it.</h1>
+    <div>
+        <h1>In the 21st century one thing is inevitable. War can break out anytime, anywhere. And if your city gets under siege, be sure you were not prepared for it.</h1>
+    </div>
     <div class="gallery">
         <figure>
             <img src="http://placekitten.com/300/200" alt="Image corupted">

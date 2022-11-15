@@ -43,7 +43,7 @@ html, body {
 .separator.watchword {
   background-color: #2060c8;
 }
-.separator.shop {
+.separator.shop.watchword {
   background-color: #ffd700;
   color: black;
 }
@@ -97,7 +97,6 @@ html, body {
   background-color: white;
   transition: left .3s;
 }
-
 #theme-switch:checked {
   background-color: rgb(141, 221, 141);
 }

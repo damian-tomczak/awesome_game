@@ -1,10 +1,24 @@
 <?php
-    require_once '../config.php';
-    session_start();
-    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-        header("location: ../login.php");
-        exit;
+require_once '../config.php';
+session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../login.php");
+    exit;
+}
+
+function getMoney(): int {
+    global $conn;
+    if ($conn != null)
+    {
+        $sql = "SELECT money FROM users WHERE id = :username";
+        $st = $conn->prepare($sql);
+        $st->bindValue(":username", $_SESSION["id"], PDO::PARAM_STR);
+        if ($st->execute()) {
+            return $st->fetchColumn();
+        }
     }
+    die("Oops! Something went wrong. Please try again later.");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,12 +73,28 @@
                     </div>
                 </div>
             </div>
-            <div class="separator shop">
+            <div class="separator shop watchword">
                 Customize your experience!
             </div>
             <div class="content">
-                <p>Your current balance: <span id="amount">666</span></p>
+                <p>Your current balance: <span id="amount"><?php echo getMoney(); ?></span></p>
                 <p>TODO: shop with slider</p>
+                <div class="shop">
+                    <div class="slider slider-for">
+                        <div><h3>1</h3></div>
+                        <div><h3>2</h3></div>
+                        <div><h3>3</h3></div>
+                        <div><h3>4</h3></div>
+                        <div><h3>5</h3></div>
+                    </div>
+                    <div class="slider slider-nav">
+                        <div><h3>1</h3></div>
+                        <div><h3>2</h3></div>
+                        <div><h3>3</h3></div>
+                        <div><h3>4</h3></div>
+                        <div><h3>5</h3></div>
+                    </div>
+                </div>
             </div>
             <div id="footer">
                 <hr/>

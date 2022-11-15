@@ -11,7 +11,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
     header("location: game/index.php");
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if($_POST) {
     if (isset($_POST["register"])) {
         $post_action = "register";
         if(empty(trim($_POST["username"]))) {

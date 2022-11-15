@@ -1,147 +1,128 @@
 * {
-    font-family: 'Titillium Web'
+  font-family: 'Titillium Web'
 }
-
 a:hover, a:visited, a:link, a:active {
-    color: #da2900;
+  color: #da2900;
 }
-
 html, body {
-    height: 100%;
-    margin: 0;
-    padding:0;
-    background-image: url("../images/bg-b.jpeg");
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+  height: 100%;
+  margin: 0;
+  padding:0;
+  background-image: url("../images/bg-b.jpeg");
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
-
 .container {
-    height: 100%;
+  height: 100%;
 }
-
 .topnav {
-    display: flex;
-    width: 100%;
-    height: 20%;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  height: 20%;
+  align-items: center;
+  justify-content: center;
 }
-
 .topnav .text {
-    text-decoration: none;
-    color: white;
-    margin: 0 40px;
-    text-transform: uppercase;
-    font-size: 16px;
-    font-weight: 600;
+  text-decoration: none;
+  color: white;
+  margin: 0 40px;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
 }
-
 .topnav a.active, .topnav a:hover {
-    text-decoration: underline;
-    text-decoration-thickness: 3px;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
 }
-
 #logo {
-    height: 100%;
+  height: 100%;
 }
-
 #login {
-    width: 30%;
-    color: #ffb400;
-    padding: 20px 50px 20px 20px;
-    text-transform: uppercase;
-    margin-left: auto;
-    margin-right: 0;
-    background: rgba(0,0,0,0.3);
+  width: 30%;
+  color: #ffb400;
+  padding: 20px 50px 20px 20px;
+  text-transform: uppercase;
+  margin-left: auto;
+  margin-right: 0;
+  background: rgba(0,0,0,0.3);
 }
-
 #content {
-    width: 50%;
-    color: #ffb400;
-    padding: 20px 50px 20px 20px;
-    text-transform: uppercase;
-    margin: auto;
-    background: rgba(0,0,0,0.3);
+  width: 50%;
+  color: #ffb400;
+  padding: 20px 50px 20px 20px;
+  text-transform: uppercase;
+  margin: auto;
+  background: rgba(0,0,0,0.3);
 }
-
 #description {
-    width: 75%;
-    color: #ffb400;
-    padding: 20px 50px 20px 20px;
-    text-transform: uppercase;
-    margin: auto;
-    background: rgba(0,0,0,0.3);
+  width: 75%;
+  color: #ffb400;
+  padding: 20px 50px 20px 20px;
+  text-transform: uppercase;
+  margin: auto;
+  background: rgba(0,0,0,0.3);
 }
-
 input[type=text], input[type=password], select, textarea {
-    width: 100%;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
+  width: 100%;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
 }
-
 input[type=text]:focus, input[type=password]:focus {
-    background-color: #ddd;
+  background-color: #ddd;
 }
-
 input[type=submit], input[type=button] {
-    background-color: rgba(10, 10, 10, 0.6);
-    color: #ffb400;
-    padding: 5px 40px;
-    border: 1px solid #ffb400;
-    text-transform: uppercase;
+  background-color: rgba(10, 10, 10, 0.6);
+  color: #ffb400;
+  padding: 5px 40px;
+  border: 1px solid #ffb400;
+  text-transform: uppercase;
 }
-
 input[type=submit]:hover, input[type=button]:hover {
-    background-color: #ffb400;
-    color: white;
-    text-transform: uppercase;
+  background-color: #ffb400;
+  color: white;
+  text-transform: uppercase;
 }
-
-#playnow {
-    position: fixed;
-    bottom: 40%;
-    left: 50%;
-    font-size: large;
-    transform: translateX(-50%);
+#nowplay {
+  position: fixed;
+  bottom: 40%;
+  left: 50%;
+  font-size: large;
+  transform: translateX(-50%);
 }
-
+#backplay {
+    margin:auto;
+    display: block;
+}
 .image {
-    float: left;
+  float: left;
 }
-
 .nonemail {
-    text-transform: none;
-    color: white
+  text-transform: none;
+  color: white
 }
-
 #description h1 {
-    text-transform: none;
-    color: white;
+  text-transform: none;
+  color: white;
 }
-
 #description .gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-
 #description .gallery figure {
-    flex: 25%;
-    margin: 30px;
+  flex: 25%;
+  margin: 30px;
 }
-
 #description .gallery img {
-    margin: auto;
+  margin: auto;
 }
-
 .maincap {
-    font-weight: 600;
+  font-weight: 600;
 }
-
 .minorcap {
-    color: white;
-    text-transform: none;
+  color: white;
+  text-transform: none;
 }

@@ -11,7 +11,7 @@ $(document).ready(() => {
         loadlink()
     }, 2000);
 
-    $("#playnow").click(() => {
+    $("#nowplay").click(() => {
         window.location.href = 'login.php';
     });
 });

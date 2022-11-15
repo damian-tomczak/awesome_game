@@ -6,6 +6,11 @@ $username = $password = $confirm_password = "";
 $username_err = $password_err = $login_err = $confirm_password_err = "";
 $post_action = $other_err = "";
 
+session_start();
+if ($_SESSION["loggedin"]) {
+    header("location: game/index.php");
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["register"])) {
         $post_action = "register";
@@ -78,7 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 if($st->rowCount() == 1) {
                     $row = $st->fetch();
                     if (password_verify($password, $row["password"])) {
-                        session_start();
                         $_SESSION["loggedin"] = true;
                         $_SESSION["id"] = $row["id"];
                         $_SESSION["username"] = $row["username"];

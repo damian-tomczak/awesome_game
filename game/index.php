@@ -48,11 +48,12 @@ function getMoney(): int {
             </div>
             <div class="content">
                 <div class="welcome">
-                    <p class="welcome">Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
+                    <p>Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
                     <?php
                         if ($_SESSION["admin"]) {
-                            echo '<a href="../admin/index.php">redirect to admin page</a><br>';
+                            echo '<p><a href="../admin/index.php">redirect to admin page</p>';
                         }
+                        echo '<p><a href="../news.php">Check out newsletter!</a></p>'
                     ?>
                     <button id="logout">Logout</button>
                 </div>

@@ -78,22 +78,15 @@ function getMoney(): int {
             </div>
             <div class="content">
                 <p>Your current balance: <span id="amount"><?php echo getMoney(); ?></span></p>
-                <p>TODO: shop with slider</p>
                 <div class="shop">
-                    <div class="slider slider-for">
-                        <div><h3>1</h3></div>
-                        <div><h3>2</h3></div>
-                        <div><h3>3</h3></div>
-                        <div><h3>4</h3></div>
-                        <div><h3>5</h3></div>
-                    </div>
-                    <div class="slider slider-nav">
-                        <div><h3>1</h3></div>
-                        <div><h3>2</h3></div>
-                        <div><h3>3</h3></div>
-                        <div><h3>4</h3></div>
-                        <div><h3>5</h3></div>
-                    </div>
+                    <div class="slides" style="background-color:red">red</div>
+                    <div class="slides" style="background-color:yellow">yellow</div>
+                    <div class="slides" style="background-color:green">green</div>
+                </div>
+                <div class="buttons">
+                    <button onclick="plusDivs(-1)">&#10094;</button>
+                    <button id="select">Select</button>
+                    <button onclick="plusDivs(1)">&#10095;</button>
                 </div>
             </div>
             <div id="footer">

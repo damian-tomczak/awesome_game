@@ -3,11 +3,15 @@
 }
 :root {
   --bg-color: #fff;
+  --text-color: #000000;
   --heading-color: #292922;
+  --hr-color: #8080804d;
 }
 
 [data-theme="dark"] {
   --bg-color: #161625;
+  --text-color: #FFFFFF;
+  --hr-color: #FFFFFF;
 }
 html, body {
   background-color: var(--bg-color);
@@ -21,6 +25,7 @@ html, body {
 }
 #information {
   vertical-align: top;
+  color: var(--text-color);
 }
 #settings {
   float: right;
@@ -54,11 +59,12 @@ html, body {
 }
 #footer {
   text-align: center;
+  color: var(--text-color);
 }
 #footer hr {
   border: 0;
   height: 1px;
-  background: #8080804d;
+  background: var(--hr-color);
 }
 #play {
   text-align: center;
@@ -106,4 +112,11 @@ html, body {
 }
 .welcome {
   text-align: center;
+}
+.buttons {
+  text-align: center;
+  margin: 15px 0px 15px 0px;
+}
+.slides {
+  /* display: none; */
 }

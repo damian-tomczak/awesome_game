@@ -117,6 +117,11 @@ html, body {
   text-align: center;
   margin: 15px 0px 15px 0px;
 }
+.shop .slides {
+  height: 100px;
+  width: 200px;
+  margin: auto;
+}
 .slides {
-  /* display: none; */
+  display: none;
 }

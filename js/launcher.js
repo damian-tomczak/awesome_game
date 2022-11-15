@@ -1,3 +1,5 @@
+var slideIndex = 1;
+
 function formatTime($var) {
     return ("0" + $var).slice(-2);
 }
@@ -24,6 +26,21 @@ function switchTheme(e) {
     }
 }
 
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("slides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length}
+    for (i = 0; i < x.length; i++) {
+       x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
+}
+
 $(document).ready(() => {
     const $toggleSwitch =  document.getElementById('theme-switch');
     const $currentTheme = localStorage.getItem('theme');
@@ -42,4 +59,5 @@ $(document).ready(() => {
         console.log("123");
         location.href = "../logout.php";
     });
+    showDivs(slideIndex);
 });

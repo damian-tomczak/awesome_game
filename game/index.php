@@ -39,7 +39,7 @@ function getMoney(): int {
                     </div>
                     <div id="information">
                         <span id="clock">12:00:00</span><br>
-                        <span id="date">28-10-2000</span>
+                        <span id="date">28-10-20</span>
                     </div>
                 </div>
             </div>
@@ -49,6 +49,11 @@ function getMoney(): int {
             <div class="content">
                 <div class="welcome">
                     <p class="welcome">Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
+                    <?php
+                        if ($_SESSION["admin"]) {
+                            echo '<a href="../admin/index.php">redirect to admin page</a><br>';
+                        }
+                    ?>
                     <button id="logout">Logout</button>
                 </div>
                 <hr>
@@ -77,11 +82,13 @@ function getMoney(): int {
                 Customize your experience!
             </div>
             <div class="content">
-                <p>Your current balance: <span id="amount"><?php echo getMoney(); ?></span></p>
+                <p>Your current balance: <span id="amount"><?php echo getMoney(); ?>$</span></p>
+                <p>Selected color: <span id="color"></span></p>
                 <div class="shop">
-                    <div class="slides" style="background-color:red">red</div>
-                    <div class="slides" style="background-color:yellow">yellow</div>
-                    <div class="slides" style="background-color:green">green</div>
+                    <div class="slides" style="background-color:red"></div>
+                    <div class="slides" style="background-color:yellow"></div>
+                    <div class="slides" style="background-color:green"></div>
+                    <div class="slides" style="background-color:blue"></div>
                 </div>
                 <div class="buttons">
                     <button onclick="plusDivs(-1)">&#10094;</button>

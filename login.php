@@ -11,10 +11,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
     header("location: game/index.php");
 }
 
-if($_POST) {
+if ($_POST) {
     if (isset($_POST["register"])) {
         $post_action = "register";
-        if(empty(trim($_POST["username"]))) {
+        if (empty(trim($_POST["username"]))) {
             $username_err = "Please enter a username.";
         } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
             $username_err = "Username can only contain letters, numbers, and underscores.";
@@ -26,14 +26,14 @@ if($_POST) {
                 $other_err = "Oops! Something went wrong. Please try again later.";
             }
 
-            if($st->rowCount() == 1) {
+            if ($st->rowCount() == 1) {
                 $username_err = "This username is already taken.";
             } else {
                 $username = trim($_POST["username"]);
             }
         }
 
-        if(empty(trim($_POST["password"]))) {
+        if (empty(trim($_POST["password"]))) {
             $password_err = "Please enter a password.";
         } elseif(strlen(trim($_POST["password"])) < 6) {
             $password_err = "Password must have atleast 6 characters.";
@@ -41,7 +41,7 @@ if($_POST) {
             $password = trim($_POST["password"]);
         }
 
-        if(empty(trim($_POST["confirm_password"]))) {
+        if (empty(trim($_POST["confirm_password"]))) {
             $confirm_password_err = "Please confirm password.";
         } else {
             $confirm_password = trim($_POST["confirm_password"]);
@@ -50,7 +50,7 @@ if($_POST) {
             }
         }
 
-        if(empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
+        if (empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
             $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
             $st = $conn->prepare($sql);
             $st->bindValue(":username", $username, PDO::PARAM_STR);
@@ -117,7 +117,7 @@ include 'nav.php';
         <input type="password" placeholder="Enter Password" name="password"required>
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" name="confirm_password"required>
-        <p>By creating an account you agree to our <a href="policy.php">Terms & Privacy</a>.</p>
+        <p>By creating an account you agree to our <a href="policy.php">Terms & Privacy</a></p>
         <hr>
         <input type="hidden" name="register" value="">
         <input type="submit" value="Register">
@@ -129,7 +129,7 @@ include 'nav.php';
         <input type="text" placeholder="Enter Username" name="username" required>
         <label for="password"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
-        <p>Did you forget your password?: <a href="reset_password.php">Reset password form</a>.</p>
+        <p>Did you forget your password? <a href="reset_password.php">Reset password form</a></p>
         <hr>
         <input type="submit" value="Login">
         <input type="hidden" name="login" value="">

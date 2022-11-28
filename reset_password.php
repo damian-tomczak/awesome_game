@@ -1,8 +1,9 @@
 <?php
     include 'header.php';
-    $menu = MENU::CONTACT;
+    $menu = MENU::LOGO;
     include 'nav.php';
-
+?>
+<?php
     if($_POST) {
         $fname = '';
         $lname = '';
@@ -60,42 +61,20 @@
     }
 ?>
 <div id="content">
-    <form action="contact.php" method="post">
-        <label for="fname">First Name</label>
-        <input type="text" name="firstname" placeholder="Your name.." required>
-        <label for="lname">Last Name</label>
-        <input type="text" name="lastname" placeholder="Your last name.." required>
-        <label for="lname">Email</label>
-        <input type="text" name="email" placeholder="Your email address.." required>
-        <label for="country">Region</label>
-        <select id="country" name="region">
-            <option value="europe">Europe</option>
-            <option value="na">North America</option>
-            <option value="sa">South America</option>
-            <option value="asia">Asia</option>
-            <option value="australia">Australia</option>
-        </select>
-        <label for="subject">Subject</label>
-        <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" required></textarea>
-        <input type="submit" value="Submit">
-        <p class="nonemail">Or send a message with your program: <a href="mailto:contact@damian-tomczak.pl">contact@damian-tomczak.pl</a></p>
+    <form method="post" action="reset_password.php">
+        <p><b>Enter email address to send password link</b></p>
+        <input type="text" name="email" required placeholder="Enter your email address">
+        <p><input type="submit" name="submit_email"></p>
     </form>
 </div>
 <?php
     include 'footer.php';
-    if (isset($error)) {
-        if (empty($error)) {
-            echo '<script>';
-            echo '$(document).ready(function() {';
-            echo "alert('Thank you for contacting us, $fname. You will get a reply within 24 hours.');";
-            echo '});';
-            echo '</script>';
-        } else {
-            echo '<script>';
-            echo '$(document).ready(function() {';
-            echo "alert('We are sorry but the email did not go through because:\\n$error');";
-            echo '});';
-            echo '</script>';
-        }
+    if ($_POST) {
+        echo '<script>';
+        echo '$(document).ready(function() {';
+        echo "alert('if there is an account with such an email address,",
+            "you will get an email in a moment with a link to reset your password.');";
+        echo '});';
+        echo '</script>';
     }
 ?>

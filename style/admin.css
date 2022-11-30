@@ -7,7 +7,6 @@ html, body {
 }
 table {
     width: 100%;
-    text-align: center;
     border-spacing: 0;
 }
 #logo {
@@ -26,7 +25,19 @@ table {
 #footer {
     background-color: #808080;
 }
-
+#header, #footer {
+    text-align: center;
+}
+.box {
+    width: 50%;
+    float: left;
+    height: 150px;
+    background-color: bisque;
+    margin-bottom: 15px;
+}
+.center {
+    text-align: center;
+}
 /* Dummy section */
 .test-block {
     width: 200px;

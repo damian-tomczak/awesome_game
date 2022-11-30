@@ -10,7 +10,7 @@ function getMoney(): int {
     global $conn;
     if ($conn)
     {
-        $sql = "SELECT money FROM users WHERE id = :username";
+        $sql = "SELECT money FROM users WHERE id = :username LIMIT 1";
         $st = $conn->prepare($sql);
         $st->bindValue(":username", $_SESSION["id"], PDO::PARAM_STR);
         if ($st->execute()) {
@@ -20,7 +20,7 @@ function getMoney(): int {
     die("Oops! Something went wrong. Please try again later.");
 }
 
-$sql = "SELECT colors.name FROM user_colors INNER JOIN colors ON colors.id = user_colors.color_id INNER JOIN users ON users.id = user_colors.user_id WHERE users.id = :id";
+$sql = "SELECT colors.name FROM user_colors INNER JOIN colors ON colors.id = user_colors.color_id INNER JOIN users ON users.id = user_colors.user_id WHERE users.id = :id LIMIT 1";
 if ($conn) {
     $st = $conn->prepare($sql);
     $st->bindValue(":id", $_SESSION["id"], PDO::PARAM_INT);

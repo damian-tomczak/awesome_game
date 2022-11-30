@@ -3,7 +3,7 @@
     $menu = MENU::CONTACT;
     include 'nav.php';
 
-    if($_POST) {
+    if ($_POST) {
         $fname = '';
         $lname = '';
         $email = '';
@@ -13,22 +13,26 @@
         $recipient = '162601@student.uwm.edu.pl';
         $error = '';
 
-        if(isset($_POST['fname'])) {
+        if (isset($_POST['fname'])) {
             $fname = htmlspecialchars($_POST['fname']);
-            $body .= "<div><label><b>Visitor Name:</b></label>&nbsp;<span>".$fname."</span></div>";
+            $body .= "<div><label><b>Visitor First Name:</b></label>&nbsp;<span>".$fname."</span></div>";
         } else {
             $error .= 'field First Name is empty\\n';
         }
 
-        if(isset($_POST['lname'])) {
+        if (isset($_POST['lname'])) {
             $lname = htmlspecialchars($_POST['lname']);
-            $body .= "<div><label><b>Visitor Name:</b></label>&nbsp;<span>".$fname."</span></div>";
+            $body .= "<div><label><b>Visitor Last Name:</b></label>&nbsp;<span>".$fname."</span></div>";
         } else {
             $error .= 'field Last Name is empty\\n';
         }
 
-        if(isset($_POST['email'])) {
-            $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        if (isset($_POST['email'])) {
+            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $email = $_POST['email'];
+            } else {
+                $error .= 'field Email is incorrect';
+            }
             $body .= "<div><label><b>Visitor Email:</b></label>&nbsp;<span>".$email."</span></div>";
         } else {
             $error .= 'field Email is empty\\n';
@@ -62,11 +66,11 @@
 <div id="content">
     <form action="contact.php" method="post">
         <label for="fname">First Name</label>
-        <input type="text" name="firstname" placeholder="Your name.." required>
+        <input type="text" name="fname" placeholder="Your name.." required>
         <label for="lname">Last Name</label>
-        <input type="text" name="lastname" placeholder="Your last name.." required>
+        <input type="text" name="lname" placeholder="Your last name.." required>
         <label for="lname">Email</label>
-        <input type="text" name="email" placeholder="Your email address.." required>
+        <input type="email" name="email" placeholder="Your email address.." required>
         <label for="country">Region</label>
         <select id="country" name="region">
             <option value="europe">Europe</option>

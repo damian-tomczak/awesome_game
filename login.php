@@ -2,9 +2,9 @@
 include 'header.php';
 $menu = MENU::LOGIN;
 
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $login_err = $confirm_password_err = "";
-$post_action = $other_err = "";
+$username = $password = $confirm_password = $email ='';
+$username_err = $password_err = $login_err = $confirm_password_err = $email_err = '';
+$post_action = $other_err = '';
 
 session_start();
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
@@ -14,15 +14,35 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
 if ($_POST) {
     if (isset($_POST["register"])) {
         $post_action = "register";
+
+        if (empty(trim($_POST["email"]))) {
+            $email_err = "Please enter a email.";
+        } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+            $email_err = "Incorrect email format.";
+        } else {
+            $sql = "SELECT id FROM users WHERE username = :email LIMIT 1";
+            $st = $conn->prepare($sql);
+            $st->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
+            if (!$st->execute()) {
+                $other_err = "Oops! Something went wrong. Please try again later.";
+            }
+
+            if ($st->rowCount() == 1) {
+                $email_err = "This email is already taken.";
+            } else {
+                $email = trim($_POST["email"]);
+            }
+        }
+
         if (empty(trim($_POST["username"]))) {
             $username_err = "Please enter a username.";
         } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
             $username_err = "Username can only contain letters, numbers, and underscores.";
         } else {
-            $sql = "SELECT id FROM users WHERE username = :username";
+            $sql = "SELECT id FROM users WHERE username = :username LIMIT 1";
             $st = $conn->prepare($sql);
             $st->bindValue(":username", $_POST["username"], PDO::PARAM_STR);
-            if ($st->execute()) {
+            if (!$st->execute()) {
                 $other_err = "Oops! Something went wrong. Please try again later.";
             }
 
@@ -50,11 +70,12 @@ if ($_POST) {
             }
         }
 
-        if (empty($username_err) && empty($password_err) && empty($confirm_password_err)) {
-            $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)) {
+            $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
             $st = $conn->prepare($sql);
             $st->bindValue(":username", $username, PDO::PARAM_STR);
             $st->bindValue(":password", password_hash($_POST["password"], PASSWORD_DEFAULT), PDO::PARAM_STR);
+            $st->bindValue(":email", $email, PDO::PARAM_STR);
             if($st->execute()) {
                 $register_success = true;
             } else{
@@ -76,7 +97,7 @@ if ($_POST) {
         }
 
         if (empty($username_err) && empty($password_err)) {
-            $sql = "SELECT id, username, password, is_admin FROM users WHERE username = :username";
+            $sql = "SELECT id, username, password, is_admin FROM users WHERE username = :username LIMIT 1";
             $st = $conn->prepare($sql);
             $st->bindValue(":username", $username, PDO::PARAM_STR);
             if($st->execute()) {
@@ -111,6 +132,8 @@ include 'nav.php';
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <h1>Sing up</h1>
         <hr>
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter Email" name="email" required>
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>
         <label for="password"><b>Password</b></label>
@@ -138,11 +161,12 @@ include 'nav.php';
 <?php
 include 'footer.php';
 
-$message = ((!empty($username_err)) ? "$username_err\\n" : "") .
-    ((!empty($password_err)) ? "$password_err\\n" : "") .
-    ((!empty($login_err)) ? "$login_err\\n" : "");
-    ((!empty($confirm_password_err)) ? "$confirm_password_err\\n" : "");
-    ((!empty($other_err)) ? "$other_err\\n" : "");
+$message = ((!empty($username_err)) ? "$username_err\\n" : '') .
+    ((!empty($password_err)) ? "$password_err\\n" : '') .
+    ((!empty($login_err)) ? "$login_err\\n" : '').
+    ((!empty($confirm_password_err)) ? "$confirm_password_err\\n" : '').
+    ((!empty($email_err)) ? "$email_err\\n" : '').
+    ((!empty($other_err)) ? "$other_err\\n" : '');
 if(!empty($message)) {
     echo '<script>';
     echo '$(document).ready(function() {';

@@ -3,9 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', '1');
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
-define( "DB_DSN", "mysql:host=localhost;dbname=awesome_game" );
-define( "DB_USERNAME", "root" );
-define( "DB_PASSWORD", "" );
+define("DB_DSN", "mysql:host=localhost;dbname=awesome_game");
+define("DB_USERNAME", "root");
+define("DB_PASSWORD", "");
+define("DEFAULT_NUM_NEWS", 5);
 
 $conn = null;
 try {

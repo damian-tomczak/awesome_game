@@ -1,7 +1,7 @@
 <?php
     include "header.php";
     include "menu.php";
-    $action = isset(htmlspecialchars($_GET['action'])) ? htmlspecialchars($_GET['action']) : "welcome.php";
+    $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : "welcome.php";
     if (file_exists($action)) {
         require($action);
     } else {

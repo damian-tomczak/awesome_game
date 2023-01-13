@@ -5,38 +5,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: ../login.php");
     exit;
 }
-
-function getMoney(): int {
-    global $conn;
-    if ($conn)
-    {
-        $sql = "SELECT money FROM users WHERE id = :username LIMIT 1";
-        $st = $conn->prepare($sql);
-        $st->bindValue(":username", $_SESSION["id"], PDO::PARAM_STR);
-        if ($st->execute()) {
-            return $st->fetchColumn();
-        }
-    }
-    die("Oops! Something went wrong. Please try again later.");
-}
-
-$sql = "SELECT colors.name FROM user_colors INNER JOIN colors ON colors.id = user_colors.color_id INNER JOIN users ON users.id = user_colors.user_id WHERE users.id = :id LIMIT 1";
-if ($conn) {
-    $st = $conn->prepare($sql);
-    $st->bindValue(":id", $_SESSION["id"], PDO::PARAM_INT);
-    if($st->execute()) {
-        while ($row = $st->fetch()) {
-            $result[] = $row["name"];
-        }
-    } else{
-        die("Oops! Something went wrong. Please try again later.");
-    }
-    echo '<script type=\'text/javascript\'>';
-    $result[] = "red";
-    $js_array = json_encode($result);
-    echo "var av_colors = ". $js_array . ";\n";
-    echo '</script>';
-}
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +40,8 @@ if ($conn) {
                         if ($_SESSION["admin"]) {
                             echo '<p><a href="../admin/index.php">redirect to admin page</p>';
                         }
-                        echo '<p><a href="../news.php">Check out newsletter!</a></p>'
+                        echo '<p><a href="../news.php">Check out newsletter!</a></p>';
+                        echo '<p><a href="../shop/index.php">Customize your experience</a></p>';
                     ?>
                     <button id="logout">Logout</button>
                 </div>
@@ -96,24 +65,6 @@ if ($conn) {
                             <li>invitation_3</li>
                         </ul>
                     </div>
-                </div>
-            </div>
-            <div class="separator shop watchword">
-                Customize your experience!
-            </div>
-            <div class="content">
-                <p>Your current balance: <span id="amount"><?php echo getMoney(); ?>$</span></p>
-                <p>Selected color: <span id="color"></span></p>
-                <div class="shop">
-                    <div class="slides" style="background-color:red"></div>
-                    <div class="slides" style="background-color:yellow"></div>
-                    <div class="slides" style="background-color:green"></div>
-                    <div class="slides" style="background-color:blue"></div>
-                </div>
-                <div class="buttons">
-                    <button onclick="plusDivs(-1)">&#10094;</button>
-                    <button id="select"></button>
-                    <button onclick="plusDivs(1)">&#10095;</button>
                 </div>
             </div>
             <div id="footer">

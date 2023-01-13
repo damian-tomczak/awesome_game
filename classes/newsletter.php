@@ -1,5 +1,4 @@
 <?php
-require_once '../config.php';
 class Newsletter
 {
     public $id = null;
@@ -27,7 +26,7 @@ class Newsletter
         } catch(PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
-        $sql = "SELECT *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter WHERE id = :id";
+        $sql = "SELECT *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter WHERE id = :id LIMIT 1";
         $st = $conn->prepare($sql);
         $st->bindValue(":id", $id, PDO::PARAM_INT);
         $st->execute();
@@ -114,12 +113,9 @@ class Newsletter
         } catch(PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
-        $sql = "UPDATE newsletter SET publicationDate=FROM_UNIXTIME(:publicationDate), title=:title, summary=:summary, content=:content WHERE id = :id";
+        $sql = "UPDATE newsletter SET title=:title WHERE id = :id";
         $st = $conn->prepare ( $sql );
-        $st->bindValue( ":publicationDate", $this->publicationDate, PDO::PARAM_INT );
         $st->bindValue( ":title", $this->title, PDO::PARAM_STR );
-        $st->bindValue( ":summary", $this->summary, PDO::PARAM_STR );
-        $st->bindValue( ":content", $this->content, PDO::PARAM_STR );
         $st->bindValue( ":id", $this->id, PDO::PARAM_INT );
         $st->execute();
         $conn = null;

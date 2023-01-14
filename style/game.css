@@ -1,27 +1,189 @@
-html, body {
-    margin: 0;
-    padding: 0;
+* {
+  font: 13px/1.4 verdana, sans-serif;
+}
+:root {
+  --bg-color: #fff;
+  --text-color: #000000;
+  --heading-color: #292922;
+  --hr-color: #8080804d;
 }
 
-.container {
-    margin: auto;
-    width: 50%;
-    display: flex;
-    padding: 15px;
-    text-align: center;
+[data-theme="dark"] {
+  --bg-color: #161625;
+  --text-color: #FFFFFF;
+  --hr-color: #FFFFFF;
 }
-.board {
-    background-color: #f2f2e1;
-    width: 75%;
-    padding: 15px;
+html, body {
+  background-color: var(--bg-color);
 }
-.menu {
-    background-color: #99ccee;
-    width: 25%;
+.container{
+  width: 50%;
+  margin: auto;
 }
-.menu input {
-    background-color: #73a1c9;
+#logo {
+  float: left;
 }
-canvas {
-    background-color: red;
+#information {
+  vertical-align: top;
+  color: var(--text-color);
+}
+#settings {
+  float: right;
+}
+#header div {
+  display: inline-block;
+}
+#header #logo {
+  vertical-align: left;
+}
+#header #settings {
+  vertical-align: right;
+}
+.separator {
+  color: #ffffff;
+  margin-top: 5px;
+  padding: 5px;
+  clear: both;
+}
+.separator.watchword {
+  background-color: #2060c8;
+}
+.separator.shop.watchword {
+  background-color: #ffd700;
+  color: black;
+}
+.content {
+  background-color: #f4f8ff;
+  margin-top: 5px;
+  padding: 5px;
+}
+#footer {
+  text-align: center;
+  color: var(--text-color);
+}
+#footer hr {
+  border: 0;
+  height: 1px;
+  background: var(--hr-color);
+}
+#play {
+  text-align: center;
+}
+#start {
+  display: inline-block;
+  vertical-align:top;
+  width: 40%;
+}
+#start p {
+  text-align: left;
+}
+#games {
+  display: inline-block;
+  vertical-align:top;
+  width: 40%;
+}
+#theme-switch {
+  cursor: pointer;
+  position: relative;
+  width: 50px;
+  height: 30px;
+  outline: none;
+  background-color: #ccc;
+  -webkit-appearance: none;
+  transition: background .3s;
+}
+#theme-switch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: white;
+  transition: left .3s;
+}
+#theme-switch:checked {
+  background-color: rgb(141, 221, 141);
+}
+
+#theme-switch:checked::after {
+  left: 70%;
+}
+.welcome {
+  text-align: center;
+}
+.buttons {
+  text-align: center;
+  margin: 15px 0px 15px 0px;
+}
+.shop .slides {
+  height: 100px;
+  width: 200px;
+  margin: auto;
+}
+.slides {
+  display: none;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333; 
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.categories .subnav {
+  float: left;
+  overflow: hidden;
+}
+
+.categories .subnav .subnavbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.categories .navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: red;
+}
+
+.categories .subnav-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: red;
+  width: 100%;
+  z-index: 1;
+}
+
+.categories .subnav-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+
+.categories .subnav-content a:hover {
+  background-color: #eee;
+  color: black;
+}
+
+.categories .subnav:hover .subnav-content {
+  display: block;
+}
+
+.loginbtn {
+  margin: 10px;
 }

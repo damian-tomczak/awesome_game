@@ -42,7 +42,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../style/launcher.css">
+        <link rel="stylesheet" href="../style/game.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="../js/launcher.js"></script>
     </head>
@@ -67,16 +67,18 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
             <div class="content">
                 <div class="welcome">
-                    <p>Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
-                    <?php
-                        if ($_SESSION["admin"]) {
-                            echo '<p><a href="../admin/index.php">redirect to admin page</p>';
-                        }
-                        echo '<p><a href="../news.php">Check out newsletter</a></p>';
-                        if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
-                            echo '<p><a href="index.php">Back to launcher</a></p>';
-                        } else {
-                            echo '<p><a href="index.php?action=shop/index.php">Customize your experience</a></p>';
-                        }                    ?>
-                    <button id="logout">Logout</button>
+                    <p> Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
+                    <p>
+                        <?php
+                            if ($_SESSION["admin"]) {
+                                echo '<a href="../admin/index.php" class="loginbtn"><input type="submit" value="Admin page"></a>';
+                            }
+                            echo '<a href="../news.php" class="loginbtn"><input type="submit" value="Check out newsletter"></a>';
+                            if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
+                                echo '<a href="index.php" class="loginbtn"><input type="submit" value="Return to launcher"></a>';
+                            } else {
+                                echo '<a href="index.php?action=shop/index.php" class="loginbtn"><input type="submit" value="Shop"></a>';
+                            }
+                        ?>
+                    </p>
                 </div>

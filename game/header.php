@@ -1,8 +1,9 @@
 <?php
-require_once '../config.php';
+require_once "../config.php";
+require "../classes/shop.php";
 session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../login.php");
+if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('location: ../login.php');
     exit;
 }
 // function getMoney(): int {
@@ -41,9 +42,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../style/shop.css">
+        <link rel="stylesheet" href="../style/launcher.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script src="../js/shop.js"></script>
+        <script src="../js/launcher.js"></script>
     </head>
     <body>
         <div class="container">
@@ -72,36 +73,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             echo '<p><a href="../admin/index.php">redirect to admin page</p>';
                         }
                         echo '<p><a href="../news.php">Check out newsletter</a></p>';
-                        echo '<p><a href="../game/index.php">PlayGame</a></p>';
-                    ?>
+                        if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
+                            echo '<p><a href="index.php">Back to launcher</a></p>';
+                        } else {
+                            echo '<p><a href="index.php?action=shop/index.php">Customize your experience</a></p>';
+                        }                    ?>
                     <button id="logout">Logout</button>
                 </div>
-            </div>
-            <div class="separator shop watchword">
-                Customize your experience!
-            </div>
-            <div class="content">
-                blabla
-            </div>
-            <!-- <div class="content">
-                <p>Your current balance: <span id="amount"><?php //echo getMoney(); ?>$</span></p>
-                <p>Selected color: <span id="color"></span></p>
-                <div class="shop">
-                    <div class="slides" style="background-color:red"></div>
-                    <div class="slides" style="background-color:yellow"></div>
-                    <div class="slides" style="background-color:green"></div>
-                    <div class="slides" style="background-color:blue"></div>
-                </div>
-                <div class="buttons">
-                    <button onclick="plusDivs(-1)">&#10094;</button>
-                    <button id="select"></button>
-                    <button onclick="plusDivs(1)">&#10095;</button>
-                </div>
-            </div> -->
-            <div id="footer">
-                <hr>
-                <?php echo copyright_message() ?>
-            </div>
-        </div>
-    </body>
-</html>

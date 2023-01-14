@@ -27,14 +27,12 @@ function switchTheme(e) {
 }
 
 $(document).ready(() => {
-    if (localStorage.hasOwnProperty('color')) {
-        $("#color").val(localStorage.getItem('color'));
-    }
-    else {
-        $("#color").text("red");
-    }
     const $toggle_switch =  document.getElementById('theme-switch');
     const $current_theme = localStorage.getItem('theme');
+    if (!$current_theme) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
     if ($current_theme) {
         document.documentElement.setAttribute('data-theme', $current_theme);
         if ($current_theme === 'dark') {
@@ -46,9 +44,4 @@ $(document).ready(() => {
     setInterval(() => {
         updateClock()
     }, 1000);
-    $(document).on('click', '#logout', function () {
-        console.log("123");
-        location.href = "../logout.php";
-    });
-    showDivs(slideIndex);
 });

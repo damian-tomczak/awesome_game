@@ -1,9 +1,8 @@
 <?php
 /**
- * Class to handle
+ * Class to handle News
  */
-class Newsletter
-{
+class Newsletter {
     // Properties
     /**
      * @var int The news ID from the database

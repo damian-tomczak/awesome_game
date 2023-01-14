@@ -16,6 +16,6 @@ try {
 }
 
 function copyright_message() {
-    return "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " .$_SERVER['HTTP_HOST'];
+    return "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " . $_SERVER['HTTP_HOST'];
 }
 ?>

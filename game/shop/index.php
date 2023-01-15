@@ -125,29 +125,19 @@
             }
             echo json_encode($categories);
             $completed = false;
-            for ($i = 0, $counter = 0;
-                ((!$completed) && ($i < sizeof($categories))); $i++, $counter++)
+            for ($i = 0, $counter = 0; !$completed && $i < sizeof($categories); $i++, $counter++)
             {
-                echo $categories[$i][0]->name . "[$i]" . '<br>';
                 if ($i == 0) {
                     $completed = true;
                 }
                 if ($categories[$i][1] == false) {
                     $completed = false;
-                    echo 'ACHTUNG!: ' . $categories[$i][0]->name . '<br>';
                 }
                 $parent_instantiated = false;
-                echo 'current parent: ' . $categories[$i][0]->parent . '<br>';
                 foreach ($categories as $row) {
                     if (($row[0]->id == $categories[$i][0]->parent) && $row[1]) {
                         $parent_instantiated = true;
                     }
-                }
-                if ($parent_instantiated) {
-                    echo 'parent<br>';
-                    echo '<hr>';
-                } else {
-                    echo 'no<br>';
                 }
                 if ((($categories[$i][0]->parent == null) || ($parent_instantiated)) &&
                     $categories[$i][1] == false) {
@@ -160,7 +150,6 @@
                 }
                 if ($i == (sizeof($categories) - 1)) {
                     $i = -1;
-                    echo 'DAMIANTOMCZAK<br>';
                 }
             }
         ?>

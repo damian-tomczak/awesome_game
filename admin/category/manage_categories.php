@@ -1,37 +1,21 @@
 <?php require '../classes/category.php';
 
-/**
- * Returns category's parent name
- * 
- * @param int|null Category's parent id
- * 
- * @return string|null The function returns category's parent name
- */
-function parent_name(int|null $parent_id): string {
-    global $categories;
-    foreach ($categories as $category) {
-        if ($category->id == $parent_id) {
-            return $category->name;
-        }
-    }
-    return 'WITHOUT PARENT';
-}
-
-if (isset($_GET['do'])) {
-    switch ($_GET['do']) {
-    case 'add':
-        add();
-        break;
-    case 'delete':
-        delete();
-        break;
-    case 'edit':
-        edit();
-        break;
-    default:
-        view();
-        break;
-    }
+$do = isset($_GET['do']) ? htmlspecialchars($_GET['do']) : '';
+switch ($do) {
+case 'add':
+    add();
+    require_once 'categories_view.php';
+    break;
+case 'delete':
+    delete();
+    require_once 'categories_view.php';
+    break;
+case 'edit':
+    edit();
+    break;
+default:
+    require_once 'categories_view.php';
+    break;
 }
 
 /**
@@ -73,9 +57,11 @@ function delete(): void {
  * Helper edit CMS
  */
 function edit(): void {
-
+    if (isset($_POST['id'])) {
+        $selected = Category::get_by_id($_POST['id']);
+        require_once('edit_view.php');
+    } else {
+        die(DEFAULT_ERROR);
+    }
 }
-
-function view(): void {}
-    require_once 'categories_view.php';
 ?>

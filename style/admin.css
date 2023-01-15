@@ -56,19 +56,19 @@ table {
 .main tr:nth-child(even) {
     background-color: #dddddd;
 }
-.add {
+.form {
     margin-bottom: 20px;
 }
-.add form {
+.form form {
   display: table;
 }
-.add p {
+.form p {
   display: table-row;
 }
-.add label {
+.form label {
   display: table-cell;
 }
-.add input {
+.form input {
   display: table-cell;
 }
 /* Dummy section */

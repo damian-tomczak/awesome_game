@@ -1,13 +1,28 @@
+<?php
+$data = Category::get_list();
+$categories = $data['result'];
+$total_rows = $data['total_rows'];
+/**
+ * Returns category's parent name
+ * 
+ * @param int|null Category's parent id
+ * 
+ * @return string|null The function returns category's parent name
+ */
+function parent_name(int|null $parent_id): string {
+    global $categories;
+    foreach ($categories as $category) {
+        if ($category->id == $parent_id) {
+            return $category->name;
+        }
+    }
+    return 'WITHOUT PARENT';
+}
+?>
 <td colspan="2">
-    <?php
-    $data = Category::get_list();
-    $categories = $data['result'];
-    $total_rows = $data['total_rows'];
-
-    echo "<p>$total_rows categories displayed</p>";
-    ?>
+    <?= "<p>$total_rows categories displayed</p>"; ?>
     <hr>
-    <div class="add">
+    <div class="form">
         <form action=".?action=category/manage_categories.php&do=add" method="POST">
             <p>
                 <label>Parent:</label>

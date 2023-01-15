@@ -87,5 +87,36 @@ class Category {
         DBConn::close();
         return false;
       }
+
+    /**
+     * Sets the object's properties using the edit form post values in the supplied array
+     *
+     * @param assoc The form post values
+    */
+    public function store_form_values($params) {
+        $this->__construct($params);
+    }
+
+    /**
+     * Inserts the current Newsletter object into the database, and sets its ID property.
+     * 
+     * @return int indicates the success or failure inserting the row into the database
+    */
+    public function insert(): bool {
+        if (!is_null($this->id))
+            trigger_error('Category::insert(): Attempt to insert an Category object that already
+                has its ID property set (to $this->id).', E_USER_ERROR );
+        $conn = DBConn::get();
+        $sql = 'INSERT INTO categories (parent, name) VALUES (:parent, :name)';
+        $st = $conn->prepare ( $sql );
+        $st->bindValue(':parent', $this->parent, PDO::PARAM_INT);
+        $st->bindValue(':name', $this->name, PDO::PARAM_STR);
+        if (!$st->execute()) {
+            return false;
+        }
+        $this->id = $conn->lastInsertId();
+        DBConn::close();
+        return true;
+    }
 }
 ?>

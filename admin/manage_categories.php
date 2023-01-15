@@ -38,15 +38,25 @@ if (isset($_GET['do'])) {
  * Helper add CMS
  */
 function add(): void {
-
+    if (isset($_POST['name']) && isset($_POST['parent'])) {
+        $category = new Category;
+        $category->store_form_values($_POST);
+        if ($category->insert()) {
+            message("The category added", false);
+        } else {
+            message("Couldn't add the category");
+        }
+    } else {
+        die(DEFAULT_ERROR);
+    }
 }
 
 /**
  * Helper delete CMS
  */
 function delete(): void {
-    if (isset($_GET['id'])) {
-        $category = Category::get_by_id($_GET['id']);
+    if (isset($_POST['id'])) {
+        $category = Category::get_by_id($_POST['id']);
         if ($category) {
             if ($category->delete()) {
                 message("Object removed", false);
@@ -74,7 +84,7 @@ function edit(): void {
     $categories = $data['result'];
     $total_rows = $data['total_rows'];
 
-    echo "<p>$total_rows news displayed</p>";
+    echo "<p>$total_rows categories displayed</p>";
     ?>
     <hr>
     <div class="add">
@@ -87,9 +97,6 @@ function edit(): void {
                             echo '<option value="' . $category->id . '">' . $category->name . '</option>';
                         }
                     ?>
-                    <option value=""></option>
-                    <option value="fiat">Fiat</option>
-                    <option value="audi">Audi</option>
                 </select>
             </p>
             <p>
@@ -113,8 +120,14 @@ function edit(): void {
                 <td><?= parent_name($category->parent) ?></td>
                 <td><?= $category->name ?></td>
                 <td>
-                    <p><a href=".?action=manage_categories.php&do=delete&id=<?= $category->id?>">Delete category</a></p>
-                    <p><a href=".?action=manage_categories.php&do=edit&id=<?= $category->id?>">Edit category</a></p>
+                    <form action=".?action=manage_categories.php&do=delete" method="POST">
+                        <input type="hidden" name="id" value="<?= $category->id?>">
+                        <input type="submit" value="Delete category">
+                    </form>
+                    <form action=".?action=manage_categories.php&do=edit" method="POST">
+                        <input type="hidden" name="id" value="<?= $category->id?>">
+                        <input type="submit" value="Edit category">
+                    </form>
                 </td>
             </tr>
             <?php } ?>

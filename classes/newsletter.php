@@ -124,7 +124,7 @@ class Newsletter {
     /**
      * Inserts the current Newsletter object into the database, and sets its ID property.
     */
-    public function insert() {
+    public function insert(): void {
         if (!is_null($this->id))
             trigger_error("Newsletter::insert(): Attempt to insert an Newsletter object that already has its ID property set (to $this->id).", E_USER_ERROR );
         $conn = null;

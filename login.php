@@ -28,7 +28,7 @@ if ($_POST) {
         $result = User::login($_POST['username'], $_POST['password']);
         if (gettype($result) == 'object') {
             $_SESSION["loggedin"] = true;
-            $_SESSION["admin"] = $user->is_admin;
+            $_SESSION["admin"] = $result->is_admin;
             $_SESSION["user"] = $result;
             if ($_SESSION["admin"]) {
                 header("location: admin/index.php");

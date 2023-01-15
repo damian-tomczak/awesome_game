@@ -1,5 +1,5 @@
 <?php
-$categories = Category::get_list();
+$categories = Category::get_list()["result"];
 
 /**
  * Indicates if a category has a parent category

@@ -4,4 +4,5 @@
         <a href="./?action=dashboard.php">Dashboard</a><br>
         <a href="./?action=dummy.php">Dummy staff</a><br>
         <a href="./?action=manage_news.php">Newsletter</a><br>
+        <a href="./?action=manage_categories.php">Categories</a><br>
     </td>

@@ -46,8 +46,8 @@ function recursion(int|null $parent): void {
 }
 ?>
 </div>
-<div class="separator shop watchword">
-    Customize your experience!
+<div class="separator second watchword">
+    Shop
 </div>
 <div class="content">
     <div class="menu">

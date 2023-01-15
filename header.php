@@ -23,6 +23,7 @@ function isEnable(Menu $menu, Menu $expected) {
     <meta name="description" content="Awesome game description">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="js/welcome.js"></script>
+    <title>Awesome game</title>
 </head>
 <body>
     <div class="container">

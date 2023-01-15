@@ -1,4 +1,8 @@
-    <hr>
+</div>
+<div class="separator second watchword">
+    Launcher
+</div>
+<div class="content">
     <div id="play">
         <div id="start">
             <p>

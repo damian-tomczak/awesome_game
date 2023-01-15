@@ -105,5 +105,26 @@ class Product {
         DBConn::close();
         return (array('result' => $list, 'total_rows' => $total_rows[0]));
     }
+
+    /**
+     * Return list of products belongs to the specified category
+     * 
+     * @param int category id
+     * 
+     * @return array Array of products belongs to the specified category
+     */
+    public static function get_by_category(int $category_id): array {
+        $data = Product::get_list();
+        $products = $data['result'];
+        $result = array();
+        $result_amt = 0;
+        foreach($products as $product) {
+            if ($product->category_id == $category_id) {
+                $result[] = $product;
+                $result_amt++;
+            }
+        }
+        return (array('result' => $result, 'result_amt' => $result_amt));
+    }
 }
 ?>

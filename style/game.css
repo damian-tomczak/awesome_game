@@ -48,7 +48,7 @@ html, body {
 .separator.watchword {
   background-color: #2060c8;
 }
-.separator.shop.watchword {
+.separator.second.watchword {
   background-color: #ffd700;
   color: black;
 }
@@ -117,7 +117,7 @@ html, body {
   text-align: center;
   margin: 15px 0px 15px 0px;
 }
-.shop .slides {
+.second .slides {
   height: 100px;
   width: 200px;
   margin: auto;

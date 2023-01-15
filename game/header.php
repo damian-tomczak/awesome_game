@@ -36,6 +36,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         <link rel="stylesheet" href="../style/game.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="../js/launcher.js"></script>
+        <title>Awesome game</title>
     </head>
     <body>
         <div class="container">

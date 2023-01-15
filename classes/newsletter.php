@@ -146,17 +146,18 @@ class Newsletter {
         $this->id = $conn->lastInsertId();
         $conn = null;
     }
-
     /**
      * Deletes the current Newsletter object from the database.
     */
     public function delete() {
         if (is_null($this->id)) trigger_error ("Newsletter::delete(): Attempt to delete an Newsletter object that does not have its ID property set.", E_USER_ERROR);
-        $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+        $conn = DBConn::get();
         $st = $conn->prepare ("DELETE FROM newsletter WHERE id = :id LIMIT 1");
         $st->bindValue(":id", $this->id, PDO::PARAM_INT);
-        $st->execute();
-        $conn = null;
+        if (!$st->execute()) {
+            die(DEFAULT_ERROR);
+        }
+        DBConn::close();
       }
 
     /**

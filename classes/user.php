@@ -80,7 +80,7 @@ class User {
                 $errors[] = 'Invalid username or password.';
             }
         } else {
-            $errors[] = 'Oops! Something went wrong. Please try again later.';
+            $errors[] = DEFAULT_ERROR;
         }
         DBConn::close();
         return $errors;
@@ -118,7 +118,7 @@ class User {
         $st = $conn->prepare($sql);
         $st->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
         if (!$st->execute()) {
-            $errors[] = 'Oops! Something went wrong. Please try again later.';
+            $errors[] = DEFAULT_ERROR;
         }
         if (!empty($errors)) {
             return $errors;
@@ -142,7 +142,7 @@ class User {
             $st = $conn->prepare($sql);
             $st->bindValue(':username', $username, PDO::PARAM_STR);
             if (!$st->execute()) {
-                $errors[] = 'Oops! Something went wrong. Please try again later.';
+                $errors[] = DEFAULT_ERROR;
             }
 
             if ($st->rowCount() == 1) {
@@ -176,7 +176,7 @@ class User {
         $st->bindValue(':password', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
         $st->bindValue(':email', $email, PDO::PARAM_STR);
         if(!$st->execute()) {
-            $errors[] = "Oops! Something went wrong. Please try again later.";
+            $errors[] = DEFAULT_ERROR;
         }
 
         DBConn::close();

@@ -17,6 +17,42 @@ function parent_name(int|null $parent_id): string {
     return 'WITHOUT PARENT';
 }
 
+if (isset($_GET['do'])) {
+    switch ($_GET['do']) {
+    case 'add':
+        add();
+        break;
+    case 'delete':
+        delete();
+        break;
+    case 'edit':
+        edit();
+        break;
+    default:
+        die(DEFAULT_ERROR);
+        break;
+    }
+}
+
+function add() {
+
+}
+
+function delete() {
+    if (isset($_GET['id'])) {
+        $category = Category::get_by_id($_GET['id']);
+        if ($category) {
+            $category->delete();
+        }
+    } else {
+        die(DEFAULT_ERROR);
+    }
+}
+
+function edit() {
+
+}
+
 ?>
 
 <td colspan="2">
@@ -55,8 +91,8 @@ function parent_name(int|null $parent_id): string {
                 <td><?= parent_name($category->parent) ?></td>
                 <td><?= $category->name ?></td>
                 <td>
-                    <p><a href="delete_category.php?newsId=<? $category->id?>">Delete category</a></p>
-                    <p><a href="edit_category.php?newsId=<? $category->id?>">Edit category</a></p>
+                    <p><a href=".?action=manage_categories.php&do=delete&id=<?= $category->id?>">Delete category</a></p>
+                    <p><a href=".?action=manage_categories.php&do=edit&id=<?= $category->id?>">Edit category</a></p>
                 </td>
             </tr>
             <?php } ?>

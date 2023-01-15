@@ -47,5 +47,40 @@ class Category {
         DBConn::close();
         return (array("result" => $list, "total_rows" => $total_rows[0]));
     }
+
+    /**
+     * Returns an Category object matching the given category ID
+     *
+     * @param int The category ID
+     * @return Category|false The Category object, or false if the record was not found or there was a problem
+    */
+    public static function get_by_id($id) {
+        $conn = DBConn::get();
+        $sql = 'SELECT * FROM categories WHERE id = :id LIMIT 1';
+        $st = $conn->prepare($sql);
+        $st->bindValue(':id', $id, PDO::PARAM_INT);
+        $st->execute();
+        $row = $st->fetch();
+        DBConn::close();
+        if ($row) {
+            return new Category($row);
+        }
+        return false;
+    }
+
+    /**
+     * Deletes the current Category object from the database.
+    */
+    public function delete() {
+        if (is_null($this->id)) trigger_error ("Category::delete(): Attempt to delete an Category
+            object that does not have its ID property set.", E_USER_ERROR);
+        $conn = DBConn::get();
+        $st = $conn->prepare ("DELETE FROM categories WHERE id = :id LIMIT 1");
+        $st->bindValue(":id", $this->id, PDO::PARAM_INT);
+        if (!$st->execute()) {
+            die(DEFAULT_ERROR);
+        }
+        DBConn::close();
+      }
 }
 ?>

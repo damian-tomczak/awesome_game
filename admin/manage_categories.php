@@ -34,22 +34,35 @@ if (isset($_GET['do'])) {
     }
 }
 
-function add() {
+/**
+ * Helper add CMS
+ */
+function add(): void {
 
 }
 
-function delete() {
+/**
+ * Helper delete CMS
+ */
+function delete(): void {
     if (isset($_GET['id'])) {
         $category = Category::get_by_id($_GET['id']);
         if ($category) {
-            $category->delete();
+            if ($category->delete()) {
+                message("Object removed", false);
+            } else {
+                message("Object wasn't removed");
+            }
         }
     } else {
         die(DEFAULT_ERROR);
     }
 }
 
-function edit() {
+/**
+ * Helper edit CMS
+ */
+function edit(): void {
 
 }
 
@@ -65,10 +78,19 @@ function edit() {
     ?>
     <hr>
     <div class="add">
-        <form>
+        <form action=".?action=manage_categories.php&do=add" method="POST">
             <p>
                 <label>Parent:</label>
-                <input type="text" name="parent">
+                <select name="parent">
+                    <?php
+                        foreach($categories as $category) {
+                            echo '<option value="' . $category->id . '">' . $category->name . '</option>';
+                        }
+                    ?>
+                    <option value=""></option>
+                    <option value="fiat">Fiat</option>
+                    <option value="audi">Audi</option>
+                </select>
             </p>
             <p>
                 <label>Name:</label>

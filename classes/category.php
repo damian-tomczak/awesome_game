@@ -70,17 +70,22 @@ class Category {
 
     /**
      * Deletes the current Category object from the database.
+     * 
+     * @param void
+     * 
+     * @return bool indicates if the object was removed
     */
-    public function delete() {
+    public function delete(): bool{
         if (is_null($this->id)) trigger_error ("Category::delete(): Attempt to delete an Category
             object that does not have its ID property set.", E_USER_ERROR);
         $conn = DBConn::get();
         $st = $conn->prepare ("DELETE FROM categories WHERE id = :id LIMIT 1");
         $st->bindValue(":id", $this->id, PDO::PARAM_INT);
-        if (!$st->execute()) {
-            die(DEFAULT_ERROR);
+        if ($st->execute()) {
+            return true;
         }
         DBConn::close();
+        return false;
       }
 }
 ?>

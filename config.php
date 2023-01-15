@@ -44,6 +44,8 @@ function parse_array(array $returned): string {
 function message(string $message, bool $is_error = true): void {
     if ($is_error) {
         $message = "Failure: " . $message;
+    } else {
+        $message = "Success: " . $message;
     }
     echo '<script>';
     echo '$(document).ready(function() {';

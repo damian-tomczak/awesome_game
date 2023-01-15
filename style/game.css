@@ -155,7 +155,8 @@ html, body {
   margin: 10px;
 }
 .menu nav ul {
-  background-color: grey;
+  background-color: #333;
+  color: white;
   padding: 8px;
 }
 .menu nav li {

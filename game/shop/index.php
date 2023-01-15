@@ -1,3 +1,49 @@
+<?php
+$categories = Category::get_list();
+
+/**
+ * Indicates if a category has a parent category
+ * 
+ * @param int|null Parent category's id
+ * 
+ * @return bool Does the category have a parent category
+ */
+function has_parent(int|null $parent): bool {
+    global $categories;
+    foreach ($categories as $category)
+    {
+        if ($category->parent == $parent) {
+            return true;
+        }
+    }
+    return false;
+}
+/**
+ * Prints layout for subcategories
+ * 
+ * @param int|null Parent category's id
+ * 
+ * @return void
+ */
+function recursion(int|null $parent): void {
+    global $categories;
+    foreach ($categories as $category)
+    {
+        if ($category->parent == $parent) {
+            $condition = has_parent($category->id);
+            echo '<li>' . $category->name;
+            if ($condition) {
+                echo '<ul>';
+            }
+            recursion($category->id);
+            if ($condition) {
+                echo '</ul>';
+            }
+            echo '</li>';
+        }
+    }
+}
+?>
 </div>
 <div class="separator shop watchword">
     Customize your experience!
@@ -6,159 +52,8 @@
     <div class="menu">
         <nav>
         <ul>
-            <li>Item 1
-            <ul>
-                <li>Item 1
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                </ul>
-                </li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-            </ul>
-            </li>
-            <li>Item 2
-            <ul>
-                <li>Item 1
-                <ul>
-                    <li>Item 1
-                    <ul>
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
-                    </li>
-                    <li>Item 2
-                    <ul>
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
-                    </li>
-                    <li>Item 3
-                    <ul>
-                        <li>Item 1</li>
-                        <li>Item 2</li>
-                        <li>Item 3</li>
-                    </ul>
-                    </li>
-                </ul>
-                </li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-            </ul>
-            </li>
-            <li>Item 3
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2
-                <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3
-                    <ul>
-                        <li>Item 1</li>
-                        <li>Item 2
-                        <ul>
-                            <li>Item 1</li>
-                            <li>Item 2</li>
-                            <li>Item 3
-                            <ul>
-                                <li>Item 1
-                                <ul>
-                                    <li>Item 1</li>
-                                    <li>Item 2</li>
-                                    <li>Item 3</li>
-                                </ul>
-                                </li>
-                                <li>Item 2
-                                <ul>
-                                    <li>Item 1</li>
-                                    <li>Item 2
-                                    <ul>
-                                        <li>Item 1</li>
-                                        <li>Item 2</li>
-                                        <li>Item 3
-                                        <ul>
-                                            <li>Item 1</li>
-                                            <li>Item 2</li>
-                                            <li>Item 3</li>
-                                            <li>Item 4</li>
-                                            <li>Item 5</li>
-                                            <li>Item 6</li>
-                                            <li>Item 7</li>
-                                            <li>Item 8</li>
-                                            <li>Item 9</li>
-                                        </ul>
-                                        </li>
-                                    </ul>
-                                    </li>
-                                    <li>Item 3</li>
-                                </ul>
-                                </li>
-                                <li>Item 3</li>
-                            </ul>
-                            </li>
-                        </ul>
-                        </li>
-                        <li>Item 3</li>
-                    </ul>
-                    </li>
-                </ul>
-                </li>
-                <li>Item 3</li>
-            </ul>
-            </li>
-        </ul>
-        </nav>
-    </div>
-    <div>
         <?php
-            $categories = Category::get_list();
-            echo json_encode($categories);
-        ?>
-    </div>
-    <div class="menu">
-        <nav>
-        <ul>
-        <?php
-            // $dict = array();
-            // echo '<hr>';
-            // foreach ($categories as $key=>$value) {
-            //     $categories[$key] = array($value, false);
-            // }
-            // echo json_encode($categories);
-            function has_parent($parent): bool {
-                global $categories;
-                foreach ($categories as $category)
-                {
-                    if ($category->parent == $parent) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            function foo($parent) {
-                global $categories;
-                foreach ($categories as $category)
-                {
-                    if ($category->parent == $parent) {
-                        $condition = has_parent($category->id);
-                        echo '<li>' . $category->name;
-                        if ($condition) {
-                            echo '<ul>';
-                        }
-                        foo($category->id);
-                        if ($condition) {
-                            echo '</ul>';
-                        }
-                        echo '</li>';
-                    }
-                }
-            }
-            foo(null);
+            recursion(null);
         ?>
         </ul>
         </nav>

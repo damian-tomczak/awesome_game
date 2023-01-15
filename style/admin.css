@@ -9,8 +9,8 @@ table {
   width: 100%;
   border-spacing: 0;
 }
-#logo {
-  height: 50px;
+#header {
+    height: 50px;
 }
 #menu {
   width: 10%;
@@ -54,10 +54,10 @@ table {
   padding: 8px;
 }
 .main tr:nth-child(even) {
-    background-color: #dddddd;
+  background-color: #dddddd;
 }
 .form {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .form form {
   display: table;
@@ -70,6 +70,15 @@ table {
 }
 .form input {
   display: table-cell;
+}
+.left {
+  float: left;
+  text-align:center;
+  width: 75%;
+}
+.right {
+    float: right;
+    margin-right: 10px;
 }
 /* Dummy section */
 .test-block {

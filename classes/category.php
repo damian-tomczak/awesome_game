@@ -26,26 +26,26 @@ class Category {
     /**
      * Return list of categories
      * 
-     * @param int Optional number of category to get
+     * @param int Optional number of categories to get
      * 
-     * @return array array of categories and the number of categories
+     * @return array Array of categories and the number of categories
      */
-    public static function get_list($numRows=1000000): array {
+    public static function get_list(?int $numRows=1000000): array {
         $conn = DBConn::get();
-        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM categories LIMIT :numRows";
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS * FROM categories LIMIT :numRows';
 
         $st = $conn->prepare($sql);
-        $st->bindValue(":numRows", $numRows, PDO::PARAM_INT);
+        $st->bindValue(':numRows', $numRows, PDO::PARAM_INT);
         $st->execute();
         $list = array();
         while ($row = $st->fetch()) {
             $category = new Category($row);
             $list[] = $category;
         }
-        $sql = "SELECT FOUND_ROWS() AS total_rows";
+        $sql = 'SELECT FOUND_ROWS() AS total_rows';
         $total_rows = $conn->query($sql)->fetch();
         DBConn::close();
-        return (array("result" => $list, "total_rows" => $total_rows[0]));
+        return (array('result' => $list, 'total_rows' => $total_rows[0]));
     }
 
     /**

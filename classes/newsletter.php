@@ -73,18 +73,13 @@ class Newsletter {
      * @return Newsletter|false The Newsletter object, or false if the record was not found or there was a problem
     */
     public static function getById($id) {
-        $conn = null;
-        try {
-            $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        } catch(PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
+        $conn = DBConn::get();
         $sql = "SELECT *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter WHERE id = :id LIMIT 1";
         $st = $conn->prepare($sql);
-        $st->bindValue(":id", $id, PDO::PARAM_INT);
+        $st->bindValue(':id', $id, PDO::PARAM_INT);
         $st->execute();
         $row = $st->fetch();
-        $conn = null;
+        DBConn::close();
         if ($row) {
             return new Newsletter($row);
         }
@@ -95,30 +90,25 @@ class Newsletter {
      * Returns all (or a range of) News objects in the DB
      *
      * @param int Optional The number of rows to return (default=all)
-     * @return Newsletter|false A two-element array : results => array, a list of News objects; totalRows => Total number of news
+     * @return array A two-element array : results => array, a list of News objects; totalRows => Total number of news
     */
-    public static function getList($numRows=1000000) {
-        $conn = null;
-        try {
-            $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        } catch(PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
-        $sql = "SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter
-            ORDER BY publication_date DESC LIMIT :numRows";
+    public static function getList(?int $numRows=1000000): array {
+        $conn = DBConn::get();
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter
+            ORDER BY publication_date DESC LIMIT :numRows';
 
         $st = $conn->prepare($sql);
-        $st->bindValue(":numRows", $numRows, PDO::PARAM_INT);
+        $st->bindValue(':numRows', $numRows, PDO::PARAM_INT);
         $st->execute();
         $list = array();
         while ($row = $st->fetch()) {
             $article = new Newsletter($row);
             $list[] = $article;
         }
-        $sql = "SELECT FOUND_ROWS() AS total_rows";
+        $sql = 'SELECT FOUND_ROWS() AS total_rows';
         $total_rows = $conn->query($sql)->fetch();
-        $conn = null;
-        return (array("results" => $list, "total_rows" => $total_rows[0]));
+        DBConn::close();
+        return (array('results' => $list, 'total_rows' => $total_rows[0]));
     }
 
     /**

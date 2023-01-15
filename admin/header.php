@@ -16,5 +16,13 @@
     <body>
         <table>
             <tr id="header">
-                <th id="logo" colspan="3">Admin panel</th>
+                <th colspan="3">
+                    <div class="logo left">
+                        Admin panel
+                    </div>
+                    <div class="logo right">
+                        <a href="../game/index.php"><input type="submit" value="PlayGame"></a>
+                        <a href="../logout.php"><input type="submit" value="Logout"></a>
+                    </div>
+                </th>
             </tr>

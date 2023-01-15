@@ -9,7 +9,7 @@ define("DB_PASSWORD", "");
 define("DEFAULT_NUM_NEWS", 5);
 
 /**
- * Returns coprights info
+ * Returns a coprights info
  * 
  * @return string Copright content
  */
@@ -36,7 +36,7 @@ function is_valid(object|array $returned): bool {
 
 
 /**
- * Prints a alert
+ * Prints an alert
  * 
  * @param string A message to print
  * @param bool Indicates if message is about a failure

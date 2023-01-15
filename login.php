@@ -10,33 +10,15 @@ $username_err = $password_err = $login_err = $confirm_password_err = $email_err 
 $post_action = $other_err = '';
 
 session_start();
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
-    header("location: game/index.php");
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+    header('location: game/index.php');
 }
 
 if ($_POST) {
-    if (isset($_POST["register"])) {
-        $post_action = "register";
+    if (isset($_POST['register'])) {
+        $post_action = 'register';
 
-        if (empty(trim($_POST["email"]))) {
-            $email_err = "Please enter a email.";
-        } elseif (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-            $email_err = "Incorrect email format.";
-        } else {
-            $sql = "SELECT id FROM users WHERE username = :email LIMIT 1";
-            $st = $conn->prepare($sql);
-            $st->bindValue(":email", $_POST["email"], PDO::PARAM_STR);
-            if (!$st->execute()) {
-                $other_err = "Oops! Something went wrong. Please try again later.";
-            }
-
-            if ($st->rowCount() == 1) {
-                $email_err = "This email is already taken.";
-            } else {
-                $email = trim($_POST["email"]);
-            }
-        }
-
+        User::register($_POST['email'], $_POST['username']);
         if (empty(trim($_POST["username"]))) {
             $username_err = "Please enter a username.";
         } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
@@ -87,12 +69,11 @@ if ($_POST) {
         }
     } elseif (isset($_POST["login"])) {
         $post_action = "login";
-        $user = User::create($_POST['username'], $_POST['password']);
+        $user = User::login($_POST['username'], $_POST['password']);
         if (is_valid($user)) {
             $_SESSION["loggedin"] = true;
-            $_SESSION["id"] = $user->id;
-            $_SESSION["username"] = $user->username;
             $_SESSION["admin"] = $user->is_admin;
+            $_SESSION["user"] = $user;
             if ($_SESSION["admin"]) {
                 header("location: admin/index.php");
             } else {

@@ -1,5 +1,7 @@
 <?php
 require_once "../config.php";
+require_once '../classes/dbConn.php';
+require_once '../classes/user.php';
 require "../classes/shop.php";
 session_start();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -55,14 +57,12 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
             <div class="content">
                 <div class="welcome">
-                    <p>
-                        Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!
+                    <p>Welcome <?php echo htmlspecialchars($_SESSION['user']->username); ?>!</p>
                         <?php
                             if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
-                                
+                                echo '<p>Your current balance:' . $_SESSION['user']->get_money() . '</p>';
                             }
                         ?>
-                    </p>
                     <p>
                         <?php
                             if ($_SESSION["admin"]) {

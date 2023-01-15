@@ -55,7 +55,14 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
             <div class="content">
                 <div class="welcome">
-                    <p> Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!</p>
+                    <p>
+                        Welcome <?php echo htmlspecialchars($_SESSION["username"]); ?>!
+                        <?php
+                            if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
+                                
+                            }
+                        ?>
+                    </p>
                     <p>
                         <?php
                             if ($_SESSION["admin"]) {

@@ -8,10 +8,20 @@ define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
 define("DEFAULT_NUM_NEWS", 5);
 
+/**
+ * Returns coprights info
+ * 
+ * @return string Copright content
+ */
 function copyright_message(): string {
     return "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " . $_SERVER['HTTP_HOST'];
 }
 
+/**
+ * Checks if creation of the object finished with success
+ * 
+ * @return bool Result
+ */
 function is_valid(object|array $returned): bool {
     if (gettype($returned) == 'array') {
         $message = "";
@@ -24,6 +34,14 @@ function is_valid(object|array $returned): bool {
     return true;
 }
 
+
+/**
+ * Prints a alert
+ * 
+ * @param string A message to print
+ * @param bool Indicates if message is about a failure
+ * @return void
+ */
 function message(string $message, bool $is_error = true): void {
     if ($is_error) {
         $message = "Failure: " . $message;

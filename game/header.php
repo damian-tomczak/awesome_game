@@ -1,8 +1,9 @@
 <?php
-require_once "../config.php";
+require_once '../config.php';
 require_once '../classes/dbConn.php';
 require_once '../classes/user.php';
-require "../classes/shop.php";
+require_once '../classes/shop.php';
+require_once '../classes/category.php';
 session_start();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('location: ../login.php');
@@ -60,7 +61,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     <p>Welcome <?php echo htmlspecialchars($_SESSION['user']->username); ?>!</p>
                         <?php
                             if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
-                                echo '<p>Your current balance:' . $_SESSION['user']->get_money() . '</p>';
+                                echo '<p>Your current balance: ' . $_SESSION['user']->get_money() . '$</p>';
                             }
                         ?>
                     <p>

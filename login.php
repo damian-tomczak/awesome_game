@@ -5,10 +5,6 @@ require_once 'classes/user.php';
 include 'header.php';
 $menu = MENU::LOGIN;
 
-$username = $password = $confirm_password = $email ='';
-$username_err = $password_err = $login_err = $confirm_password_err = $email_err = '';
-$post_action = $other_err = '';
-
 session_start();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']) {
     header('location: game/index.php');
@@ -18,67 +14,29 @@ if ($_POST) {
     if (isset($_POST['register'])) {
         $post_action = 'register';
 
-        User::register($_POST['email'], $_POST['username']);
-        if (empty(trim($_POST["username"]))) {
-            $username_err = "Please enter a username.";
-        } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-            $username_err = "Username can only contain letters, numbers, and underscores.";
+        $result = User::register($_POST['email'],
+            $_POST['username'],
+            $_POST['password'],
+            $_POST['confirm_password']);
+        if (empty($result)) {
+            message('Registration successfully completed\\nYou may login now!', false);
         } else {
-            $sql = "SELECT id FROM users WHERE username = :username LIMIT 1";
-            $st = $conn->prepare($sql);
-            $st->bindValue(":username", $_POST["username"], PDO::PARAM_STR);
-            if (!$st->execute()) {
-                $other_err = "Oops! Something went wrong. Please try again later.";
-            }
-
-            if ($st->rowCount() == 1) {
-                $username_err = "This username is already taken.";
-            } else {
-                $username = trim($_POST["username"]);
-            }
-        }
-
-        if (empty(trim($_POST["password"]))) {
-            $password_err = "Please enter a password.";
-        } elseif(strlen(trim($_POST["password"])) < 6) {
-            $password_err = "Password must have atleast 6 characters.";
-        } else {
-            $password = trim($_POST["password"]);
-        }
-
-        if (empty(trim($_POST["confirm_password"]))) {
-            $confirm_password_err = "Please confirm password.";
-        } else {
-            $confirm_password = trim($_POST["confirm_password"]);
-            if(empty($password_err) && ($password != $confirm_password)) {
-                $confirm_password_err = "Password did not match.";
-            }
-        }
-
-        if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)) {
-            $sql = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
-            $st = $conn->prepare($sql);
-            $st->bindValue(":username", $username, PDO::PARAM_STR);
-            $st->bindValue(":password", password_hash($_POST["password"], PASSWORD_DEFAULT), PDO::PARAM_STR);
-            $st->bindValue(":email", $email, PDO::PARAM_STR);
-            if($st->execute()) {
-                $register_success = true;
-            } else{
-                $other_err = "Oops! Something went wrong. Please try again later.";
-            }
+            message(parse_array($result));
         }
     } elseif (isset($_POST["login"])) {
         $post_action = "login";
-        $user = User::login($_POST['username'], $_POST['password']);
-        if (is_valid($user)) {
+        $result = User::login($_POST['username'], $_POST['password']);
+        if (gettype($result) == 'object') {
             $_SESSION["loggedin"] = true;
             $_SESSION["admin"] = $user->is_admin;
-            $_SESSION["user"] = $user;
+            $_SESSION["user"] = $result;
             if ($_SESSION["admin"]) {
                 header("location: admin/index.php");
             } else {
                 header("location: game/index.php");
             }
+        } else {
+            message(parse_array($result));
         }
     }
 }
@@ -115,13 +73,4 @@ include 'nav.php';
         <input type="hidden" name="login" value="">
     </form>
 </div>
-<?php
-include 'footer.php';
-if (isset($register_success) && $register_success) {
-    echo '<script>';
-    echo '$(document).ready(function() {';
-    echo "alert('Registration successfully completed\\nYou may login now!');";
-    echo '});';
-    echo '</script>';
-}
-?>
+<?php include 'footer.php'; ?>

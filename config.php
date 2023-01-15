@@ -18,20 +18,18 @@ function copyright_message(): string {
 }
 
 /**
- * Checks if creation of the object finished with success
+ * Parse a array into string
  * 
- * @return bool Result
+ * @param array Array to parse
+ * 
+ * @return string Parse message
  */
-function is_valid(object|array $returned): bool {
-    if (gettype($returned) == 'array') {
-        $message = "";
-        foreach ($returned as $error) {
-            $message .= $error . '\\n';
-        }
-        message($message);
-        return false;
+function parse_array(array $returned): string {
+    $message = "";
+    foreach ($returned as $error) {
+        $message .= $error . '\\n';
     }
-    return true;
+    return $message;
 }
 
 

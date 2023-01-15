@@ -118,41 +118,50 @@
         <?php
             $categories = Category::get_list();
             echo json_encode($categories);
-            $dict = array();
-            echo '<hr>';
-            foreach ($categories as $key=>$value) {
-                $categories[$key] = array($value, false);
-            }
-            echo json_encode($categories);
-            $completed = false;
-            for ($i = 0, $counter = 0; !$completed && $i < sizeof($categories); $i++, $counter++)
-            {
-                if ($i == 0) {
-                    $completed = true;
-                }
-                if ($categories[$i][1] == false) {
-                    $completed = false;
-                }
-                $parent_instantiated = false;
-                foreach ($categories as $row) {
-                    if (($row[0]->id == $categories[$i][0]->parent) && $row[1]) {
-                        $parent_instantiated = true;
+        ?>
+    </div>
+    <div class="menu">
+        <nav>
+        <ul>
+        <?php
+            // $dict = array();
+            // echo '<hr>';
+            // foreach ($categories as $key=>$value) {
+            //     $categories[$key] = array($value, false);
+            // }
+            // echo json_encode($categories);
+            function has_parent($parent): bool {
+                global $categories;
+                foreach ($categories as $category)
+                {
+                    if ($category->parent == $parent) {
+                        return true;
                     }
                 }
-                if ((($categories[$i][0]->parent == null) || ($parent_instantiated)) &&
-                    $categories[$i][1] == false) {
-                    $categories[$i][1] = true;
-                    echo '<nav>';
-                    echo '<ul>';
-                    echo '<li>' . $categories[$i][0]->name . '</li>';
-                    echo '</ul>';
-                    echo '</nav>';
-                }
-                if ($i == (sizeof($categories) - 1)) {
-                    $i = -1;
+                return false;
+            }
+            function foo($parent) {
+                global $categories;
+                foreach ($categories as $category)
+                {
+                    if ($category->parent == $parent) {
+                        $condition = has_parent($category->id);
+                        echo '<li>' . $category->name;
+                        if ($condition) {
+                            echo '<ul>';
+                        }
+                        foo($category->id);
+                        if ($condition) {
+                            echo '</ul>';
+                        }
+                        echo '</li>';
+                    }
                 }
             }
+            foo(null);
         ?>
+        </ul>
+        </nav>
     </div>
     <div>
         Someting dummy.

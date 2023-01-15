@@ -1,8 +1,9 @@
 <?php
+    require_once 'config.php';
     include 'header.php';
     $menu = MENU::NEWS;
     include 'nav.php';
-    require 'classes/newsletter.php'
+    require_once 'classes/newsletter.php'
 ?>
 <div id="content">
 <?php

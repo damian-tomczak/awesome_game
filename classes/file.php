@@ -32,7 +32,7 @@ class File {
     */
     public static function get_by_id(int $id): File|false {
         $conn = DBConn::get();
-        $sql = 'SELECT *FROM newsletter WHERE id = :id LIMIT 1';
+        $sql = 'SELECT * FROM files WHERE id = :id LIMIT 1';
         $st = $conn->prepare($sql);
         $st->bindValue(':id', $id, PDO::PARAM_INT);
         $st->execute();
@@ -44,6 +44,18 @@ class File {
         return false;
     }
 
+    /**
+     * Prints file content in img html tag
+     * 
+     * @param int select width of the image
+     * @param int select height of the image
+     */
+    public function print(int $max_width, int $max_height): void {
+        echo '<img src="data:'. $this->mime .';base64,' . base64_encode((string)$this->data) .
+            '" width="' . $max_width . '" height="' . $max_height . '">';
+    }
+
+    //TODO
     /**
      * Return array of files
      * 

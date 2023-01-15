@@ -61,7 +61,9 @@ $total_rows = $data['total_rows'];
                 <label>Name:</label>
                 <input type="text" name="name">
             </p>
-            <p><input type="submit" value="Add new product"></p>
+            <p>
+                <input type="submit" value="Add new product">
+            </p>
         </form>
     </div>
     <div class="main">

@@ -29,11 +29,11 @@ class Product {
      */
     public $expire_date = null;
     /**
-     * @var int product netto price
+     * @var float product netto price
      */
     public $netto_price = null;
     /**
-     * @var int product tax price
+     * @var float product tax price
      */
     public $tax = null;
     /**
@@ -129,9 +129,11 @@ class Product {
 
     /**
      * Returns full price for the product
+     * 
+     * @return float Full price for the product
      */
-    public function get_price_with_taxes(): int {
-        return $this->netto_price * $this->tax/100;
+    public function get_price_with_taxes(): float {
+        return $this->netto_price + ($this->netto_price * $this->tax/100.0);
     }
 }
 ?>

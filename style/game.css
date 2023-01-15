@@ -189,3 +189,14 @@ html, body {
   left: 94%;
   display: block;
 }
+.product {
+  display: inline-block;
+  text-align: center;
+  background-color: pink;
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+}
+.bold {
+  font-weight: bold;
+}

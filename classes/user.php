@@ -21,7 +21,7 @@ class User {
      */
     public $is_admin = null;
     /**
-     * @var int User money to spend
+     * @var float User money to spend
      */
     private $money = null;
 
@@ -184,9 +184,11 @@ class User {
     }
 
     /**
-     * @return int user's money
+     * Get User's money
+     * 
+     * @return float User's money
      */
-    function get_money(): int {
+    function get_money(): float {
         return $this->money;
     }
 }

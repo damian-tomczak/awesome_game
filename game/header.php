@@ -4,7 +4,8 @@ require_once '../classes/dbConn.php';
 require_once '../classes/user.php';
 require_once '../classes/shop.php';
 require_once '../classes/category.php';
-require_once '../classes/Product.php';
+require_once '../classes/product.php';
+require_once '../classes/file.php';
 session_start();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('location: ../login.php');
@@ -41,7 +42,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </div>
             <div class="content">
                 <div class="welcome">
-                    <p>Welcome <?php echo htmlspecialchars($_SESSION['user']->username); ?>!</p>
+                    <p class="bold">Welcome <?php echo htmlspecialchars($_SESSION['user']->username); ?>!</p>
                         <?php
                             if (isset($_GET['action']) &&
                                 ($_GET['action'] == 'shop/index.php' || $_GET['action'] == 'shop/cart.php')) {

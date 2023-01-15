@@ -4,30 +4,12 @@ require_once '../classes/dbConn.php';
 require_once '../classes/user.php';
 require_once '../classes/shop.php';
 require_once '../classes/category.php';
+require_once '../classes/Product.php';
 session_start();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('location: ../login.php');
     exit;
 }
-
-
-// $sql = "SELECT colors.name FROM user_colors INNER JOIN colors ON colors.id = user_colors.color_id INNER JOIN users ON users.id = user_colors.user_id WHERE users.id = :id LIMIT 1";
-// if ($conn) {
-//     $st = $conn->prepare($sql);
-//     $st->bindValue(":id", $_SESSION["id"], PDO::PARAM_INT);
-//     if($st->execute()) {
-//         while ($row = $st->fetch()) {
-//             $result[] = $row["name"];
-//         }
-//     } else{
-//         die("Oops! Something went wrong. Please try again later.");
-//     }
-//     echo '<script type=\'text/javascript\'>';
-//     $result[] = "red";
-//     $js_array = json_encode($result);
-//     echo "var av_colors = ". $js_array . ";\n";
-//     echo '</script>';
-// }
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +43,8 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <div class="welcome">
                     <p>Welcome <?php echo htmlspecialchars($_SESSION['user']->username); ?>!</p>
                         <?php
-                            if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
+                            if (isset($_GET['action']) &&
+                                ($_GET['action'] == 'shop/index.php' || $_GET['action'] == 'shop/cart.php')) {
                                 echo '<p>Your current balance: ' . $_SESSION['user']->get_money() . '$</p>';
                             }
                         ?>
@@ -72,6 +55,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                             }
                             echo '<a href="../news.php" class="loginbtn"><input type="submit" value="Check out newsletter"></a>';
                             if (isset($_GET['action']) && $_GET['action'] == 'shop/index.php') {
+                                echo '<a href="index.php?action=shop/cart.php" class="loginbtn"><input type="submit" value="Shopping cart"></a>';
                                 echo '<a href="index.php" class="loginbtn"><input type="submit" value="Return to launcher"></a>';
                             } else {
                                 echo '<a href="index.php?action=shop/index.php" class="loginbtn"><input type="submit" value="Shop"></a>';

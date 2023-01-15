@@ -60,21 +60,27 @@ function recursion(int|null $parent): void {
         </nav>
     </div>
     <div>
-        Someting dummy.
+        <?php
+            if (isset($_GET['category'])) {
+                $data = Product::get_by_category($_GET['category']);
+                $products = $data['result'];
+                $total_rows = $data['result_amt'];
+                if ($total_rows == 0) {
+                    echo '<p><b>Selected category doesn\' have content!</b></p>';
+                    echo '<p>Please select another category.</p>';
+                }
+                foreach($products as $product) { ?>
+                    <div>
+                        <p><?= $product->title ?></p>
+                        <form >
+
+                        </form>
+                    </div>
+                <?php }
+            } else {
+                echo '<p><b>Welcome in the shop!</b></p>';
+                echo '<p>First select category.</p>';
+            }
+        ?>
     </div>
 </div>
-<!-- <div class="content">
-    <p>Your current balance: <span id="amount"><?php //echo getMoney(); ?>$</span></p>
-    <p>Selected color: <span id="color"></span></p>
-    <div class="shop">
-        <div class="slides" style="background-color:red"></div>
-        <div class="slides" style="background-color:yellow"></div>
-        <div class="slides" style="background-color:green"></div>
-        <div class="slides" style="background-color:blue"></div>
-    </div>
-    <div class="buttons">
-        <button onclick="plusDivs(-1)">&#10094;</button>
-        <button id="select"></button>
-        <button onclick="plusDivs(1)">&#10095;</button>
-    </div>
-</div> -->

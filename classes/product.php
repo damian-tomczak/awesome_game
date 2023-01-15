@@ -126,5 +126,12 @@ class Product {
         }
         return (array('result' => $result, 'result_amt' => $result_amt));
     }
+
+    /**
+     * Returns full price for the product
+     */
+    public function get_price_with_taxes(): int {
+        return $this->netto_price * $this->tax/100;
+    }
 }
 ?>

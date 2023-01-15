@@ -23,6 +23,7 @@
                     </div>
                     <div class="logo right">
                         <a href="../game/index.php"><input type="submit" value="PlayGame"></a>
+                        <a href="../game/index.php?action=shop/index.php"><input type="submit" value="Shop"></a>
                         <a href="../logout.php"><input type="submit" value="Logout"></a>
                     </div>
                 </th>

@@ -3,12 +3,33 @@
  * Class to handle Users
  */
 class User {
+    // Properties
+    /**
+     * @var int User ID
+     */
     public $id = null;
+    /**
+     * @var string User username
+     */
     public $username = null;
+    /**
+     * @var string User email
+     */
     public $email = null;
+    /**
+     * @var bool Indicates if the user is the admin
+     */
     public $is_admin = null;
+    /**
+     * @var int User money to spend
+     */
     private $money = null;
 
+    /**
+     * Sets the object's properties using the values in the supplied array
+     *
+     * @param assoc The property values
+     */
     public function __construct(array $data) {
         if (isset($data['id'] )) $this->id = (int) $data['id'];
         if (isset($data['username'])) $this->username = $data['username'];
@@ -17,6 +38,14 @@ class User {
         if (isset($data['money'])) $this->money = (int) $data['money'];
     }
 
+    /**
+     * Handling login
+     * 
+     * @param string User username
+     * @param string User password
+     * 
+     * @return object|array Returns User object or array of errors
+     */
     static public function login(string $username, string $password): User|array {
         $errors = array();
 
@@ -57,10 +86,21 @@ class User {
         return $errors;
     }
 
+    /**
+     * Handling registration
+     * 
+     * @param string User email
+     * @param string User username
+     * @param string User password
+     * @param string User repeated password
+     * 
+     * @return array empty or no array of errors
+     */
     static public function register(string $email,
         string $username,
         string $password,
-        $confirm_password): bool|array {
+        string $confirm_password): array
+    {
         $errors = array();
 
         $email = trim($email);
@@ -143,6 +183,9 @@ class User {
         return $errors;
     }
 
+    /**
+     * @return int user's money
+     */
     function get_money(): int {
         return $this->money;
     }

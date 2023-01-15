@@ -39,7 +39,7 @@ class Newsletter {
      *
      * @param assoc The property values
      */
-    public function __construct($data=array()) {
+    public function __construct(array $data) {
         if (isset($data['id'] )) $this->id = (int) $data['id'];
         if (isset($data['publication_date'])) $this->publication_date = (int) $data['publication_date'];
         if (isset($data['title'])) $this->title = preg_replace("/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['title']);

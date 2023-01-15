@@ -3,7 +3,8 @@
     include 'header.php';
     $menu = MENU::NEWS;
     include 'nav.php';
-    require_once 'classes/newsletter.php'
+    require_once 'classes/dbConn.php';
+    require_once 'classes/newsletter.php';
 ?>
 <div id="content">
 <?php

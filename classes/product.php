@@ -97,8 +97,8 @@ class Product {
         $st->execute();
         $list = array();
         while ($row = $st->fetch()) {
-            $category = new Product($row);
-            $list[] = $category;
+            $product = new Product($row);
+            $list[] = $product;
         }
         $sql = 'SELECT FOUND_ROWS() AS total_rows';
         $total_rows = $conn->query($sql)->fetch();

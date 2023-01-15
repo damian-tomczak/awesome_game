@@ -70,9 +70,9 @@ class Newsletter {
      * Returns an News object matching the given news ID
      *
      * @param int The news ID
-     * @return Newsletter|false The Newsletter object, or false if the record was not found or there was a problem
+     * @return Newsletter|bool The Newsletter object, or false if the record was not found or there was a problem
     */
-    public static function getById($id) {
+    public static function getById($id): Newsletter|bool {
         $conn = DBConn::get();
         $sql = "SELECT *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter WHERE id = :id LIMIT 1";
         $st = $conn->prepare($sql);

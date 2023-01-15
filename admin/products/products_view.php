@@ -86,25 +86,25 @@ $total_rows = $data['total_rows'];
             <tr>
                 <td><?= $product->id ?></td>
                 <td><?= $product->title ?></td>
-                <td><?= $product->description ?></td>
-                <td><?= $product->publication_date ?></td>
-                <td><?= $product->modification_date ?></td>
-                <td><?= $product->expire_date ?></td>
+                <td><?= (($product->description == null) ? 'NULL' : $product->description) ?></td>
+                <td><?= date('j F Y', $product->publication_date) ?></td>
+                <td><?= date('j F Y', $product->modification_date) ?></td>
+                <td><?= (($product->expire_date == null) ? 'NULL' : date('j F Y', $product->expire_date)) ?></td>
                 <td><?= $product->netto_price ?></td>
                 <td><?= $product->tax ?></td>
-                <td><?= $product->availability_amount ?></td>
+                <td><?= (($product->availability_amount == null) ? 'NULL' : $product->availability_amount) ?></td>
                 <td><?= $product->availability_status ?></td>
                 <td><?= $product->category_id ?></td>
-                <td><?= $product->size ?></td>
+                <td><?= (($product->size == null) ? $product->size : 'NULL') ?></td>
                 <td><?= $product->file_id ?></td>
                 <td>
                     <form action=".?action=products/manage_products.php&do=delete" method="POST">
                         <input type="hidden" name="id" value="<?= $product->id?>">
-                        <input type="submit" value="Delete category">
+                        <input type="submit" value="Delete product">
                     </form>
                     <form action=".?action=category/manage_categories.php&do=edit" method="POST">
                         <input type="hidden" name="id" value="<?= $product->id?>">
-                        <input type="submit" value="Edit category">
+                        <input type="submit" value="Edit product">
                     </form>
                 </td>
             </tr>

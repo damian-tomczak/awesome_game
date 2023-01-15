@@ -4,17 +4,17 @@ $do = isset($_GET['do']) ? htmlspecialchars($_GET['do']) : '';
 switch ($do) {
 case 'add':
     add();
-    require_once 'categories_view.php';
+    view();
     break;
 case 'delete':
     delete();
-    require_once 'categories_view.php';
+    view();
     break;
 case 'edit':
     edit();
     break;
 default:
-    require_once 'categories_view.php';
+    view();
     break;
 }
 
@@ -63,5 +63,9 @@ function edit(): void {
     } else {
         die(DEFAULT_ERROR);
     }
+}
+
+function view(): void {
+    require_once 'categories_view.php';
 }
 ?>

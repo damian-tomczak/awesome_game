@@ -28,11 +28,19 @@ function parent_name(int|null $parent_id): string {
     echo "<p>$total_rows news displayed</p>";
     ?>
     <hr>
-    <form action="add_category.php" method="post">
-        <p>Parent: <input type="text" name="parent"></p>
-        <p>Name: <input type="text" name="name"></p>
-        <p><input type="submit" value="Add new category"></p>
-    </form>
+    <div class="add">
+        <form>
+            <p>
+                <label>Parent:</label>
+                <input type="text" name="parent">
+            </p>
+            <p>
+                <label>Name:</label>
+                <input type="text" name="name">
+            </p>
+            <p><input type="submit" value="Add new category"></p>
+        </form>
+    </div>
     <div class="main">
         <table>
             <tr>

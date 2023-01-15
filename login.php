@@ -1,4 +1,7 @@
 <?php
+require_once 'config.php';
+require_once 'classes/dbConn.php';
+require_once 'classes/user.php';
 include 'header.php';
 $menu = MENU::LOGIN;
 
@@ -84,43 +87,16 @@ if ($_POST) {
         }
     } elseif (isset($_POST["login"])) {
         $post_action = "login";
-        if (empty(trim($_POST["username"]))) {
-            $username_err = "Please enter username.";
-        } else {
-            $username = trim($_POST["username"]);
-        }
-
-        if (empty(trim($_POST["password"]))) {
-            $password_err = "Please enter your password.";
-        } else {
-            $password = trim($_POST["password"]);
-        }
-
-        if (empty($username_err) && empty($password_err)) {
-            $sql = "SELECT id, username, password, is_admin FROM users WHERE username = :username LIMIT 1";
-            $st = $conn->prepare($sql);
-            $st->bindValue(":username", $username, PDO::PARAM_STR);
-            if($st->execute()) {
-                if($st->rowCount() == 1) {
-                    $row = $st->fetch();
-                    if (password_verify($password, $row["password"])) {
-                        $_SESSION["loggedin"] = true;
-                        $_SESSION["id"] = $row["id"];
-                        $_SESSION["username"] = $row["username"];
-                        $_SESSION["admin"] = $row["is_admin"];
-                        if ($_SESSION["admin"]) {
-                            header("location: admin/index.php");
-                        } else {
-                            header("location: game/index.php");
-                        }
-                    } else {
-                        $login_err = "Invalid username or password.";
-                    }
-                } else {
-                    $login_err = "Invalid username or password.";
-                }
+        $user = User::create($_POST['username'], $_POST['password']);
+        if (is_valid($user)) {
+            $_SESSION["loggedin"] = true;
+            $_SESSION["id"] = $user->id;
+            $_SESSION["username"] = $user->username;
+            $_SESSION["admin"] = $user->is_admin;
+            if ($_SESSION["admin"]) {
+                header("location: admin/index.php");
             } else {
-                $other_err = "Oops! Something went wrong. Please try again later.";
+                header("location: game/index.php");
             }
         }
     }
@@ -160,21 +136,7 @@ include 'nav.php';
 </div>
 <?php
 include 'footer.php';
-
-$message = ((!empty($username_err)) ? "$username_err\\n" : '') .
-    ((!empty($password_err)) ? "$password_err\\n" : '') .
-    ((!empty($login_err)) ? "$login_err\\n" : '').
-    ((!empty($confirm_password_err)) ? "$confirm_password_err\\n" : '').
-    ((!empty($email_err)) ? "$email_err\\n" : '').
-    ((!empty($other_err)) ? "$other_err\\n" : '');
-if(!empty($message)) {
-    echo '<script>';
-    echo '$(document).ready(function() {';
-    echo "alert('Failed to $post_action due to: $message');";
-    echo '});';
-    echo '</script>';
-}
-else if ($register_success) {
+if (isset($register_success) && $register_success) {
     echo '<script>';
     echo '$(document).ready(function() {';
     echo "alert('Registration successfully completed\\nYou may login now!');";

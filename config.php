@@ -8,14 +8,30 @@ define("DB_USERNAME", "root");
 define("DB_PASSWORD", "");
 define("DEFAULT_NUM_NEWS", 5);
 
-$conn = null;
-try {
-    $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-} catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+function copyright_message(): string {
+    return "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " . $_SERVER['HTTP_HOST'];
 }
 
-function copyright_message() {
-    return "&copy; 2022" . ((date('Y') != "2022") ? ("-" . date('Y')) : ("")) . " " . $_SERVER['HTTP_HOST'];
+function is_valid(object|array $returned): bool {
+    if (gettype($returned) == 'array') {
+        $message = "";
+        foreach ($returned as $error) {
+            $message .= $error . '\\n';
+        }
+        message($message);
+        return false;
+    }
+    return true;
+}
+
+function message(string $message, bool $is_error = true): void {
+    if ($is_error) {
+        $message = "Failure: " . $message;
+    }
+    echo '<script>';
+    echo '$(document).ready(function() {';
+    echo "alert(\"$message\");";
+    echo '});';
+    echo '</script>';
 }
 ?>

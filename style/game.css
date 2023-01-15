@@ -125,12 +125,10 @@ html, body {
 .slides {
   display: none;
 }
-
 .navbar {
   overflow: hidden;
   background-color: #333; 
 }
-
 .navbar a {
   float: left;
   font-size: 16px;
@@ -139,12 +137,10 @@ html, body {
   padding: 14px 16px;
   text-decoration: none;
 }
-
 .categories .subnav {
   float: left;
   overflow: hidden;
 }
-
 .categories .subnav .subnavbtn {
   font-size: 16px;  
   border: none;
@@ -155,35 +151,38 @@ html, body {
   font-family: inherit;
   margin: 0;
 }
-
-.categories .navbar a:hover, .subnav:hover .subnavbtn {
-  background-color: red;
-}
-
-.categories .subnav-content {
-  display: none;
-  position: absolute;
-  left: 0;
-  background-color: red;
-  width: 100%;
-  z-index: 1;
-}
-
-.categories .subnav-content a {
-  float: left;
-  color: white;
-  text-decoration: none;
-}
-
-.categories .subnav-content a:hover {
-  background-color: #eee;
-  color: black;
-}
-
-.categories .subnav:hover .subnav-content {
-  display: block;
-}
-
 .loginbtn {
   margin: 10px;
+}
+.menu nav ul {
+  background-color: grey;
+  padding: 8px;
+}
+.menu nav li {
+  cursor: pointer;
+  position: relative;
+  width: 8vw;
+}
+.menu nav > ul > li {
+  position: relative;
+  display: inline-block;
+}
+.menu nav > ul > li ul {
+  position: absolute;
+  display: none;
+  list-style: none;
+  padding-left: 10px;
+}
+.menu nav > ul li:hover > ul {
+  position: absolute;
+  display: block;
+}
+.menu nav > ul > li > ul li:hover::after {
+  content: '>';
+}
+.menu nav > ul > li > ul li:hover > ul {
+  position: absolute;
+  top: 0;
+  left: 94%;
+  display: block;
 }

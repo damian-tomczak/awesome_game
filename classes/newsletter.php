@@ -85,7 +85,10 @@ class Newsletter {
         $st->execute();
         $row = $st->fetch();
         $conn = null;
-        if ($row) return new Newsletter($row);
+        if ($row) {
+            return new Newsletter($row);
+        }
+        return false;
     }
 
     /**

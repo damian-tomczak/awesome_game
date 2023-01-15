@@ -18,13 +18,15 @@ class Category {
         } catch(PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
-        $sql = "SELECT * FROM categories DESC LIMIT :numRows";
+        $sql = "SELECT * FROM categories LIMIT :numRows";
 
         $st = $conn->prepare($sql);
         $st->bindValue(":numRows", $numRows, PDO::PARAM_INT);
         $st->execute();
         $list = array();
         while ($row = $st->fetch()) {
+            echo '123';
+            print_r($row);
             $category = new Category($row);
             $list[] = $category;
         }

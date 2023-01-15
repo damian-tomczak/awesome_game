@@ -1,4 +1,4 @@
-<?php require_once 'config.php';
+<?php
 enum Menu {
     case LOGIN;
     case NEWS;

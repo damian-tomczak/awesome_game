@@ -121,8 +121,9 @@ class Category {
 
   /**
   * Updates the current Category object in the database.
+  * 
+  * @return bool indicates a success or a failure in creation of the object
   */
-
   public function update(): bool {
     if (is_null($this->id)) trigger_error('Category::update(): Attempt to update an Category object
         that does not have its ID property set.', E_USER_ERROR );

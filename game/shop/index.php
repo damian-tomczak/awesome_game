@@ -31,7 +31,8 @@ function recursion(int|null $parent): void {
     {
         if ($category->parent == $parent) {
             $condition = has_parent($category->id);
-            echo '<li>' . $category->name;
+            echo '<li>';
+            echo '<a href=".?action=shop/index.php&category=' . $category->id . '">' . $category->name . '</a>';
             if ($condition) {
                 echo '<ul>';
             }

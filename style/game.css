@@ -154,9 +154,11 @@ html, body {
 .loginbtn {
   margin: 10px;
 }
+.menu a:hover, .menu a:visited, .menu a:link, .menu a:active {
+  color: white;
+}
 .menu nav ul {
   background-color: #333;
-  color: white;
   padding: 8px;
 }
 .menu nav li {

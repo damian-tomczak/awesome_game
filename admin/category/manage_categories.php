@@ -57,10 +57,21 @@ function delete(): void {
  * Helper edit CMS
  */
 function edit(): void {
-    if (isset($_POST['id'])) {
+    if (isset($_POST['id']) && !isset($_POST['name']) && !isset($_POST['parent'])) {
         $selected = Category::get_by_id($_POST['id']);
         require_once('edit_view.php');
-    } else {
+    } else if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['parent'])) {
+        $selected = Category::get_by_id($_POST['id']);
+        $selected->parent = $_POST['parent'];
+        $selected->name = $_POST['name'];
+        if ($selected->update()) {
+            message("Object updated", false);
+        } else {
+            message("Object wasn't updated");
+        }
+        view();
+    }
+    else {
         die(DEFAULT_ERROR);
     }
 }

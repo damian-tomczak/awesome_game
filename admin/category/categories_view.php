@@ -41,7 +41,7 @@ $total_rows = $data['total_rows'];
                     <?php
                         $parent_name = 'WITHOUT PARENT';
                         foreach ($categories as $parent) {
-                            if ($parent->id == $category->id) {
+                            if ($parent->id == $category->parent) {
                                 $parent_name = $parent->name;
                             }
                         }

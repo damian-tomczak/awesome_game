@@ -118,5 +118,27 @@ class Category {
         DBConn::close();
         return true;
     }
+
+  /**
+  * Updates the current Category object in the database.
+  */
+
+  public function update(): bool {
+    if (is_null($this->id)) trigger_error('Category::update(): Attempt to update an Category object
+        that does not have its ID property set.', E_USER_ERROR );
+
+    $conn = DBConn::get();
+    $sql = 'UPDATE categories SET parent=:parent, name=:name WHERE id = :id';
+    $st = $conn->prepare($sql);
+    $st->bindValue(':parent', $this->parent, PDO::PARAM_STR);
+    $st->bindValue(':name', $this->name, PDO::PARAM_STR);
+    $st->bindValue(':id', $this->id, PDO::PARAM_INT);
+    if (!$st->execute()) {
+        return false;
+    }
+    DBConn::close();
+    return true;
+  }
+
 }
 ?>

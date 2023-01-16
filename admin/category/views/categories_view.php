@@ -7,25 +7,7 @@ $total_rows = $data['total_rows'];
 <td colspan="2">
     <?= "<p>$total_rows categories displayed</p>"; ?>
     <hr>
-    <div class="form">
-        <form action=".?action=category/manage_categories.php&do=add" method="POST">
-            <p>
-                <label>Parent:</label>
-                <select name="parent">
-                    <?php
-                        foreach($categories as $category) {
-                            echo '<option value="' . $category->id . '">' . $category->name . '</option>';
-                        }
-                    ?>
-                </select>
-            </p>
-            <p>
-                <label>Name:</label>
-                <input type="text" name="name">
-            </p>
-            <p><input type="submit" value="Add new category"></p>
-        </form>
-    </div>
+    <?php require 'add_view.php' ?>
     <div class="main">
         <table>
             <tr>

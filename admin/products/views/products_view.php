@@ -40,7 +40,7 @@ $files = $data['result'];
                 <td><?= $product->expire_date != null ? date('j F Y', $product->expire_date) : 'NULL' ?></td>
                 <td><?= $product->netto_price ?></td>
                 <td><?= $product->tax ?></td>
-                <td><?= $product->availability_amount != null ? $product->availability_amount : 'NULL' ?></td>
+                <td><?= $product->availability_amt != null ? $product->availability_amt : 'NULL' ?></td>
                 <td><?= $product->availability_status ?></td>
                 <td><?= $product->category_id ?></td>
                 <td><?= $product->size != null ? $product->size : 'NULL' ?></td>

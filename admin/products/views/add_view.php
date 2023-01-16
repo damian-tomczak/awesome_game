@@ -22,7 +22,7 @@
             </p>
             <p>
                 <label>Availability amount:</label>
-                <input type="text" name="availability_amount">
+                <input type="text" name="availability_amt">
             </p>
             <p>
                 <label>Availability status:</label>

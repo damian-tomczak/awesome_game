@@ -39,7 +39,7 @@ class Product {
     /**
      * @var int products amount
      */
-    public $availability_amount = null;
+    public $availability_amt = null;
     /**
      * @var bool product availability status
      */
@@ -71,7 +71,7 @@ class Product {
         if (isset($data['expire_date'])) $this->expire_date = $data['expire_date'];
         if (isset($data['netto_price'])) $this->netto_price = $data['netto_price'];
         if (isset($data['tax'])) $this->tax = $data['tax'];
-        if (isset($data['availability_amount'])) $this->availability_amount = $data['availability_amount'];
+        if (isset($data['availability_amt'])) $this->availability_amt = $data['availability_amt'];
         if (isset($data['availability_status'])) $this->availability_status = $data['availability_status'];
         if (isset($data['category_id'])) $this->category_id = $data['category_id'];
         if (isset($data['size'])) $this->size = $data['size'];
@@ -154,6 +154,42 @@ class Product {
             return new Product($row);
         }
         return false;
+    }
+
+    public function store_form_values($params) {
+        $this->__construct($params);
+    }
+
+    /**
+     * Inserts the current product object into the database, and sets its ID property.
+     * 
+     * @return int indicates the success or failure inserting the row into the database
+    */
+    public function insert(): bool {
+        if (!is_null($this->id))
+            trigger_error('Product::insert(): Attempt to insert an product object that already
+                has its ID property set (to $this->id).', E_USER_ERROR);
+        $conn = DBConn::get();
+        $sql = 'INSERT INTO products (parent, name) VALUES (:parent, :name)';
+        $st = $conn->prepare ( $sql );
+        $st->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $st->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $st->bindValue(':publication_date', $this->, PDO::PARAM_);
+        $st->bindValue(':modification_date', $this->, PDO::PARAM_);
+        $st->bindValue(':expire_date', $this->, PDO::PARAM_);
+        $st->bindValue(':netto_price', $this->, PDO::PARAM_);
+        $st->bindValue(':tax', $this->, PDO::PARAM_);
+        $st->bindValue(':availability_amt', $this->, PDO::PARAM_);
+        $st->bindValue(':availability_status', $this->, PDO::PARAM_);
+        $st->bindValue(':category_id', $this->, PDO::PARAM_);
+        $st->bindValue(':size', $this->, PDO::PARAM_);
+        $st->bindValue(':file_id', $this->, PDO::PARAM_);
+        if (!$st->execute()) {
+            return false;
+        }
+        $this->id = $conn->lastInsertId();
+        DBConn::close();
+        return true;
     }
 }
 ?>

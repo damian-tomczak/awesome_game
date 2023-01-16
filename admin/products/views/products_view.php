@@ -2,70 +2,16 @@
 $data = Product::get_list();
 $products = $data['result'];
 $total_rows = $data['total_rows'];
+$data = Category::get_list();
+$categories = $data['result'];
+$data = File::get_list();
+$files = $data['result'];
 
 ?>
 <td colspan="2">
     <?= "<p>$total_rows products displayed</p>"; ?>
     <hr>
-    <div class="form">
-        <form action=".?action=products/manage_products.php&do=add" method="POST">
-            <p>
-                <label>Title:</label>
-                <input type="text" name="name">
-            </p>
-            <p>
-                <label>Description:</label>
-                <input type="text" name="description">
-            </p>
-            <p>
-                <label>Publication date:</label>
-                <input type="text" name="publication_date">
-            </p>
-            <p>
-                <label>Modification date:</label>
-                <input type="text" name="modification_date">
-            </p>
-            <p>
-                <label>Expire date:</label>
-                <input type="text" name="expire_date">
-            </p>
-            <p>
-                <label>Netto price:</label>
-                <input type="text" name="netto_price">
-            </p>
-            <p>
-                <label>Tax:</label>
-                <input type="text" name="tax">
-            </p>
-            <p>
-                <label>Availability amount:</label>
-                <input type="text" name="availability_amount">
-            </p>
-            <p>
-                <label>Availability status:</label>
-                <input type="text" name="Availability status">
-            </p>
-            <p>
-                <label>Category:</label>
-                <input type="text" name="category_id">
-            </p>
-            <p>
-                <label>Size:</label>
-                <input type="text" name="size">
-            </p>
-            <p>
-                <label>File:</label>
-                <input type="text" name="file">
-            </p>
-            <p>
-                <label>Name:</label>
-                <input type="text" name="name">
-            </p>
-            <p>
-                <input type="submit" value="Add new product">
-            </p>
-        </form>
-    </div>
+    <?php require 'add_view.php' ?>
     <div class="main">
         <table>
             <tr>

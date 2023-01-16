@@ -73,7 +73,9 @@ if (isset($_POST['add_product_id'])) {
                 echo '<p class="bold">Selected category doesn\' have content!</p>';
                 echo '<p>Please select another category.</p>';
             }
-            foreach($products as $product) { ?>
+            foreach($products as $product) {
+                if ($product->availability_status) {
+    ?>
                 <div class="product">
                     <p><a href="?action=shop/index.php&product_id=<?= $product->id ?>&category_id=<?= $_GET['category_id']?>"><?= $product->title ?></a></p>
                     <p><?= $product->get_price_with_taxes() ?>$</p>
@@ -84,7 +86,9 @@ if (isset($_POST['add_product_id'])) {
                         <input type="submit" value="Add to cart">
                     </form>
                 </div>
-            <?php }
+    <?php
+                }
+            }
         } else {
             echo '<p class="bold">Welcome in the shop!</p>';
             echo '<p>First select category.</p>';

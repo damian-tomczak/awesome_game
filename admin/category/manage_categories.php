@@ -1,4 +1,4 @@
-<?php require '../classes/category.php';
+<?php
 
 $do = isset($_GET['do']) ? htmlspecialchars($_GET['do']) : '';
 switch ($do) {

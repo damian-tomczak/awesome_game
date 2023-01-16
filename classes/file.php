@@ -17,11 +17,16 @@ class File {
      * @var blob The blob data from the database
      */
     public $data = null;
+    /**
+     * @var string The file name
+     */
+    public $name = null;
 
     public function __construct(array $data) {
         if (isset($data['id'] )) $this->id = (int) $data['id'];
         if (isset($data['mime'])) $this->mime = $data['mime'];
         if (isset($data['data'])) $this->data = $data['data'];
+        if (isset($data['name'])) $this->name = $data['name'];
     }
 
     /**
@@ -72,7 +77,7 @@ class File {
         $st->execute();
         $list = array();
         while ($row = $st->fetch()) {
-            $product = new Product($row);
+            $product = new File($row);
             $list[] = $product;
         }
         $sql = 'SELECT FOUND_ROWS() AS total_rows';

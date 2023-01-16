@@ -1,24 +1,28 @@
 <?php
     if (isset($_POST['clear_cart'])) {
-        $_POST['cart']->clear();
-        message("Your cart has been cleared", false);
+        $_SESSION['cart']->clear();
+        message("Your shopping cart has been cleared", false);
     }
-    if (isset($_POST['modify'])) {
-        $selected_item = null;
-        foreach($_SESSION['cart']->items as $item) {
-            if ($item->product->id == $_POST['id']) {
-                $selected_item = $item;
-            }
-        }
-        if ($selected_item == null) {
+    if (isset($_POST['increase']) || isset($_POST['decrease'])) {
+        $selected_item = $_SESSION['cart']->get_item_by_product_id($_POST['id']);
+        if ($selected_item === null) {
             die(DEFAULT_ERROR);
         }
-        if ($_POST['modify'] == 'increase') {
+        if (isset($_POST['increase'])) {
             $selected_item->increase_amt();
-            message('Increase with success', false);
-        } elseif ($_POST['modify'] == 'decrease') {
-            $selected_item->decrease_amt();
-            message('Decrease with success', false);
+            message('Shopping cart updated', false);
+        } elseif (isset($_POST['decrease'])) {
+            if ($selected_item->decrease_amt()) {
+                message('Shopping cart updated', false);
+            } else {
+                message('Shopping cart couldn\' be updated');
+            }
+        }
+    } elseif (isset($_POST['delete'])) {
+        if ($_SESSION['cart']->remove_item_by_product_id($_POST['id'])) {
+            message('Shopping cart updated', false);
+        } else {
+            message('Shopping cart couldn\' be updated');
         }
     }
 ?>
@@ -47,13 +51,15 @@
                 <td>
                     <form action=".?action=shop/cart.php" method="POST">
                         <input type="hidden" name="id" value="<?= $item->product->id ?>">
-                        <input type="hidden" name="modify" value="increase">
-                        <input type="submit" value="Increase amount">
+                        <input type="submit" name="increase" value="Increase amount">
                     </form>
                     <form action=".?action=shop/cart.php" method="POST">
                         <input type="hidden" name="id" value="<?= $item->product->id ?>">
-                        <input type="hidden" name="modify" value="decrease">
-                        <input type="submit" value="Decrease amount">
+                        <input type="submit" name="decrease" value="Decrease amount">
+                    </form>
+                    <form action=".?action=shop/cart.php" method="POST">
+                        <input type="hidden" name="id" value="<?= $item->product->id ?>">
+                        <input type="submit" name="delete" value="Delete item">
                     </form>
                 </td>
             </tr>
@@ -63,7 +69,7 @@
     <div>
         <p>Cart price: <?= $_SESSION['cart']->get_full_price() ?></p>
         <form action=".?action=shop/cart.php" method="POST">
-            <input type="submit" name="buy_cart" value="buy"></a>
+            <input type="submit" name="buy_cart" value="Buy"></a>
             <input type="submit" name="clear_cart" value="Clear shopping cart">
         </form>
     </div>

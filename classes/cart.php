@@ -38,11 +38,15 @@ class CartItem {
      * Decreases the amount of products in cart item
      * 
      * @param ?int Optional a decrease value (Default=1)
+     * 
+     * @return bool indicates a success or a failure
      */
-    public function decrease_amt(?int $value=1): void {
+    public function decrease_amt(?int $value=1): bool {
         if (($this->amt - $value) > 0) {
             $this->amt -= $value;
+            return true;
         }
+        return false;
     }
 }
 
@@ -90,7 +94,7 @@ class Cart {
     /**
      * Returns the cart price with taxes
      * 
-     * @return flaot The cart price with taxes
+     * @return float The cart price with taxes
      */
     public function get_full_price(): float {
         $result = 0.0;
@@ -98,6 +102,40 @@ class Cart {
             $result += $item->product->get_price_with_taxes() * $item->get_amt();
         }
         return $result;
+    }
+
+    /**
+     * Returns a product by passing a id
+     * 
+     * @param int A product id you are looking for it in the cart
+     * 
+     * @return CartItem The CartItem you are looking for
+     */
+    public function get_item_by_product_id(int $id): CartItem|null {
+        $result = null;
+        foreach($this->items as $item) {
+            if ($item->product->id == $id) {
+                $result = $item;
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * Removes a product from the cart by passing its id
+     * 
+     * @param int The product id you are looking for it in the cart
+     * 
+     * @return bool Indicates success or failure of the function
+     */
+    public function remove_item_by_product_id(int $id): bool {
+        foreach($this->items as $key => $item) {
+            if ($item->product->id == $id) {
+                unset($this->items[$key]);
+                return true;
+            }
+        }
+        return false;
     }
 }
 

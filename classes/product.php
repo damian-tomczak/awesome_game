@@ -166,30 +166,47 @@ class Product {
      * @return int indicates the success or failure inserting the row into the database
     */
     public function insert(): bool {
-        if (!is_null($this->id))
-            trigger_error('Product::insert(): Attempt to insert an product object that already
-                has its ID property set (to $this->id).', E_USER_ERROR);
-        $conn = DBConn::get();
-        $sql = 'INSERT INTO products (parent, name) VALUES (:parent, :name)';
-        $st = $conn->prepare ( $sql );
-        $st->bindValue(':title', $this->title, PDO::PARAM_STR);
-        $st->bindValue(':description', $this->description, PDO::PARAM_STR);
-        $st->bindValue(':publication_date', $this->, PDO::PARAM_);
-        $st->bindValue(':modification_date', $this->, PDO::PARAM_);
-        $st->bindValue(':expire_date', $this->, PDO::PARAM_);
-        $st->bindValue(':netto_price', $this->, PDO::PARAM_);
-        $st->bindValue(':tax', $this->, PDO::PARAM_);
-        $st->bindValue(':availability_amt', $this->, PDO::PARAM_);
-        $st->bindValue(':availability_status', $this->, PDO::PARAM_);
-        $st->bindValue(':category_id', $this->, PDO::PARAM_);
-        $st->bindValue(':size', $this->, PDO::PARAM_);
-        $st->bindValue(':file_id', $this->, PDO::PARAM_);
-        if (!$st->execute()) {
-            return false;
-        }
-        $this->id = $conn->lastInsertId();
-        DBConn::close();
+        // if (!is_null($this->id))
+        //     trigger_error('Product::insert(): Attempt to insert an product object that already
+        //         has its ID property set (to $this->id).', E_USER_ERROR);
+        // $conn = DBConn::get();
+        // $sql = 'INSERT INTO products (parent, name) VALUES (:parent, :name)';
+        // $st = $conn->prepare ( $sql );
+        // $st->bindValue(':title', $this->title, PDO::PARAM_STR);
+        // $st->bindValue(':description', $this->description, PDO::PARAM_STR);
+        // $st->bindValue(':publication_date', $this->, PDO::PARAM_);
+        // $st->bindValue(':modification_date', $this->, PDO::PARAM_);
+        // $st->bindValue(':expire_date', $this->, PDO::PARAM_);
+        // $st->bindValue(':netto_price', $this->, PDO::PARAM_);
+        // $st->bindValue(':tax', $this->, PDO::PARAM_);
+        // $st->bindValue(':availability_amt', $this->, PDO::PARAM_);
+        // $st->bindValue(':availability_status', $this->, PDO::PARAM_);
+        // $st->bindValue(':category_id', $this->, PDO::PARAM_);
+        // $st->bindValue(':size', $this->, PDO::PARAM_);
+        // $st->bindValue(':file_id', $this->, PDO::PARAM_);
+        // if (!$st->execute()) {
+        //     return false;
+        // }
+        // $this->id = $conn->lastInsertId();
+        // DBConn::close();
         return true;
+    }
+
+    /**
+     * Checks conditions if the product should be displayed for the user
+     * 
+     * @return bool The answer to the question if the product should be displayed
+     */
+    public function should_be_displayed(): bool {
+        if ($this->availability_status) {
+            if (!$this->expire_date) {
+                return true;
+            } elseif (strtotime($this->expire_date) > strtotime('now')) {
+                return true;
+            }
+
+        }
+        return false;
     }
 }
 ?>

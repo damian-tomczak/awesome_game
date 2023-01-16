@@ -74,13 +74,13 @@ if (isset($_POST['add_product_id'])) {
                 echo '<p>Please select another category.</p>';
             }
             foreach($products as $product) {
-                if ($product->availability_status) {
+                if ($product->should_be_displayed()) {
     ?>
                 <div class="product">
                     <p><a href="?action=shop/index.php&product_id=<?= $product->id ?>&category_id=<?= $_GET['category_id']?>"><?= $product->title ?></a></p>
                     <p><?= $product->get_price_with_taxes() ?>$</p>
                     <?php File::get_by_id($product->file_id)->print(75, 75) ?>
-                    <?php $action = '.?action=shop/index.php&category=' . $_GET['category_id'] ?>
+                    <?php $action = '.?action=shop/index.php&category_id=' . $_GET['category_id'] ?>
                     <form action="<?= $action ?>" method="POST">
                         <input type="hidden" name="add_product_id" value="<?= $product->id ?>">
                         <input type="submit" value="Add to cart">

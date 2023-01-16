@@ -6,7 +6,15 @@
 class CartItem {
     //Properties
     public $product = null;
-    public $count = null;
+    private $count = null;
+
+    /**
+     * @param Product product to assoc
+     */
+    public function __construct(Product $product) {
+        $this->product = $product;
+        $this->count = 0;
+    }
 }
 
 /**
@@ -17,7 +25,7 @@ class Cart {
     /**
      * @var array Array contains cart's items
      */
-    private $items = null;
+    public $items = null;
 
     public function __construct() {
         $this->items = array();
@@ -29,15 +37,6 @@ class Cart {
     public function clear(): void {
         unset($this->items);
         $this->items = array();
-    }
-
-    /**
-     * Returns content of the cart
-     * 
-     * @return array items
-     */
-    public function get_items(): array {
-        return $this->items;
     }
 
     /**
@@ -55,7 +54,7 @@ class Cart {
                 }
             }
         }
-        $this->items[] = new CartItem($product, 0);
+        $this->items[] = new CartItem($product);
         return true;
     }
 

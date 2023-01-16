@@ -13,10 +13,11 @@
         if ($selected == null) {
             die(DEFAULT_ERROR);
         }
-        $selected->count++;
         if ($_POST['modify'] == 'increase') {
+            $selected->count++;
             message('Increase with success', false);
         } elseif ($_POST['modify'] == 'decrease') {
+
             message('Decrease with success', false);
         }
     }
@@ -26,6 +27,7 @@
     Shopping cart
 </div>
 <div class="content">
+    <?php if (!empty($_SESSION['cart']->items)) {?>
     <div class="main">
         <table>
             <tr>
@@ -34,7 +36,8 @@
                 <th>Amount</th>
                 <th>Modify</th>
             </tr>
-            <?php foreach($_SESSION['cart']->get_items() as $item) {?>
+            <?php
+                foreach($_SESSION['cart']->items as $item) {?>
             <tr>
                 <td><?= $item->product->title ?></p>
                 <td><?= $item->product->get_full_price() ?></td>
@@ -62,4 +65,7 @@
             <input type="submit" name="clear_cart" value="Clear shopping cart">
         </form>
     </div>
+    <?php } else { ?>
+        <p class="bold">Your shopping cart is empty!</p>
+    <?php  } ?>
 </div>

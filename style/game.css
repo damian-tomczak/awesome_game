@@ -205,7 +205,13 @@ html, body {
   border-collapse: collapse;
   width: 100%;
 }
-.main td, .main th {
+.main th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  font-weight: bold;
+}
+.main td{
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;

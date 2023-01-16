@@ -2,7 +2,6 @@
 require_once '../config.php';
 require_once '../classes/dbConn.php';
 require_once '../classes/user.php';
-require_once '../classes/shop.php';
 require_once '../classes/category.php';
 require_once '../classes/product.php';
 require_once '../classes/file.php';

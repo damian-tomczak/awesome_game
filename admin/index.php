@@ -1,6 +1,8 @@
 <?php
+    require_once '../config.php';
     include '../classes/dbConn.php';
     include '../classes/user.php';
+    require '../classes/product.php';
     include 'header.php';
     include 'menu.php';
     $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : 'welcome.php';

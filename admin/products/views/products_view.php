@@ -88,16 +88,16 @@ $total_rows = $data['total_rows'];
             <tr>
                 <td><?= $product->id ?></td>
                 <td><?= $product->title ?></td>
-                <td><?= (($product->description == null) ? 'NULL' : $product->description) ?></td>
+                <td><?= $product->description != null ? $product->description : 'NULL' ?></td>
                 <td><?= date('j F Y', $product->publication_date) ?></td>
                 <td><?= date('j F Y', $product->modification_date) ?></td>
-                <td><?= (($product->expire_date == null) ? 'NULL' : date('j F Y', $product->expire_date)) ?></td>
+                <td><?= $product->expire_date != null ? date('j F Y', $product->expire_date) : 'NULL' ?></td>
                 <td><?= $product->netto_price ?></td>
                 <td><?= $product->tax ?></td>
-                <td><?= (($product->availability_amount == null) ? 'NULL' : $product->availability_amount) ?></td>
+                <td><?= $product->availability_amount != null ? $product->availability_amount : 'NULL' ?></td>
                 <td><?= $product->availability_status ?></td>
                 <td><?= $product->category_id ?></td>
-                <td><?= (($product->size == null) ? $product->size : 'NULL') ?></td>
+                <td><?= $product->size != null ? $product->size : 'NULL' ?></td>
                 <td><?= $product->file_id ?></td>
                 <td>
                     <form action=".?action=products/manage_products.php&do=delete" method="POST">

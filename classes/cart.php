@@ -6,14 +6,43 @@
 class CartItem {
     //Properties
     public $product = null;
-    private $count = null;
+    private $amt = null;
 
     /**
      * @param Product product to assoc
      */
     public function __construct(Product $product) {
         $this->product = $product;
-        $this->count = 0;
+        $this->amt = 1;
+    }
+
+    /**
+     * Returns amount of products;
+     * 
+     * @return int Amount of products
+     */
+    public function get_amt(): int {
+        return $this->amt;
+    }
+
+    /**
+     * Increases the amount of products in cart item
+     * 
+     * @param ?int Optional a increase value (Default=1)
+     */
+    public function increase_amt(?int $value=1): void {
+        $this->amt += $value;
+    }
+
+    /**
+     * Decreases the amount of products in cart item
+     * 
+     * @param ?int Optional a decrease value (Default=1)
+     */
+    public function decrease_amt(?int $value=1): void {
+        if (($this->amt - $value) > 0) {
+            $this->amt -= $value;
+        }
     }
 }
 
@@ -66,7 +95,7 @@ class Cart {
     public function get_full_price(): float {
         $result = 0.0;
         foreach ($this->items as $item) {
-            $result += $item->product->get_full_price();
+            $result += $item->product->get_price_with_taxes() * $item->get_amt();
         }
         return $result;
     }

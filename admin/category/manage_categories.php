@@ -59,7 +59,7 @@ function delete(): void {
 function edit(): void {
     if (isset($_POST['id']) && !isset($_POST['name']) && !isset($_POST['parent'])) {
         $selected = Category::get_by_id($_POST['id']);
-        require_once('edit_view.php');
+        require_once('views/edit_view.php');
     } else if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['parent'])) {
         $selected = Category::get_by_id($_POST['id']);
         $selected->parent = $_POST['parent'];
@@ -77,6 +77,6 @@ function edit(): void {
 }
 
 function view(): void {
-    require_once 'categories_view.php';
+    require_once 'views/categories_view.php';
 }
 ?>

@@ -1,4 +1,3 @@
-</div>
 <div class="separator second watchword">
     Launcher
 </div>

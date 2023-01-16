@@ -6,11 +6,14 @@
     if (isset($_POST['modify'])) {
         $selected = null;
         foreach($_SESSION['cart']->get_items() as $item) {
-            
+            if ($item->product->id == $_POST['id']) {
+                $selected == $item;
+            }
         }
         if ($selected == null) {
             die(DEFAULT_ERROR);
         }
+        $selected->count++;
         if ($_POST['modify'] == 'increase') {
             message('Increase with success', false);
         } elseif ($_POST['modify'] == 'decrease') {

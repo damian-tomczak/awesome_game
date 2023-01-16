@@ -6,6 +6,7 @@ require_once '../classes/shop.php';
 require_once '../classes/category.php';
 require_once '../classes/product.php';
 require_once '../classes/file.php';
+require_once '../classes/cart.php';
 session_start();
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('location: ../login.php');

@@ -51,8 +51,12 @@ function recursion(int|null $parent): void {
 </div>
 <div class="content">
     <?php
-        if (isset($_POST['added']) && $_POST['added']) {
-            echo '<p>Product addeed to the cart.</p>';
+        if (isset($_POST['add_product_id'])) {
+            if ($_SESSION['cart']->add(Product::get_by_id(htmlspecialchars($_POST['add_product_id'])))) {
+                message('Product addeed to the cart', false);
+            } else {
+                message('Product already is on the list');
+            }
         }
     ?>
     <div class="menu">
@@ -81,7 +85,7 @@ function recursion(int|null $parent): void {
                         <?php File::get_by_id($product->file_id)->print(75, 75) ?>
                         <?php $action = 'index.php?action=shop/index.php&category=' . $_GET['category'] ?>
                         <form action="<?= $action ?>" method="POST">
-                            <input type="hidden" name="added" value="1">
+                            <input type="hidden" name="add_product_id" value="<?= $product->id ?>">
                             <input type="submit" value="Add to cart">
                         </form>
                     </div>

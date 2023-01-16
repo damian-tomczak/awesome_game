@@ -135,5 +135,25 @@ class Product {
     public function get_price_with_taxes(): float {
         return $this->netto_price + ($this->netto_price * $this->tax/100.0);
     }
+
+    /**
+     * Returns an product object matching the given product ID
+     *
+     * @param int The product ID
+     * @return Product|bool The product object, or false if the record was not found or there was a problem
+    */
+    public static function get_by_id($id): Product|bool {
+        $conn = DBConn::get();
+        $sql = 'SELECT * FROM products WHERE id = :id LIMIT 1';
+        $st = $conn->prepare($sql);
+        $st->bindValue(':id', $id, PDO::PARAM_INT);
+        $st->execute();
+        $row = $st->fetch();
+        DBConn::close();
+        if ($row) {
+            return new Product($row);
+        }
+        return false;
+    }
 }
 ?>

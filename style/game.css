@@ -192,11 +192,24 @@ html, body {
 .product {
   display: inline-block;
   text-align: center;
-  background-color: pink;
+  border: 5px solid black;
   width: 200px;
   height: 200px;
   margin: 10px;
 }
 .bold {
   font-weight: bold;
+}
+.main table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.main td, .main th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+.main tr:nth-child(even) {
+  background-color: #dddddd;
 }

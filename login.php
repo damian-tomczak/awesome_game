@@ -2,6 +2,7 @@
 require_once 'config.php';
 require_once 'classes/dbConn.php';
 require_once 'classes/user.php';
+require_once 'classes/cart.php';
 include 'header.php';
 $menu = MENU::LOGIN;
 
@@ -30,6 +31,7 @@ if ($_POST) {
             $_SESSION["loggedin"] = true;
             $_SESSION["admin"] = $result->is_admin;
             $_SESSION["user"] = $result;
+            $_SESSION["cart"] = new Cart();
             if ($_SESSION["admin"]) {
                 header("location: admin/index.php");
             } else {

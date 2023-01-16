@@ -62,15 +62,15 @@ class Product {
      *
      * @param assoc The property values
      */
-    public function __construct(array $data) {
+    public function __construct(array $data=array()) {
         if (isset($data['id'] )) $this->id = (int) $data['id'];
         if (isset($data['title'])) $this->title = $data['title'];
         if (isset($data['description'])) $this->description = $data['description'];
         if (isset($data['publication_date'])) $this->publication_date = $data['publication_date'];
         if (isset($data['modification_date'])) $this->modification_date = $data['modification_date'];
         if (isset($data['expire_date'])) $this->expire_date = $data['expire_date'];
-        if (isset($data['netto_price'])) $this->netto_price = $data['netto_price'];
-        if (isset($data['tax'])) $this->tax = $data['tax'];
+        if (isset($data['netto_price'])) $this->netto_price = (float) $data['netto_price'];
+        if (isset($data['tax'])) $this->tax = (float) $data['tax'];
         if (isset($data['availability_amt'])) $this->availability_amt = $data['availability_amt'];
         if (isset($data['availability_status'])) $this->availability_status = $data['availability_status'];
         if (isset($data['category_id'])) $this->category_id = $data['category_id'];
@@ -156,8 +156,15 @@ class Product {
         return false;
     }
 
-    public function store_form_values($params) {
+    /**
+     * Sets the object's properties using the edit form post values in the supplied array
+     *
+     * @param assoc The form post values
+    */
+    public function store_form_values(mixed $params) {
         $this->__construct($params);
+        $this->publication_date = strtotime('now');
+        $this->modification_date = strtotime('now');
     }
 
     /**
@@ -166,29 +173,32 @@ class Product {
      * @return int indicates the success or failure inserting the row into the database
     */
     public function insert(): bool {
-        // if (!is_null($this->id))
-        //     trigger_error('Product::insert(): Attempt to insert an product object that already
-        //         has its ID property set (to $this->id).', E_USER_ERROR);
-        // $conn = DBConn::get();
-        // $sql = 'INSERT INTO products (parent, name) VALUES (:parent, :name)';
-        // $st = $conn->prepare ( $sql );
-        // $st->bindValue(':title', $this->title, PDO::PARAM_STR);
-        // $st->bindValue(':description', $this->description, PDO::PARAM_STR);
-        // $st->bindValue(':publication_date', $this->, PDO::PARAM_);
-        // $st->bindValue(':modification_date', $this->, PDO::PARAM_);
-        // $st->bindValue(':expire_date', $this->, PDO::PARAM_);
-        // $st->bindValue(':netto_price', $this->, PDO::PARAM_);
-        // $st->bindValue(':tax', $this->, PDO::PARAM_);
-        // $st->bindValue(':availability_amt', $this->, PDO::PARAM_);
-        // $st->bindValue(':availability_status', $this->, PDO::PARAM_);
-        // $st->bindValue(':category_id', $this->, PDO::PARAM_);
-        // $st->bindValue(':size', $this->, PDO::PARAM_);
-        // $st->bindValue(':file_id', $this->, PDO::PARAM_);
-        // if (!$st->execute()) {
-        //     return false;
-        // }
-        // $this->id = $conn->lastInsertId();
-        // DBConn::close();
+        if (!is_null($this->id))
+            trigger_error('Product::insert(): Attempt to insert an product object that already
+                has its ID property set (to $this->id).', E_USER_ERROR);
+        $conn = DBConn::get();
+        $sql = 'INSERT INTO products (title, description, publication_date, modification_date, expire_date,
+            netto_price, tax, availability_amt, availability_status, category_id, size, file_id)
+            VALUES (:title, :description, FROM_UNIXTIME(:publication_date), FROM_UNIXTIME(:modification_date), FROM_UNIXTIME(:expire_date),
+            :netto_price, :tax, :availability_amt, :availability_status, :category_id, :size, :file_id)';
+        $st = $conn->prepare ($sql);
+        $st->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $st->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $st->bindValue(':publication_date', $this->publication_date, PDO::PARAM_INT);
+        $st->bindValue(':modification_date', $this->modification_date, PDO::PARAM_INT);
+        $st->bindValue(':expire_date', $this->expire_date, PDO::PARAM_INT);
+        $st->bindValue(':netto_price', $this->netto_price, PDO::PARAM_STR);
+        $st->bindValue(':tax', $this->tax, PDO::PARAM_STR);
+        $st->bindValue(':availability_amt', $this->availability_amt, PDO::PARAM_INT);
+        $st->bindValue(':availability_status', $this->availability_status, PDO::PARAM_BOOL);
+        $st->bindValue(':category_id', $this->category_id, PDO::PARAM_INT);
+        $st->bindValue(':size', $this->size, PDO::PARAM_INT);
+        $st->bindValue(':file_id', $this->file_id, PDO::PARAM_INT);
+        if (!$st->execute()) {
+            return false;
+        }
+        $this->id = $conn->lastInsertId();
+        DBConn::close();
         return true;
     }
 
@@ -201,12 +211,28 @@ class Product {
         if ($this->availability_status) {
             if (!$this->expire_date) {
                 return true;
-            } elseif (strtotime($this->expire_date) > strtotime('now')) {
+            } elseif ($this->expire_date > strtotime('now')) {
                 return true;
             }
 
         }
         return false;
+    }
+
+    public function update(): bool {
+        return true;
+    }
+
+    public function delete(): bool {
+        if (is_null($this->id) ) trigger_error("Product::delete(): Attempt to delete a product object
+            that does not have its ID property set.", E_USER_ERROR);
+
+        $conn = DBConn::get();
+        $st = $conn->prepare("DELETE FROM products WHERE id = :id LIMIT 1");
+        $st->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $st->execute();
+        DBConn::close();
+        return true;
     }
 }
 ?>

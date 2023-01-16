@@ -106,6 +106,7 @@ class Category {
         if (!is_null($this->id))
             trigger_error('Category::insert(): Attempt to insert an Category object that already
                 has its ID property set (to $this->id).', E_USER_ERROR );
+
         $conn = DBConn::get();
         $sql = 'INSERT INTO categories (parent, name) VALUES (:parent, :name)';
         $st = $conn->prepare ( $sql );

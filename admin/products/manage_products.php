@@ -9,8 +9,11 @@ case 'delete':
     delete();
     view();
     break;
-case 'edit':
-    edit();
+case 'edit_1':
+    edit_1();
+    break;
+case 'edit_2':
+    edit_1();
     break;
 default:
     view();
@@ -21,16 +24,12 @@ default:
  * Helper add CMS
  */
 function add(): void {
-    if (isset($_POST['name']) && isset($_POST['parent'])) {
-        $category = new Category;
-        $category->store_form_values($_POST);
-        if ($category->insert()) {
-            message("The category added", false);
-        } else {
-            message("Couldn't add the category");
-        }
+    $product = new Product();
+    $product->store_form_values($_POST);
+    if ($product->insert()) {
+        message("The object added", false);
     } else {
-        die(DEFAULT_ERROR);
+        message("Couldn't add the object");
     }
 }
 
@@ -39,42 +38,45 @@ function add(): void {
  */
 function delete(): void {
     if (isset($_POST['id'])) {
-        $category = Category::get_by_id($_POST['id']);
-        if ($category) {
-            if ($category->delete()) {
+        $product = Product::get_by_id($_POST['id']);
+        if ($product) {
+            if ($product->delete()) {
                 message("Object removed", false);
             } else {
                 message("Object wasn't removed");
             }
         }
-    } else {
-        die(DEFAULT_ERROR);
     }
 }
 
 /**
  * Helper edit CMS
  */
-function edit(): void {
-    if (isset($_POST['id']) && !isset($_POST['name']) && !isset($_POST['parent'])) {
-        $selected = Category::get_by_id($_POST['id']);
+function edit_1(): void {
+    if (isset($_POST['id'])) {
+        $selected = Product::get_by_id($_POST['id']);
         require_once('views/edit_view.php');
-    } else if (isset($_POST['id']) && isset($_POST['name']) && isset($_POST['parent'])) {
-        $selected = Category::get_by_id($_POST['id']);
-        $selected->parent = $_POST['parent'];
-        $selected->name = $_POST['name'];
-        if ($selected->update()) {
-            message("Object updated", false);
-        } else {
-            message("Object wasn't updated");
-        }
-        view();
-    }
-    else {
-        die(DEFAULT_ERROR);
     }
 }
 
+/**
+ * Helper edit CMS
+ */
+function edit_2(): void {
+    $selected = Product::get_by_id($_POST['id']);
+    $selected->store_form_values($_POST);
+    if ($selected->update()) {
+        message("Object updated", false);
+    } else {
+        message("Object wasn't updated");
+    }
+    view();
+}
+
+
+/**
+ * Help view CMS
+ */
 function view(): void {
     require_once 'views/products_view.php';
 }

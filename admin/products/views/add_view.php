@@ -2,15 +2,11 @@
         <form action=".?action=products/manage_products.php&do=add" method="POST">
             <p>
                 <label>Title:</label>
-                <input type="text" name="name">
+                <input type="text" name="title">
             </p>
             <p>
                 <label>Description:</label>
                 <input type="text" name="description">
-            </p>
-            <p>
-                <label>Expire date:</label>
-                <input type="text" name="expire_date">
             </p>
             <p>
                 <label>Netto price:</label>

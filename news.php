@@ -23,9 +23,7 @@
      * Shows one news
      */
     function show_one(): void {
-        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
-            echo '<div><a href="news.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
-        }
+        echo '<div><a href="news.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
         if (!isset($_GET["newsId"]) || !htmlspecialchars($_GET["newsId"])) {
             show_all();
             return;

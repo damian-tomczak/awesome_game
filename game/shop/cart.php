@@ -24,6 +24,16 @@
         } else {
             message('Shopping cart couldn\' be updated');
         }
+    } elseif (isset($_POST['buy_cart'])) {
+        $after_bought = $_SESSION['user']->get_money() - $_SESSION['cart']->get_full_price();
+        if ($after_bought > 0) {
+            $_SESSION['user']->decrease_money($_SESSION['cart']->get_full_price());
+            $_SESSION['cart']->clear();
+            message('You have bought cart\'s content', false);
+            header('Location: .?action=shop/cart.php');
+        } else {
+            message('You don\' have enough money');
+        }
     }
 ?>
 <div class="separator second watchword">

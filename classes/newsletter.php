@@ -44,7 +44,7 @@ class Newsletter {
         if (isset($data['publication_date'])) $this->publication_date = (int) $data['publication_date'];
         if (isset($data['title'])) $this->title = preg_replace("/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['title']);
         if (isset($data['summary'])) $this->summary = preg_replace("/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['summary']);
-        if (isset($data['content'])) $this->content = $data['content'];
+        if (isset($data['content'])) $this->content = htmlspecialchars($data['content']);
         if (isset($data['image_url'])) $this->image_url = $data['image_url'];
         $this->activated = (isset($data['activated']) && $data['activated']) ? true : false;
     }

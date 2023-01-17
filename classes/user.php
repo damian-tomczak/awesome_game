@@ -193,6 +193,16 @@ class User {
     }
 
     /**
+     * Decrease user's money
+     * 
+     * @param float Amount to decrease
+     */
+    public function decrease_money(float $amt): void {
+        $this->money -= $amt;
+        $this->update();
+    }
+
+    /**
      * Reset the password
      *
      * @param string Email
@@ -210,6 +220,27 @@ class User {
         }
         DBConn::close();
         return null;
+    }
+
+    /**
+     * Updates the current object in the database.
+     * 
+     * @return bool indicates a success or a failure in updating of the object
+    */
+    public function update(): bool {
+        if (is_null($this->id)) trigger_error('User::update(): Attempt to update an object
+            that does not have its ID property set.', E_USER_ERROR);
+
+        $conn = DBConn::get();
+        $sql = 'UPDATE users SET money=:money WHERE id = :id';
+        $st = $conn->prepare($sql);
+        $st->bindValue(':money', $this->money, PDO::PARAM_INT);
+        $st->bindValue(':id', $this->id, PDO::PARAM_INT);
+        if (!$st->execute()) {
+            return false;
+        }
+        DBConn::close();
+        return true;
     }
 }
 ?>

@@ -54,7 +54,7 @@ function delete(): void {
  */
 function edit_1(): void {
     if (isset($_POST['id'])) {
-        $selected = Product::get_by_id($_POST['id']);
+        $selected = Newsletter::get_by_id($_POST['id']);
         require_once('views/edit_view.php');
     }
 }
@@ -63,8 +63,8 @@ function edit_1(): void {
  * Helper edit CMS
  */
 function edit_2(): void {
-    $selected = Product::get_by_id($_POST['id']);
-    $selected->store_form_values($_POST);
+    $selected = Newsletter::get_by_id($_POST['id']);
+    $selected->store_form_values($_POST, false);
     if ($selected->update()) {
         message("Object updated", false);
     } else {

@@ -18,8 +18,7 @@
             </p>
             <p>
                 <label>Activated:</label>
-                <input type="hidden" name="activated" value="0">
-                <input type="checkbox" name="activated">
+                <input type="checkbox" name="activated" value="1">
             </p>
             <p>
                 <input type="submit" value="Add new news">

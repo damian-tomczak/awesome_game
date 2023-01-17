@@ -49,17 +49,24 @@
             echo '<div><a href="./game/index.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
         }
         $results = array();
-        $data = Newsletter::get_list(DEFAULT_NUM_NEWS);
+        $data = Newsletter::get_list();
         $result['news'] = $data['result'];
 
-        foreach ( $result['news'] as $news ) {
-            $url = $_SERVER['PHP_SELF'] . "?action=view&newsId=$news->id";
-            echo "<article>
-                    <img src=\"$news->image_url\" alt=\"image corupted\" class=\"image\"></image>
-                    <h1><a href=\"$url\">$news->title</a></h1>
-                    <p>$news->summary</p>
-                </article>
-                <hr>";
+        $count = 0;
+        foreach ($result['news'] as $news) {
+            if ($count >= DEFAULT_NUM_NEWS) {
+                break;
+            }
+            if ($news->activated) {
+                $count++;
+                $url = $_SERVER['PHP_SELF'] . "?action=view&newsId=$news->id";
+                echo "<article>
+                        <img src=\"$news->image_url\" alt=\"image corupted\" class=\"image\"></image>
+                        <h1><a href=\"$url\">$news->title</a></h1>
+                        <p>$news->summary</p>
+                    </article>
+                    <hr class=\"clear\">";
+            }
         }
     }
 ?>

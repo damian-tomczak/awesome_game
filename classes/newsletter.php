@@ -46,7 +46,7 @@ class Newsletter {
         if (isset($data['summary'])) $this->summary = preg_replace("/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['summary']);
         if (isset($data['content'])) $this->content = $data['content'];
         if (isset($data['image_url'])) $this->image_url = $data['image_url'];
-        if (isset($data['activated'])) $this->activated = $data['activated'] ? true : false;
+        $this->activated = (isset($data['activated']) && $data['activated']) ? true : false;
     }
 
 
@@ -55,9 +55,11 @@ class Newsletter {
      *
      * @param assoc The form post values
     */
-    public function store_form_values(array $params): void {
+    public function store_form_values(array $params, bool $update_time = true): void {
         $this->__construct($params);
-        $this->publication_date = strtotime('now');
+        if ($update_time) {
+            $this->publication_date = strtotime('now');
+        }
     }
 
     /**
@@ -96,8 +98,7 @@ class Newsletter {
         $st->execute();
         $list = array();
         while ($row = $st->fetch()) {
-            $article = new Newsletter($row);
-            $list[] = $article;
+            $list[] = new Newsletter($row);
         }
         $sql = 'SELECT FOUND_ROWS() AS total_rows';
         $total_rows = $conn->query($sql)->fetch();
@@ -123,6 +124,7 @@ class Newsletter {
         $st->bindValue(":summary", $this->summary, PDO::PARAM_STR);
         $st->bindValue(":content", $this->content, PDO::PARAM_STR);
         $st->bindValue(":image_url", $this->image_url, PDO::PARAM_STR);
+        echo $this->activated;
         $st->bindValue(":activated", $this->activated, PDO::PARAM_BOOL);
         $st->execute();
         $this->id = $conn->lastInsertId();

@@ -2,7 +2,7 @@
 $data = Newsletter::get_list();
 $newsletter = $data['result'];
 $total_rows = $data['total_rows'];
-
+print_r($newsletter)
 ?>
 <td colspan="2">
     <p><?= "$total_rows news displayed"; ?></p>
@@ -28,7 +28,7 @@ $total_rows = $data['total_rows'];
                 <td><?= $news->content ?></td>
                 <td><?= date('j F Y', $news->publication_date) ?></td>
                 <td><?= $news->image_url ?></td>
-                <td><?= (bool) $news->activated ? 'YES' : 'NO' ?></td>
+                <td><?= $news->activated ? 'YES' : 'NO' ?></td>
                 <td>
                     <form action=".?action=newsletter/manage_news.php&do=delete" method="POST">
                         <input type="hidden" name="id" value="<?= $news->id?>">

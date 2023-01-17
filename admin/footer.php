@@ -8,7 +8,8 @@
                         <?php
                             $indexNumber = '162601';
                             $groupNumber = 'IV';
-                            echo 'Made by student Damian Tomczak index: '.$indexNumber.' group: '.$groupNumber;
+                            echo "Made by student: Damian Tomczak | Index: $indexNumber |
+                                Group: $groupNumber";
                         ?>
                     </p>
                 </td>

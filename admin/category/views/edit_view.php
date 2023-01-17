@@ -4,7 +4,7 @@ $categories = $data['result'];
 ?>
 <td colspan="2">
     <div class="form">
-        <a href=".?action=categories/manage_categories.php" class="without-decoration"><input type="submit" value="Return"></a>
+        <a href=".?action=category/manage_categories.php" class="without-decoration"><input type="submit" value="Return"></a>
         <form action=".?action=category/manage_categories.php&do=edit" method="POST">
             <p>
                 <label>Parent:</label>

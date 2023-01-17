@@ -3,56 +3,32 @@
     require_once('external/PHPMailer.php');
     require_once('external/SMTP.php');
     require_once('classes/mail.php');
+    require_once('classes/user.php');
     include 'header.php';
     $menu = MENU::LOGO;
     include 'nav.php';
 ?>
 <?php
+    function reset_password(string $email): bool {
+        if ($email) {
+            $pwd = User::reset_password($_POST['email']);
+            if ($pwd) {
+                $body = "<div>Your new password: $pwd</div>";
+                $mail = new Mailer(array('email' => $_POST['email'], 'body' => $body, 'subject' => "New password"));
+                if($mail->send()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     if(isset($_POST['send_mail'])) {
-        $recipient = 'contact@damian-tomczak.pl';
-        $error = '';
-
-        if(isset($_POST['email'])) {
-            $fname = htmlspecialchars($_POST['fname']);
-            $body .= "<div><label><b>Visitor Name:</b></label>&nbsp;<span>".$fname."</span></div>";
-        } else {
-            $error .= 'field First Name is empty\\n';
-        }
-
-        if(isset($_POST['lname'])) {
-            $lname = htmlspecialchars($_POST['lname']);
-            $body .= "<div><label><b>Visitor Name:</b></label>&nbsp;<span>".$fname."</span></div>";
-        } else {
-            $error .= 'field Last Name is empty\\n';
-        }
-
-        if(isset($_POST['email'])) {
-            $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-            $body .= "<div><label><b>Visitor Email:</b></label>&nbsp;<span>".$email."</span></div>";
-        } else {
-            $error .= 'field Email is empty\\n';
-        }
-
-        if(isset($_POST['region'])) {
-            $region = htmlspecialchars($_POST['region']);
-            $body .= "<div><label><b>Concerned Region:</b></label>&nbsp;<span>".$region."</span></div>";
-        } else {
-            $error .= 'field Region is empty\\n';
-        }
-
-        if(isset($_POST['subject'])) {
-            $message = htmlspecialchars($_POST['subject']);
-        } else {
-            $error .= 'field Subject is empty\\n';
-        }
-
-        $mail = new Mailer(array('email' => $_POST['email'], 'body' => $body, 'subject' => $subject));
-        if(mail($recipient, "Emailt sent by awsome_game's form", $body, $headers)) {
+        $email = isset($_POST['email']) ?? null;
+        if (reset_password($email)) {
             message('Password/s sended', false);
         } else {
             message(DEFAULT_ERROR);
         }
-
     }
 ?>
 <div id="content">

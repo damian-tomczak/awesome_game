@@ -114,7 +114,7 @@ class User {
         }
 
         $conn = DBConn::get();
-        $sql = 'SELECT id FROM users WHERE username = :email LIMIT 1';
+        $sql = 'SELECT id FROM users WHERE email = :email LIMIT 1';
         $st = $conn->prepare($sql);
         $st->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
         if (!$st->execute()) {
@@ -188,8 +188,28 @@ class User {
      * 
      * @return float User's money
      */
-    function get_money(): float {
+    public function get_money(): float {
         return $this->money;
+    }
+
+    /**
+     * Reset the password
+     *
+     * @param string Email
+     * @return string|null New password if object with the specified email exists
+    */
+    public static function reset_password(string $email): string|null {
+        $conn = DBConn::get();
+        $pwd = bin2hex(openssl_random_pseudo_bytes(4));
+        $sql = 'UPDATE users SET password=:password WHERE email = :email';
+        $st = $conn->prepare($sql);
+        $st->bindValue('password', password_hash($pwd, PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $st->bindValue('email', $email, PDO::PARAM_STR);
+        if ($st->execute() && $st->rowCount()) {
+            return $pwd;
+        }
+        DBConn::close();
+        return null;
     }
 }
 ?>

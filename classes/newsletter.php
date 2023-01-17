@@ -39,14 +39,14 @@ class Newsletter {
      *
      * @param assoc The property values
      */
-    public function __construct(array $data) {
+    public function __construct(array $data=array()) {
         if (isset($data['id'] )) $this->id = (int) $data['id'];
         if (isset($data['publication_date'])) $this->publication_date = (int) $data['publication_date'];
         if (isset($data['title'])) $this->title = preg_replace("/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['title']);
         if (isset($data['summary'])) $this->summary = preg_replace("/[^\.\,\-\_\'\"\@\?\!\:\$ a-zA-Z0-9()]/", "", $data['summary']);
         if (isset($data['content'])) $this->content = $data['content'];
         if (isset($data['image_url'])) $this->image_url = $data['image_url'];
-        if (isset($data['activated'])) $this->activated = $data['activated'];
+        if (isset($data['activated'])) $this->activated = $data['activated'] ? true : false;
     }
 
 
@@ -55,24 +55,18 @@ class Newsletter {
      *
      * @param assoc The form post values
     */
-    public function storeFormValues($params) {
+    public function store_form_values(array $params): void {
         $this->__construct($params);
-        if (isset($params['publication_date'])) {
-          $publication_date = explode ('-', $params['publication_date']);
-          if (count($publication_date) == 3) {
-            list ($y, $m, $d) = $publication_date;
-            $this->publication_date = mktime(0, 0, 0, $m, $d, $y);
-          }
-        }
+        $this->publication_date = strtotime('now');
     }
 
     /**
      * Returns an News object matching the given news ID
      *
      * @param int The news ID
-     * @return Newsletter|bool The Newsletter object, or false if the record was not found or there was a problem
+     * @return Newsletter|null The Newsletter object, or false if the record was not found or there was a problem
     */
-    public static function getById($id): Newsletter|bool {
+    public static function get_by_id($id): Newsletter|null {
         $conn = DBConn::get();
         $sql = "SELECT *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter WHERE id = :id LIMIT 1";
         $st = $conn->prepare($sql);
@@ -83,7 +77,7 @@ class Newsletter {
         if ($row) {
             return new Newsletter($row);
         }
-        return false;
+        return null;
     }
 
     /**
@@ -92,7 +86,7 @@ class Newsletter {
      * @param int Optional The number of rows to return (default=all)
      * @return array A two-element array : results => array, a list of News objects; totalRows => Total number of news
     */
-    public static function getList(?int $numRows=1000000): array {
+    public static function get_list(?int $numRows=1000000): array {
         $conn = DBConn::get();
         $sql = 'SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter
             ORDER BY publication_date DESC LIMIT :numRows';
@@ -108,21 +102,19 @@ class Newsletter {
         $sql = 'SELECT FOUND_ROWS() AS total_rows';
         $total_rows = $conn->query($sql)->fetch();
         DBConn::close();
-        return (array('results' => $list, 'total_rows' => $total_rows[0]));
+        return (array('result' => $list, 'total_rows' => $total_rows[0]));
     }
 
     /**
-     * Inserts the current Newsletter object into the database, and sets its ID property.
+     * Inserts the current object into the database, and sets its ID property.
+     * 
+     * @return bool Indicates the success or failure of the action
     */
-    public function insert(): void {
+    public function insert(): bool {
         if (!is_null($this->id))
-            trigger_error("Newsletter::insert(): Attempt to insert an Newsletter object that already has its ID property set (to $this->id).", E_USER_ERROR );
-        $conn = null;
-        try {
-            $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        } catch(PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
+            trigger_error('Newsletter::insert(): Attempt to insert an object that already
+                has its ID property set (to $this->id).', E_USER_ERROR);
+        $conn = DBConn::get();
         $sql = "INSERT INTO newsletter (publication_date, title, summary, content, image_url, activated)
             VALUES ( FROM_UNIXTIME(:publication_date), :title, :summary, :content, :image_url, :activated)";
         $st = $conn->prepare ( $sql );
@@ -134,39 +126,45 @@ class Newsletter {
         $st->bindValue(":activated", $this->activated, PDO::PARAM_BOOL);
         $st->execute();
         $this->id = $conn->lastInsertId();
-        $conn = null;
+        DBConn::close();
+        return true;
     }
     /**
      * Deletes the current Newsletter object from the database.
+     * 
+     * @return bool Indicates success or failure of the action
     */
-    public function delete() {
+    public function delete(): bool {
         if (is_null($this->id)) trigger_error ("Newsletter::delete(): Attempt to delete an Newsletter object that does not have its ID property set.", E_USER_ERROR);
         $conn = DBConn::get();
         $st = $conn->prepare ("DELETE FROM newsletter WHERE id = :id LIMIT 1");
         $st->bindValue(":id", $this->id, PDO::PARAM_INT);
         if (!$st->execute()) {
-            die(DEFAULT_ERROR);
+            return false;
         }
         DBConn::close();
+        return true;
       }
 
     /**
      * Updates the current Article object in the database.
+     * 
+     * @return bool Indicates success or failure of the action
     */
-    public function update() {
-        if (is_null($this->id)) trigger_error("Newsletter:update(): Attempt to update an Newsletter object that does not have its ID property set.", E_USER_ERROR);
-        $conn = null;
-        try {
-            $conn = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        } catch(PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
+    public function update(): bool {
+        if (is_null($this->id)) trigger_error("Newsletter:update(): Attempt to update an Newsletter object
+            that does not have its ID property set.", E_USER_ERROR);
+
+        $conn = DBConn::get();
         $sql = "UPDATE newsletter SET title=:title WHERE id = :id";
         $st = $conn->prepare ($sql);
         $st->bindValue(":title", $this->title, PDO::PARAM_STR);
         $st->bindValue(":id", $this->id, PDO::PARAM_INT);
-        $st->execute();
-        $conn = null;
+        if (!$st->execute()) {
+            return false;
+        }
+        DBConn::close();
+        return true;
       }
 }
 ?>

@@ -9,9 +9,6 @@
 <div id="content">
 <?php
     session_start();
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
-        echo '<div><a href="./game/index.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
-    }
     $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : '';
 
     switch ($action) {
@@ -26,6 +23,9 @@
      * Shows one news
      */
     function show_one(): void {
+        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+            echo '<div><a href="news.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
+        }
         if (!isset($_GET["newsId"]) || !htmlspecialchars($_GET["newsId"])) {
             show_all();
             return;
@@ -45,11 +45,14 @@
      * Shows all news
      */
     function show_all(): void {
+        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
+            echo '<div><a href="./game/index.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
+        }
         $results = array();
-        $data = Newsletter::getList(DEFAULT_NUM_NEWS);
-        $results['news'] = $data['results'];
+        $data = Newsletter::get_list(DEFAULT_NUM_NEWS);
+        $result['news'] = $data['result'];
 
-        foreach ( $results['news'] as $news ) {
+        foreach ( $result['news'] as $news ) {
             $url = $_SERVER['PHP_SELF'] . "?action=view&newsId=$news->id";
             echo "<article>
                     <img src=\"$news->image_url\" alt=\"image corupted\" class=\"image\"></image>

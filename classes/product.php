@@ -161,20 +161,20 @@ class Product {
      *
      * @param assoc The form post values
     */
-    public function store_form_values(mixed $params) {
+    public function store_form_values(array $params): void {
         $this->__construct($params);
         $this->publication_date = strtotime('now');
         $this->modification_date = strtotime('now');
     }
 
     /**
-     * Inserts the current product object into the database, and sets its ID property.
+     * Inserts the current object into the database, and sets its ID property.
      * 
-     * @return int indicates the success or failure inserting the row into the database
+     * @return bool Indicates the success or failure of the action
     */
     public function insert(): bool {
         if (!is_null($this->id))
-            trigger_error('Product::insert(): Attempt to insert an product object that already
+            trigger_error('Product::insert(): Attempt to insert an object that already
                 has its ID property set (to $this->id).', E_USER_ERROR);
         $conn = DBConn::get();
         $sql = 'INSERT INTO products (title, description, publication_date, modification_date, expire_date,

@@ -1,20 +1,18 @@
 <?php
+    require_once('external/Exception.php');
+    require_once('external/PHPMailer.php');
+    require_once('external/SMTP.php');
+    require_once('classes/mail.php');
     include 'header.php';
     $menu = MENU::LOGO;
     include 'nav.php';
 ?>
 <?php
-    if($_POST) {
-        $fname = '';
-        $lname = '';
-        $email = '';
-        $region = '';
-        $message = '';
-        $body = '<div>';
-        $recipient = '162601@student.uwm.edu.pl';
+    if(isset($_POST['send_mail'])) {
+        $recipient = 'contact@damian-tomczak.pl';
         $error = '';
 
-        if(isset($_POST['fname'])) {
+        if(isset($_POST['email'])) {
             $fname = htmlspecialchars($_POST['fname']);
             $body .= "<div><label><b>Visitor Name:</b></label>&nbsp;<span>".$fname."</span></div>";
         } else {
@@ -48,14 +46,11 @@
             $error .= 'field Subject is empty\\n';
         }
 
-        $body .= "</div>";
-
-        $headers  = 'MIME-Version: 1.0' . "\r\n" .
-            'Content-type: text/html; charset=utf-8' . "\r\n" .
-            'From: ' . $email . "\r\n";
-
-        if(!mail($recipient, "Emailt sent by awsome_game's form", $body, $headers)) {
-            $error .= 'failed to send email';
+        $mail = new Mailer(array('email' => $_POST['email'], 'body' => $body, 'subject' => $subject));
+        if(mail($recipient, "Emailt sent by awsome_game's form", $body, $headers)) {
+            message('Password/s sended', false);
+        } else {
+            message(DEFAULT_ERROR);
         }
 
     }
@@ -64,17 +59,9 @@
     <form method="post" action="reset_password.php">
         <p><b>Enter email address to send password link</b></p>
         <input type="text" name="email" required placeholder="Enter your email address">
-        <p><input type="submit" name="submit_email"></p>
+        <p><input type="submit" name="send_email"></p>
     </form>
 </div>
 <?php
     include 'footer.php';
-    if ($_POST) {
-        echo '<script>';
-        echo '$(document).ready(function() {';
-        echo "alert('if there is an account with such an email address,",
-            "you will get an email in a moment with a link to reset your password.');";
-        echo '});';
-        echo '</script>';
-    }
 ?>

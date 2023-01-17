@@ -10,7 +10,7 @@
         $region = '';
         $message = '';
         $body = '<div>';
-        $recipient = '162601@student.uwm.edu.pl';
+        $recipient = 'contact@damian-tomczak.pl';
         $error = '';
 
         if (isset($_POST['fname'])) {

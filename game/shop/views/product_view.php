@@ -12,8 +12,8 @@ $product = Product::get_by_id($_GET['product_id']);
     <p><span class="bold">Publication date: </span><?= $product->publication_date ?></p>
     <p><span class="bold">Modification date: </span><?= $product->modification_date ?></p>
     <p><span class="bold">Expire date: </span><?= $product->expire_date != null ? $product->expire_date : 'empty'?></p>
-    <p><span class="bold">Netto price: </span><?= $product->netto_price ?></p>
-    <p><span class="bold">Tax: </span><?= $product->tax ?></p>
+    <p><span class="bold">Netto price: </span><?= $product->netto_price ?>$</p>
+    <p><span class="bold">Tax: </span><?= $product->tax ?>%</p>
     <p><span class="bold">Availability amount: </span><?= $product->availability_amt != null ? $product->availability_amt : 'empty' ?></p>
     <p><span class="bold">Availability status: <?= $product->availability_status ?></p>
     <p><span class="bold">Category: </span><?= Category::get_by_id($product->category_id)->name ?></p>

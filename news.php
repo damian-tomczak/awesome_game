@@ -31,7 +31,7 @@
             return;
         }
 
-        $news = Newsletter::getById((int)htmlspecialchars($_GET["newsId"]));
+        $news = Newsletter::get_by_id((int)htmlspecialchars($_GET["newsId"]));
         echo "<article>
                 <img src=\"$news->image_url\" alt=\"image corupted\" class=\"image\"></image>
                 <h1><a href=\"#\">$news->title</a></h1>

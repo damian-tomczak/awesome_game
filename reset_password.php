@@ -6,11 +6,18 @@
     require_once('classes/mail.php');
     require_once('classes/user.php');
     require_once('classes/dbConn.php');
-    include 'header.php';
+    require('header.php');
     $menu = MENU::LOGO;
-    include 'nav.php';
+    require('nav.php');
 ?>
 <?php
+    /**
+     * Helper function for reseting password
+     * 
+     * @param string Interested user's email
+     * 
+     * @return bool Indicates success or failure of the action
+     */
     function reset_password(string $email): bool {
         if ($email) {
             $pwd = User::reset_password($_POST['email']);
@@ -40,6 +47,5 @@
         <p><input type="submit" name="send_email" value="Reset password"></p>
     </form>
 </div>
-<?php
-    include 'footer.php';
+<?php include('footer.php');
 ?>

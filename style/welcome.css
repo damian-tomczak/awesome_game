@@ -92,7 +92,7 @@ input[type=submit]:hover, input[type=button]:hover {
   font-size: large;
   transform: translateX(-50%);
 }
-#backplay {
+.returnbtn {
     margin:auto;
     display: block;
 }
@@ -129,6 +129,12 @@ input[type=submit]:hover, input[type=button]:hover {
   color: white;
   text-transform: none;
 }
-.nondecoration {
+.none-decoration {
   text-decoration: none;
+}
+.center {
+  text-align: center;
+}
+.mainbtn-container {
+  margin-bottom: 10px;
 }

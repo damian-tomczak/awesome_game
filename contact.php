@@ -1,4 +1,11 @@
 <?php
+    require_once('config.php');
+    require_once('external/Exception.php');
+    require_once('external/PHPMailer.php');
+    require_once('external/SMTP.php');
+    require_once('classes/mail.php');
+    require_once('classes/user.php');
+    require_once('classes/dbConn.php');
     include 'header.php';
     $menu = MENU::CONTACT;
     include 'nav.php';
@@ -85,21 +92,4 @@
         <p class="nonemail">Or send a message with your program: <a href="mailto:contact@damian-tomczak.pl">contact@damian-tomczak.pl</a></p>
     </form>
 </div>
-<?php
-    include 'footer.php';
-    if (isset($error)) {
-        if (empty($error)) {
-            echo '<script>';
-            echo '$(document).ready(function() {';
-            echo "alert('Thank you for contacting us, $fname. You will get a reply within 24 hours.');";
-            echo '});';
-            echo '</script>';
-        } else {
-            echo '<script>';
-            echo '$(document).ready(function() {';
-            echo "alert('We are sorry but the email did not go through because:\\n$error');";
-            echo '});';
-            echo '</script>';
-        }
-    }
-?>
+<?php include('footer.php'); ?>

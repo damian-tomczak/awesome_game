@@ -1,16 +1,16 @@
 <?php
-    require_once 'config.php';
-    include 'header.php';
+    require_once('config.php');
+    require('header.php');
     $menu = MENU::NEWS;
-    include 'nav.php';
-    require_once 'classes/dbConn.php';
-    require_once 'classes/newsletter.php';
+    require('nav.php');
+    require_once('classes/dbConn.php');
+    require_once('classes/newsletter.php');
 ?>
 <div id="content">
 <?php
     session_start();
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"]) {
-        echo '<div><a href="./game" class="nondecoration"><input type="button" id="backplay" value="Back to play"></a></div>';
+        echo '<div><a href="./game/index.php" class="none-decoration"><input type="button" class="returnbtn" value="Return"></a></div>';
     }
     $action = isset($_GET['action']) ? htmlspecialchars($_GET['action']) : '';
 
@@ -22,7 +22,10 @@
         show_all();
     }
 
-    function show_one() {
+    /**
+     * Shows one news
+     */
+    function show_one(): void {
         if (!isset($_GET["newsId"]) || !htmlspecialchars($_GET["newsId"])) {
             show_all();
             return;
@@ -38,7 +41,10 @@
             <hr>";
     }
 
-    function show_all() {
+    /**
+     * Shows all news
+     */
+    function show_all(): void {
         $results = array();
         $data = Newsletter::getList(DEFAULT_NUM_NEWS);
         $results['news'] = $data['results'];

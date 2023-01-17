@@ -1,3 +1,4 @@
+@import url("global.css");
 a:hover, a:visited, a:link, a:active {
   color: black;
 }
@@ -98,7 +99,11 @@ table {
 .without-decoration {
     text-decoration: none;
 }
-
+.buttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
 /* Dummy section */
 .test-block {
   width: 200px;

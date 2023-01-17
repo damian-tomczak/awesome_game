@@ -17,11 +17,11 @@
         <table>
             <tr id="header">
                 <th colspan="3">
-                    <div class="logo left">
-                        Admin panel
+                    <div>
+                        <h3>Admin panel</h3>
                     </div>
-                    <div class="logo right">
-                        <a href="../game/index.php"><input type="submit" value="PlayGame"></a>
+                    <div class="buttons">
+                        <a href="../game/index.php"><input type="submit" value="Launcher"></a>
                         <a href="../game/index.php?action=shop/index.php"><input type="submit" value="Shop"></a>
                         <a href="../logout.php"><input type="submit" value="Logout"></a>
                     </div>

@@ -122,7 +122,6 @@ class Newsletter {
         $st->bindValue(":summary", $this->summary, PDO::PARAM_STR);
         $st->bindValue(":content", $this->content, PDO::PARAM_STR);
         $st->bindValue(":image_url", $this->image_url, PDO::PARAM_STR);
-        echo $this->activated;
         $st->bindValue(":activated", $this->activated, PDO::PARAM_BOOL);
         $st->execute();
         $this->id = $conn->lastInsertId();

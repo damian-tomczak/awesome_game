@@ -14,7 +14,6 @@ class Mailer extends PHPMailer {
      */
     public function __construct(array $data) {
         parent::__construct(true);
-        $this->SMTPDebug = 2;
         $this->isSMTP();
         $this->Host = 'smtp.gmail.com';
         $this->SMTPAuth = true;

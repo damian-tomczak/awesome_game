@@ -1,9 +1,11 @@
 <?php
+    require_once('config.php');
     require_once('external/Exception.php');
     require_once('external/PHPMailer.php');
     require_once('external/SMTP.php');
     require_once('classes/mail.php');
     require_once('classes/user.php');
+    require_once('classes/dbConn.php');
     include 'header.php';
     $menu = MENU::LOGO;
     include 'nav.php';
@@ -22,7 +24,7 @@
         }
         return false;
     }
-    if(isset($_POST['send_mail'])) {
+    if(isset($_POST['send_email'])) {
         $email = isset($_POST['email']) ?? null;
         if (reset_password($email)) {
             message('Password/s sended', false);
@@ -32,10 +34,10 @@
     }
 ?>
 <div id="content">
-    <form method="post" action="reset_password.php">
+    <form action="reset_password.php" method="POST">
         <p><b>Enter email address to send password link</b></p>
         <input type="text" name="email" required placeholder="Enter your email address">
-        <p><input type="submit" name="send_email"></p>
+        <p><input type="submit" name="send_email" value="Reset password"></p>
     </form>
 </div>
 <?php

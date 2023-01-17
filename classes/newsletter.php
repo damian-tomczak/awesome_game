@@ -89,7 +89,7 @@ class Newsletter {
     public static function get_list(?int $numRows=1000000): array {
         $conn = DBConn::get();
         $sql = 'SELECT SQL_CALC_FOUND_ROWS *, UNIX_TIMESTAMP(publication_date) AS publication_date FROM newsletter
-            ORDER BY publication_date DESC LIMIT :numRows';
+            ORDER BY publication_date DESC, id DESC LIMIT :numRows';
 
         $st = $conn->prepare($sql);
         $st->bindValue(':numRows', $numRows, PDO::PARAM_INT);

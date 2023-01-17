@@ -2,7 +2,6 @@
 $data = Newsletter::get_list();
 $newsletter = $data['result'];
 $total_rows = $data['total_rows'];
-print_r($newsletter)
 ?>
 <td colspan="2">
     <p><?= "$total_rows news displayed"; ?></p>

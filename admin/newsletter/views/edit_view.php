@@ -14,11 +14,11 @@ $products = $data['result'];
             </p>
             <p>
                 <label>Summary:</label>
-                <textarea name="summary" rows="4" cols="50" value="<?= $selected->summary ?>"></textarea>
+                <textarea name="summary" rows="4" cols="50"><?= $selected->summary ?></textarea>
             </p>
             <p>
                 <label>Content:</label>
-                <textarea name="content" rows="8" cols="50" value="<?= $selected->content ?>"></textarea>
+                <textarea name="content" rows="8" cols="50"><?= $selected->content ?></textarea>
             </p>
             <p>
                 <label>Image url:</label>

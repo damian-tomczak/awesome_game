@@ -55,11 +55,9 @@ class Newsletter {
      *
      * @param assoc The form post values
     */
-    public function store_form_values(array $params, bool $update_time = true): void {
+    public function store_form_values(array $params): void {
         $this->__construct($params);
-        if ($update_time) {
-            $this->publication_date = strtotime('now');
-        }
+        $this->publication_date = strtotime('now');
     }
 
     /**
@@ -137,7 +135,9 @@ class Newsletter {
      * @return bool Indicates success or failure of the action
     */
     public function delete(): bool {
-        if (is_null($this->id)) trigger_error ("Newsletter::delete(): Attempt to delete an Newsletter object that does not have its ID property set.", E_USER_ERROR);
+        if (is_null($this->id)) trigger_error ("Newsletter::delete(): Attempt to delete an Newsletter object
+            that does not have its ID property set.", E_USER_ERROR);
+
         $conn = DBConn::get();
         $st = $conn->prepare ("DELETE FROM newsletter WHERE id = :id LIMIT 1");
         $st->bindValue(":id", $this->id, PDO::PARAM_INT);
@@ -158,10 +158,14 @@ class Newsletter {
             that does not have its ID property set.", E_USER_ERROR);
 
         $conn = DBConn::get();
-        $sql = "UPDATE newsletter SET title=:title WHERE id = :id";
+        $sql = "UPDATE newsletter SET title=:title, summary=:summary, content=:content, image_url=:image_url, activated=:activated WHERE id = :id";
         $st = $conn->prepare ($sql);
         $st->bindValue(":title", $this->title, PDO::PARAM_STR);
-        $st->bindValue(":id", $this->id, PDO::PARAM_INT);
+        $st->bindValue(":summary", $this->summary, PDO::PARAM_STR);
+        $st->bindValue(":content", $this->content, PDO::PARAM_STR);
+        $st->bindValue(":image_url", $this->image_url, PDO::PARAM_STR);
+        $st->bindValue(":activated", $this->activated, PDO::PARAM_STR);
+        $st->bindValue(":id", $this->id, PDO::PARAM_STR);
         if (!$st->execute()) {
             return false;
         }

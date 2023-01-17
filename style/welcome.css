@@ -138,3 +138,6 @@ input[type=submit]:hover, input[type=button]:hover {
 .mainbtn-container {
   margin-bottom: 10px;
 }
+.darker {
+  background: rgba(0,0,0,0.5);
+}

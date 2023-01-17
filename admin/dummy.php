@@ -14,16 +14,6 @@
             while ($i <= 10) {
                 echo $i++;
             }
-            echo '<br>application of for loop<br>';
-            for ($x = 0; $x < 10;$x++) {
-                echo $x;
-            }
-            echo '<br>application of elseif condition<br>';
-            if ($i != 10) {
-                echo 'different';
-            } elseif ($i == 9){
-                echo 'same';
-            }
         ?>
     </div>
     <h4>Lab4</h4>

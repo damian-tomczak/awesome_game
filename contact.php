@@ -6,68 +6,82 @@
     require_once('classes/mail.php');
     require_once('classes/user.php');
     require_once('classes/dbConn.php');
-    include 'header.php';
+    require('header.php');
     $menu = MENU::CONTACT;
-    include 'nav.php';
+    require('nav.php');
 
-    if ($_POST) {
-        $fname = '';
-        $lname = '';
-        $email = '';
-        $region = '';
-        $message = '';
+    /**
+     * Helper contact function
+     * 
+     * @param array Data to send
+     * 
+     * @return bool Indicates success or failure of the action
+     */
+    function contact(array $data): array {
+        $fname = isset($_POST['fname']) ? htmlspecialchars($_POST['fname']) : null;
+        $lname = isset($_POST['lname']) ? htmlspecialchars($_POST['lname']) : null;
+        $email = isset($_POST['email']) ? $_POST['email'] : null;
+        $region = isset($_POST['region']) ? htmlspecialchars($_POST['region']) : null;
+        $subject = isset($_POST['subject']) ? $_POST['subject'] : null;
+        $errors = array();
+
         $body = '<div>';
-        $recipient = 'contact@damian-tomczak.pl';
-        $error = '';
 
-        if (isset($_POST['fname'])) {
-            $fname = htmlspecialchars($_POST['fname']);
-            $body .= "<div><label><b>Visitor First Name:</b></label>&nbsp;<span>".$fname."</span></div>";
+        if ($fname) {
+            $body .= "<div><label><b>Visitor First Name:</b></label>&nbsp;<span>$fname</span></div>";
         } else {
-            $error .= 'field First Name is empty\\n';
+            $errors[] = 'field First Name is empty\\n';
         }
 
-        if (isset($_POST['lname'])) {
-            $lname = htmlspecialchars($_POST['lname']);
-            $body .= "<div><label><b>Visitor Last Name:</b></label>&nbsp;<span>".$fname."</span></div>";
+        if ($lname) {
+            $body .= "<div><label><b>Visitor Last Name:</b></label>&nbsp;<span>$lname</span></div>";
         } else {
-            $error .= 'field Last Name is empty\\n';
+            $errors[] = 'field Last Name is empty\\n';
         }
 
-        if (isset($_POST['email'])) {
-            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                $email = $_POST['email'];
+        if ($email) {
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $body .= "<div><label><b>Visitor Email:</b></label>&nbsp;<span>$email</span></div>";
             } else {
-                $error .= 'field Email is incorrect';
+                $errors[] = 'field Email is incorrect';
             }
-            $body .= "<div><label><b>Visitor Email:</b></label>&nbsp;<span>".$email."</span></div>";
         } else {
-            $error .= 'field Email is empty\\n';
+            $errors[] = 'field Email is empty\\n';
         }
 
-        if(isset($_POST['region'])) {
-            $region = htmlspecialchars($_POST['region']);
-            $body .= "<div><label><b>Concerned Region:</b></label>&nbsp;<span>".$region."</span></div>";
+        if($region) {
+            $body .= "<div><label><b>Concerned Region:</b></label>&nbsp;<span>$region</span></div>";
         } else {
-            $error .= 'field Region is empty\\n';
+            $errors [] = 'field Region is empty\\n';
         }
 
-        if(isset($_POST['subject'])) {
-            $message = htmlspecialchars($_POST['subject']);
+        if($subject) {
+            $body .= "<div><label><b>Subject:</b></label>&nbsp;<span>$subject</span></div>";
         } else {
-            $error .= 'field Subject is empty\\n';
+            $errors[] = 'field Subject is empty\\n';
         }
 
         $body .= "</div>";
 
-        $headers  = 'MIME-Version: 1.0' . "\r\n"
-        .'Content-type: text/html; charset=utf-8' . "\r\n"
-        .'From: ' . $email . "\r\n";
-
-        if(!mail($recipient, "Emailt sent by awsome_game's form", $body, $headers)) {
-            $error .= 'failed to send email';
+        if (!empty($errors)) {
+            return $errors;
         }
 
+        $mail = new Mailer(array('email' => "damian28102000@gmail.com", 'body' => $body,
+            'subject' => "Message sended by contact form"));
+        if(!$mail->send()) {
+            $errors[] = "Failed to send email";
+        }
+        return $errors;
+    }
+
+    if (isset($_POST['send'])) {
+        $result = contact($_POST);
+        if (empty($result)) {
+            message('Message has been sended', false);
+        } else {
+            message(parse_array($result));
+        }
     }
 ?>
 <div id="content">
@@ -88,8 +102,8 @@
         </select>
         <label for="subject">Subject</label>
         <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px" required></textarea>
-        <input type="submit" value="Submit">
-        <p class="nonemail">Or send a message with your program: <a href="mailto:contact@damian-tomczak.pl">contact@damian-tomczak.pl</a></p>
+        <input type="submit" name="send" value="Send">
+        <p class="nonemail">Or send a message with your program: <a href="mailto:contact@damian-tomczak.pl" class="darker">contact@damian-tomczak.pl</a></p>
     </form>
 </div>
 <?php include('footer.php'); ?>

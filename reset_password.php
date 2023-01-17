@@ -28,13 +28,14 @@
                     return true;
                 }
             }
+            return true;
         }
         return false;
     }
     if(isset($_POST['send_email'])) {
         $email = isset($_POST['email']) ?? null;
         if (reset_password($email)) {
-            message('Password/s sended', false);
+            message('Password will be sended if exists user with the entered email', false);
         } else {
             message(DEFAULT_ERROR);
         }
@@ -47,5 +48,4 @@
         <p><input type="submit" name="send_email" value="Reset password"></p>
     </form>
 </div>
-<?php include('footer.php');
-?>
+<?php include('footer.php'); ?>

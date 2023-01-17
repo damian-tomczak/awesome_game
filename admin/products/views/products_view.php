@@ -44,13 +44,13 @@ $files = $data['result'];
                 <td><?= $product->availability_status ?></td>
                 <td><?= $product->category_id ?></td>
                 <td><?= $product->size != null ? $product->size : 'NULL' ?></td>
-                <td><?= $product->file_id ?></td>
+                <td><?= File::get_by_id($product->file_id)->print(50, 50); ?></td>
                 <td>
                     <form action=".?action=products/manage_products.php&do=delete" method="POST">
                         <input type="hidden" name="id" value="<?= $product->id?>">
                         <input type="submit" value="Delete product">
                     </form>
-                    <form action=".?action=category/manage_categories.php&do=edit" method="POST">
+                    <form action=".?action=products/manage_products.php&do=edit_1" method="POST">
                         <input type="hidden" name="id" value="<?= $product->id?>">
                         <input type="submit" value="Edit product">
                     </form>

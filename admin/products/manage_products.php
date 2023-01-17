@@ -13,7 +13,7 @@ case 'edit_1':
     edit_1();
     break;
 case 'edit_2':
-    edit_1();
+    edit_2();
     break;
 default:
     view();

@@ -50,9 +50,9 @@
 
         $body .= "</div>";
 
-        $headers  = 'MIME-Version: 1.0' . "\r\n"
-        .'Content-type: text/html; charset=utf-8' . "\r\n"
-        .'From: ' . $email . "\r\n";
+        $headers  = 'MIME-Version: 1.0' . "\r\n" .
+            'Content-type: text/html; charset=utf-8' . "\r\n" .
+            'From: ' . $email . "\r\n";
 
         if(!mail($recipient, "Emailt sent by awsome_game's form", $body, $headers)) {
             $error .= 'failed to send email';

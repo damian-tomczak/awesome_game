@@ -80,6 +80,9 @@ table {
     float: right;
     margin-right: 10px;
 }
+.without-decoration {
+    text-decoration: none;
+}
 /* Dummy section */
 .test-block {
   width: 200px;

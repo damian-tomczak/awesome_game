@@ -219,10 +219,49 @@ class Product {
         return false;
     }
 
+    /**
+     * Updates the current object in the database.
+     * 
+     * @return bool Indicates success or failure of the method
+    */
     public function update(): bool {
+        if (is_null($this->id)) trigger_error("Product::update(): Attempt to update an object that
+            does not have its ID property set.", E_USER_ERROR);
+
+        $conn = DBConn::get();
+        $sql = "UPDATE products SET title=:title, description=:description,
+            publication_date=FROM_UNIXTIME(:publication_date),
+            modification_date=FROM_UNIXTIME(:modification_date),
+            expire_date=FROM_UNIXTIME(:expire_date), netto_price=:netto_price, tax=:tax,
+            availability_amt=:availability_amt, availability_status=:availability_status,
+            category_id=:category_id,
+            size=:size, file_id=:file_id WHERE id = :id";
+        $st = $conn->prepare($sql);
+        $st->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $st->bindValue(':description', $this->description, PDO::PARAM_STR);
+        $st->bindValue(':publication_date', $this->publication_date, PDO::PARAM_INT);
+        $st->bindValue(':modification_date', $this->modification_date, PDO::PARAM_INT);
+        $st->bindValue(':expire_date', $this->expire_date, PDO::PARAM_INT);
+        $st->bindValue(':netto_price', $this->netto_price, PDO::PARAM_STR);
+        $st->bindValue(':tax', $this->tax, PDO::PARAM_STR);
+        $st->bindValue(':availability_amt', $this->availability_amt, PDO::PARAM_INT);
+        $st->bindValue(':availability_status', $this->availability_status, PDO::PARAM_BOOL);
+        $st->bindValue(':category_id', $this->category_id, PDO::PARAM_INT);
+        $st->bindValue(':size', $this->size, PDO::PARAM_INT);
+        $st->bindValue(':file_id', $this->file_id, PDO::PARAM_INT);
+        $st->bindValue(':id', $this->id, PDO::PARAM_INT);
+        if (!$st->execute()) {
+            return false;
+        }
+        DBConn::close();
         return true;
     }
 
+    /**
+     * Deletes the current object from the database.
+     * 
+     * @return bool Indicates success or failure of the method
+    */
     public function delete(): bool {
         if (is_null($this->id) ) trigger_error("Product::delete(): Attempt to delete a product object
             that does not have its ID property set.", E_USER_ERROR);
@@ -230,7 +269,9 @@ class Product {
         $conn = DBConn::get();
         $st = $conn->prepare("DELETE FROM products WHERE id = :id LIMIT 1");
         $st->bindValue(":id", $this->id, PDO::PARAM_INT);
-        $st->execute();
+        if (!$st->execute()) {
+            return false;
+        }
         DBConn::close();
         return true;
     }

@@ -17,15 +17,29 @@ table {
   width: 10%;
   vertical-align: top;
   text-align: left;
-  background-color: red;
+  height: 100%;
+  width: 160px;
+  padding-top: 20px;
+}
+#menu a:hover {
+    color: #f1f1f1;
+}
+#menu a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
 }
 #footer {
   background-color: #808080;
 }
 #header, #footer {
   text-align: center;
-  background-color: #333;
   color: white;
+}
+#header, #footer, #menu {
+  background-color: #111;
 }
 .box {
   float: left;
@@ -84,6 +98,7 @@ table {
 .without-decoration {
     text-decoration: none;
 }
+
 /* Dummy section */
 .test-block {
   width: 200px;
